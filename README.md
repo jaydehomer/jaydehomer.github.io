@@ -1,1 +1,2 @@
-# jaydehomer.github.io
+# jaydeblogs
+my blog of course

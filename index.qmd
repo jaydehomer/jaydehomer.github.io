@@ -1,0 +1,66 @@
+---
+title: "About Me"
+page-layout: full
+---
+
+---
+title: "About Me"
+image: profile.png
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com/in/jayde-homer
+    - icon: github
+      text: Github
+      href: https://github.com/jaydehomer
+    - icon: book
+      text: Goodreads
+      href: https://goodreads.com/jaydereadsalot
+    - icon: film
+      text: Letterboxd
+      href: https://letterboxd.com/JaydeReads/
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/jaydehomer
+
+---
+
+Hi, my name is Jayde. I have always loved consuming stories and solving puzzles. Unfortunately, neither of those pay the bills. Unless...
+
+*data is the puzzle and I tell its story.*
+
+
+
+## Current Projects
+
+### Understanding Patterns in Preschoolers' Spellings
+
+In my dissertation I am... 
+
+
+### Parameterized Reports for Department Use of Ed. Tech.
+
+I'll describe that here...
+
+## Experience
+
+I work with Rebecca Treiman and Brett Kessler for 5 years studying children's spelling patterns in children and adults' spelling. 
+
+I also work with Sally Wu at Wash U's Center for Teaching and Learning where I explore the faculty, staff, and students' use of licensed educational technologies. 
+
+I teach stats with R as a private tutor. 
+
+## Education 
+
+I hold a Bachelor's degrees in Brain & Cognitive Sciences and Linguistics (University of Rochester), a Master's degree in Psychology, (almost) a PhD in Psychology (Washington University in St. Louis).
+
+
+You can find my stuff here: 
+
+**CV/resume button**
+
+
+
+![](pics/bookstorejayde.jpg)

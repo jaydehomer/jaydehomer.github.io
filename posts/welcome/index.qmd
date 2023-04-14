@@ -1,0 +1,7 @@
+---
+title: "This can be a post"
+author: "Jayde Homer"
+date: "2023-03-28"
+categories: [news]
+---
+
