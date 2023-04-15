@@ -1,8 +1,0 @@
----
-title: "This can also be a post"
-author: "Jayde Homer"
-date: "2023-03-28"
-categories: [about]
-image: "image.jpg"
----
-
