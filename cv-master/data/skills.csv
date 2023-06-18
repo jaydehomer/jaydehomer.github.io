@@ -1,0 +1,18 @@
+﻿group,skill,details
+communication,presentations,
+communication,dashboard design,"Shiny, Tableau"
+communication,data analysis reports,"Rmarkdown, Quarto, Jupyter"
+communication,data visualization,"plotly, ggplot2, Excel"
+communication,peer-reviewed publications,"journal, book chapter, conference"
+programming languages,R,
+programming languages,Python,
+programming languages,SQL,
+software development,source control,Git
+statistics,machine learning,
+statistics,data analysis,
+statistics,predictive modeling,
+statistics,uncertainty quantification,
+statistics,Monte Carlo simulation,
+statistics,experimental design,
+statistics,survey methodology,
+statistics,deep learning,
