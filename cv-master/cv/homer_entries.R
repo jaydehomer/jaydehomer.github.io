@@ -15,7 +15,7 @@ homer_entries <- vitae:::new_entry_formats(
     why <- lapply(why, function(x) {
       if(length(x) == 0) return("\\empty%")
       paste(c(
-        "\\vspace{0.1cm}\\begin{minipage}{0.7\\textwidth}%",
+        "\\vspace{0.1cm}\\begin{minipage}{0.8\\textwidth}%",
         "\\begin{itemize}[leftmargin=*]%",
         paste0("\\item ", x, "%"),
         "\\end{itemize}%",
@@ -27,12 +27,12 @@ homer_entries <- vitae:::new_entry_formats(
     paste(c(
       "\\begin{longtable}{@{\\extracolsep{\\fill}}ll}",
       vitae:::glue_alt(
-        "<<when>> & \\parbox[t]{0.85\\textwidth}{%
+        "\\parbox[t]{0.12\\textwidth}{<<when>>} & \\parbox[t]{0.86\\textwidth}{%
 \\textbf{<<what>>}\\hfill{<<with>>}\\newline
   \\footnotesize <<where>>
   \\normalsize <<why>>
 \\vspace{1.5\\parsep}}\\\\"),
-      "\\end{longtable}"
+"\\end{longtable}"
     ), collapse = "\n")
   }
 )

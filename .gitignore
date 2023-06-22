@@ -2,5 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+cv-master/
+docs/.DS_Store
 
 /.quarto/

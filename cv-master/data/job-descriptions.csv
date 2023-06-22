@@ -1,28 +1,22 @@
 ﻿jobId,position.desc,employer.desc,category,descId,accomplishments
-8,Private Tutor,Wyzant,teaching,c,"Tutored 500+ hours in R, Statistics, and academic writing with undergraduate, masters, and PhD students, professionals, and lifelong learners"
-10,Data Fellow,Washington University in St. Louis,data science,a,"Communicated findings and devised evidence-based action items to diverse group of stakeholders to inform decision-making regarding technology acquisitions, use, and issues"
-10,Data Fellow,Washington University in St. Louis,data science,a,Designed research study to examine student/instructor interaction styles in social annotation settings using natural langauge processing and machine learning 
-10,Data Fellow,Washington University in St. Louis,data science,a,"Created parameterized reporting system for understanding student and instructor use of unviersity-licensed educational technologies (e.g., Hypothesis, Annoto, Kaltura, Gradescope, Canvas)"
-9,Graduate Student Researcher,Washington University in St. Louis,research,b,"Mentored 3 undergraduate students in completion of their year-long honors thesis, culminating in final paper and presentation."
-9,Graduate Student Researcher,Washington University in St. Louis,research,b,"Provided written and verbal feedback on lab member projects, manuscripts, and grant submissions. "
-6,Assistant to the Instructor,Washington University in St. Louis,teaching,c,"Experimental Psychology, Spring 2022"
-6,Assistant to the Instructor,Washington University in St. Louis,teaching,c,"Introduction to Psychology Statistics, Spring 2021"
-6,Assistant to the Instructor,Washington University in St. Louis,teaching,c,"Introduction to Psychology Statistics, Fall 2021"
-6,Assistant to the Instructor,Washington University in St. Louis,teaching,c,"Psychology of Language, Spring 2021"
-6,Assistant to the Instructor,Washington University in St. Louis,teaching,c,"Graduate Quantitative Methods I, Fall 2020"
-6,Assistant to the Instructor,Washington University in St. Louis,teaching,c,"Developmental Psychology, Spring 2020"
-6,Assistant to the Instructor,Washington University in St. Louis,teaching,c,"Psychology of Learning, Fall 2019"
-6,Assistant to the Instructor,Washington University in St. Louis,teaching,c,Awarded Psychological and Brain Sciences' Assistant to the Instructor of the Year Award in 2022
-6,Assistant to the Instructor,Washington University in St. Louis,teaching,c,"Assisted instructors with grading, teaching, and classroom administrative duties (e.g., maintaining Canvas LMS, attendance, preparing materials). "
-7,Instructor,Washington University in St. Louis,teaching,c,Created assessments to measure students' achievement of course objectives 
-7,Instructor,Washington University in St. Louis,teaching,c,Prepared students for success on assignments and exams with well-delivered lectures that incorporated active learning strategies
-7,Instructor,Washington University in St. Louis,teaching,c,"Designed and developed fully remote, hybrid, 5-week Developmental Psychology course"
+8,Private Tutor,Wyzant,teaching,c,"Tutored 500+ hours in R, statistics, and academic writing with undergraduate, Masters, and PhD students, professionals, and lifelong learners"
+10,Data Fellow,WUSTL Center for Teaching and Learning,data science,a,"Advised diverse stakeholders on technology acquisition, use, and issue resolutions by communicating findings and evidence-based action items"
+10,Data Fellow,WUSTL Center for Teaching and Learning,data science,a,Designed research study to examine student/instructor interaction styles in social annotation settings using natural langauge processing and machine learning 
+10,Data Fellow,WUSTL Center for Teaching and Learning,data science,a,"Created parameterized reporting system for understanding student and instructor use of university-licensed educational technologies (e.g., Hypothesis, Annoto, Kaltura, Gradescope, Canvas)"
+9,Graduate Student Researcher,WUSTL Psychological and Brain Sciences,research,b,"Trained, supervised, and advised 3 undergraduate students on their year-long honors theses, culminating in final paper and presentation"
+9,Graduate Student Researcher,WUSTL Psychological and Brain Sciences,research,b,"Provided written and verbal feedback on lab member projects, manuscripts, and grant submissions"
+6,Assistant to the Instructor,WUSTL Psychological and Brain Sciences,teaching,c,"Assisted instructors with grading, teaching, and classroom administrative duties (e.g., maintaining learning management system(s), preparing materials)"
+6,Assistant to the Instructor,WUSTL Psychological and Brain Sciences,teaching,c,Awarded Psychological and Brain Sciences “Assistant to the Instructor of the Year” Award in 2022
+6,Assistant to the Instructor,WUSTL Psychological and Brain Sciences,teaching,c,Courses: Graduate Quantitative Methods; Introductory Psychological Statistics; Experimental Psychology; History of Psychology; Psychology of Language;  Developmental Psychology; Psychology of Learning
+7,Instructor,WUSTL Psychological and Brain Sciences,teaching,c,"Designed and developed online, hybrid 5-week Developmental Psychology course"
+7,Instructor,WUSTL Psychological and Brain Sciences,teaching,c,Created assessments to measure students' achievement of course objectives 
+7,Instructor,WUSTL Psychological and Brain Sciences,teaching,c,Prepared students for success on assignments and exams with well-delivered lectures that incorporated active learning strategies
 1,Undergraduate Teaching Assistant,University of Rochester ,teaching,c,Graded assignments and exams; held office hours and study sessions for Introduction to Linguistic Analysis
-2,Undergraduate Research Assistant,University of Rochester,research,b,Completed senior thesis studying impact of the frequency of words in isolation on infants' receptive and productive vocabulary outcomes
+2,Undergraduate Research Assistant,University of Rochester,research,b,Assisted with data collection: in-lab eyetracking experiments and home visits to set up video and audio recording equipment
 2,Undergraduate Research Assistant,University of Rochester,research,b,Annotated audio and video recordings from infants' home language environments
-4,Literacy Tutor,AmeriCorps,teaching,c,"Tutored and mentored K-2 students in reading, writing, and spelling during aferschool Boys & Girls Club (300 hours)"
-3,Lab Manager,University of Notre Dame,research,b,"Maintained lab software and hardware including 9 computers, 2 infant experiment booths, and eye-tracking video systems. "
+4,Literacy Tutor,AmeriCorps,teaching,c,"Tutored and mentored K--2 students in reading, writing, and spelling during after-school Boys & Girls Club (300 hours)"
+3,Lab Manager,University of Notre Dame,research,b,"Maintained lab software and hardware including 9 computers, 2 infant experiment booths, and eye-tracking video systems"
 3,Lab Manager,University of Notre Dame,research,b,Developed R scripts to streamline data cleaning and analyses
-3,Lab Manager,University of Notre Dame,research,b,"Coordinated data collection for 3-5 studies at a time, recruited infants and families, maintained participant database, and ran experiments. "
-3,Lab Manager,University of Notre Dame,research,b,Managed team of 5-10 undergraduate research assistants and mentored the completion of 4 independent research projects
+3,Lab Manager,University of Notre Dame,research,b,"Coordinated data collection for up to 5 studies at a time, recruited infants and families, maintained participant database, and ran experiments"
+3,Lab Manager,University of Notre Dame,research,b,Managed up to 10 undergraduate research assistants and mentored the completion of 4 independent research projects
 5,Consultant,Tools of the Mind,research,b,Developed preschool and kindergarten spelling assessments

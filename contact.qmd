@@ -2,8 +2,5 @@
 title: "CV/Contact"
 ---
 
-LinkedIn
-
 email: jayde dot homer at gmail dot com
 
-cv here

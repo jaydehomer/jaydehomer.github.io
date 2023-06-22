@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.6.18)  18 JUN 2023 16:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.6.20)  22 JUN 2023 10:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **homer_cv.tex
 (./homer_cv.tex
-LaTeX2e <2023-06-01>
+LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-06-16>
 (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
@@ -95,23 +95,651 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/base/fixltx2e.sty
+Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
+Applying: [2015/01/01] Old fixltx2e package on input line 46.
+
+Package fixltx2e Warning: fixltx2e is not required with releases after 2015
+(fixltx2e)                All fixes are now in the LaTeX kernel.
+(fixltx2e)                See the latexrelease package for details.
+
+Already applied: [0000/00/00] Old fixltx2e package on input line 53.
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+LaTeX Font Info:    Trying to load font information for T1+Crlt-TLF on input line 112.
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/carlito/T1Crlt-TLF.fd
+File: T1Crlt-TLF.fd 2022/10/05 (autoinst) Font definitions for T1/Crlt-TLF.
+)) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks20
+\inpenc@posthook=\toks21
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2023/03/13 v3.1a Micro-typographical refinements (RS)
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count194
 )
+\MT@toks=\toks22
+\MT@tempbox=\box51
+\MT@count=\count195
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1059.
+LaTeX Info: Redefining \leftprotrusion on input line 1060.
+\MT@prot@toks=\toks23
+LaTeX Info: Redefining \rightprotrusion on input line 1078.
+LaTeX Info: Redefining \textls on input line 1368.
+\MT@outer@kern=\dimen141
+LaTeX Info: Redefining \textmicrotypecontext on input line 1988.
+\MT@listname@count=\count196
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2023/03/13 v3.1a Definitions specific to pdftex (RS)
+LaTeX Info: Redefining \lsstyle on input line 902.
+LaTeX Info: Redefining \lslig on input line 902.
+\MT@outer@space=\skip59
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2023/03/13 v3.1a microtype main configuration file (RS)
+)) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2023-05-16 v7.00y Hypertext links for LaTeX
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2023-05-16 v2.51 Cross-referencing by name of section
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count197
+)
+\@linkdim=\dimen142
+\Hy@linkcounter=\count198
+\Hy@pagecounter=\count199
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2023-05-16 v7.00y Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count266
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2023-05-16 v7.00y Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `unicode' set `true' on input line 4050.
+Package hyperref Info: Hyper figures OFF on input line 4167.
+Package hyperref Info: Link nesting OFF on input line 4172.
+Package hyperref Info: Hyper index ON on input line 4175.
+Package hyperref Info: Plain pages OFF on input line 4182.
+Package hyperref Info: Backreferencing OFF on input line 4187.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4434.
+\c@Hy@tempcnt=\count267
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4772.
+\XeTeXLinkMargin=\dimen143
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+))
+\Fld@menulength=\count268
+\Field@Width=\dimen144
+\Fld@charsize=\dimen145
+Package hyperref Info: Hyper figures OFF on input line 6051.
+Package hyperref Info: Link nesting OFF on input line 6056.
+Package hyperref Info: Hyper index ON on input line 6059.
+Package hyperref Info: backreferencing OFF on input line 6066.
+Package hyperref Info: Link coloring OFF on input line 6071.
+Package hyperref Info: Link coloring with OCG OFF on input line 6076.
+Package hyperref Info: PDF/A mode OFF on input line 6081.
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count269
+\c@Item=\count270
+\c@Hfootnote=\count271
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2023-05-16 v7.00y Hyperref driver for pdfTeX
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
+with kernel methods
+)
+\Fld@listcount=\count272
+\c@bookmark@seq@number=\count273
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
+)
+\Hy@SectionHShift=\skip60
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count274
+\Gm@cntv=\count275
+\c@Gm@tempcnt=\count276
+\Gm@bindingoffset=\dimen146
+\Gm@wd@mp=\dimen147
+\Gm@odd@mp=\dimen148
+\Gm@even@mp=\dimen149
+\Gm@layoutwidth=\dimen150
+\Gm@layoutheight=\dimen151
+\Gm@layouthoffset=\dimen152
+\Gm@layoutvoffset=\dimen153
+\Gm@dimlist=\toks24
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
+\LTleft=\skip61
+\LTright=\skip62
+\LTpre=\skip63
+\LTpost=\skip64
+\LTchunksize=\count277
+\LTcapwidth=\dimen154
+\LT@head=\box52
+\LT@firsthead=\box53
+\LT@foot=\box54
+\LT@lastfoot=\box55
+\LT@gbox=\box56
+\LT@cols=\count278
+\LT@rows=\count279
+\c@LT@tables=\count280
+\c@LT@chunks=\count281
+\LT@p@ftn=\toks25
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen155
+\lightrulewidth=\dimen156
+\cmidrulewidth=\dimen157
+\belowrulesep=\dimen158
+\belowbottomsep=\dimen159
+\aboverulesep=\dimen160
+\abovetopsep=\dimen161
+\cmidrulesep=\dimen162
+\cmidrulekern=\dimen163
+\defaultaddspace=\dimen164
+\@cmidla=\count282
+\@cmidlb=\count283
+\@aboverulesep=\dimen165
+\@belowrulesep=\dimen166
+\@thisruleclass=\count284
+\@lastruleclass=\count285
+\@thisrulewidth=\dimen167
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box57
+\fn@width=\dimen168
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/parskip/parskip.sty
+Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/paralist/paralist.sty
+Package: paralist 2017/01/22 v2.7 Extended list environments
+\pltopsep=\skip65
+\plpartopsep=\skip66
+\plitemsep=\skip67
+\plparsep=\skip68
+\pl@lab=\toks26
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/ragged2e/ragged2e.sty
+Package: ragged2e 2023/04/04 v3.5 ragged2e Package
+\CenteringLeftskip=\skip69
+\RaggedLeftLeftskip=\skip70
+\RaggedRightLeftskip=\skip71
+\CenteringRightskip=\skip72
+\RaggedLeftRightskip=\skip73
+\RaggedRightRightskip=\skip74
+\CenteringParfillskip=\skip75
+\RaggedLeftParfillskip=\skip76
+\RaggedRightParfillskip=\skip77
+\JustifyingParfillskip=\skip78
+\CenteringParindent=\skip79
+\RaggedLeftParindent=\skip80
+\RaggedRightParindent=\skip81
+\JustifyingParindent=\skip82
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/datetime/datetime.sty
+Package: datetime 2015/03/20 v2.60 Date Time Package
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/fmtcount/fmtcount.sty
+Package: fmtcount 2020/01/30 v3.07
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/fmtcount/fcprefix.sty
+Package: fcprefix 2012/09/28
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/fmtcount/fcnumparser.sty
+Package: fcnumparser 2017/06/15
+\fc@digit@counter=\count286
+)) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks27
+\ex@=\dimen169
+)
+\c@padzeroesN=\count287
+\fc@tmpcatcode=\count288
+\@DT@modctr=\count289
+\@ordinalctr=\count290
+\@orgargctr=\count291
+\@strctr=\count292
+\@tmpstrctr=\count293
+\@DT@loopN=\count294
+\@DT@X=\count295
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/datetime/datetime-defaults.sty
+Package: datetime-defaults 2013/09/10
+)
+\@day=\count296
+\@month=\count297
+\@year=\count298
+\c@HOUR=\count299
+\c@HOURXII=\count300
+\c@MINUTE=\count301
+\c@TOHOUR=\count302
+\c@TOMINUTE=\count303
+\c@SECOND=\count304
+\currenthour=\count305
+\currentminute=\count306
+\currentsecond=\count307
+Package datetime Info: No datetime.cfg file found, using default settings on input line 308.
+\@dtctr=\count308
+\dayofyear=\count309
+\dayofweek=\count310
+LaTeX Info: Redefining \today on input line 736.
+\dt@a=\toks28
+\dt@b=\toks29
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip83
+\enit@outerparindent=\dimen170
+\enit@toks=\toks30
+\enit@inbox=\box58
+\enit@count@id=\count311
+\enitdp@description=\count312
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/psnfss/pifont.sty
+Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
+LaTeX Font Info:    Trying to load font information for U+pzd on input line 63.
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/psnfss/upzd.fd
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Trying to load font information for U+psy on input line 64.
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/psnfss/upsy.fd
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+)) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2021/07/05 v2.14 Sectioning titles
+\ttl@box=\box59
+\beforetitleunit=\skip84
+\aftertitleunit=\skip85
+\ttl@plus=\dimen171
+\ttl@minus=\dimen172
+\ttl@toksa=\toks31
+\titlewidth=\dimen173
+\titlewidthlast=\dimen174
+\titlewidthfirst=\dimen175
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/fontawesome/fontawesome.sty
+Package: fontawesome 2016/05/15 v4.6.3.1 font awesome icons
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/fontawesome/fontawesomesymbols-generic.tex) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/fontawesome/fontawesomesymbols-pdftex.tex)) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen176
+\ar@mcellbox=\box60
+\extrarowheight=\dimen177
+\NC@list=\toks32
+\extratabsurround=\skip86
+\backup@length=\skip87
+\ar@cellbox=\box61
+)
+\TX@col@width=\dimen178
+\TX@old@table=\dimen179
+\TX@old@col=\dimen180
+\TX@target=\dimen181
+\TX@delta=\dimen182
+\TX@cols=\count313
+\TX@ftn=\toks33
+)
+\cslhangindent=\skip88
+\csllabelwidth=\skip89
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count314
+\calc@Bcount=\count315
+\calc@Adimen=\dimen183
+\calc@Bdimen=\dimen184
+\calc@Askip=\skip90
+\calc@Bskip=\skip91
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count316
+\calc@Cskip=\skip92
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count317
+\l__pdf_internal_box=\box62
+) (./homer_cv.aux)
+\openout1 = `homer_cv.aux'.
 
-! LaTeX Error: Missing \begin{document}.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+\c@mv@tabular=\count318
+\c@mv@boldtabular=\count319
+LaTeX Info: Redefining \microtypecontext on input line 200.
+Package microtype Info: Applying patch `item' on input line 200.
+Package microtype Info: Applying patch `toc' on input line 200.
+Package microtype Info: Applying patch `eqnum' on input line 200.
+Package microtype Info: Applying patch `footnote' on input line 200.
+Package microtype Info: Applying patch `verbatim' on input line 200.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using protrusion set `basicmath'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+LaTeX Info: Redefining \showhyphens on input line 200.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `Crlt-TLF' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+Package hyperref Info: Link coloring OFF on input line 200.
+(./homer_cv.out) (./homer_cv.out)
+\@outlinefile=\write3
+\openout3 = `homer_cv.out'.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13 W
-      ashington University in St. Louis 
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(49.79231pt, 497.92325pt, 49.79231pt)
+* v-part:(T,H,B)=(62.59596pt, 725.54538pt, 56.9055pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=497.92325pt
+* \textheight=725.54538pt
+* \oddsidemargin=-22.47768pt
+* \evensidemargin=-22.47768pt
+* \topmargin=-46.67403pt
+* \headheight=15.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=57.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/fmtcount/fc-english.def
+File: fc-english.def 2016/01/12
+)
+LaTeX Font Info:    Trying to load font information for U+fontawesometwo on input line 201.
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/fontawesome/ufontawesometwo.fd
+File: ufontawesometwo.fd 2016/05/22 Font definitions for U/fontawesometwo.
+) (/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 201.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 201.
+LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 201.
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/fontawesome/ufontawesomethree.fd
+File: ufontawesomethree.fd 2016/05/22 Font definitions for U/fontawesomethree.
+)
+Overfull \hbox (2.84262pt too wide) in alignment at lines 234--255
+[] []
+ []
+
+LaTeX Font Info:    Trying to load font information for TS1+Crlt-TLF on input line 273.
+(/Users/jaydehomer/Library/TinyTeX/texmf-dist/tex/latex/carlito/TS1Crlt-TLF.fd
+File: TS1Crlt-TLF.fd 2022/10/05 (autoinst) Font definitions for TS1/Crlt-TLF.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 273--273
+[]\T1/Crlt-TLF/m/n/10 (+6) Advised di-verse stake-hold-ers on tech-nol-ogy ac-qui-si-tion, use, and is-sue res-o-lu-tions by com-mu-ni-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 273--273
+[]\T1/Crlt-TLF/m/n/10 (+20) Designed re-search study to ex-am-ine stu-dent/instructor in-ter-ac-tion styles in so-cial an-no-ta-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 273--273
+[]\T1/Crlt-TLF/m/n/10 (+20) Created pa-ram-e-ter-ized re-port-ing sys-tem for un-der-stand-ing stu-dent and in-struc-tor use of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 273--273
+\T1/Crlt-TLF/m/n/10 (+20) university-licensed ed-u-ca-tional tech-nolo-gies (e.g., Hy-poth-e-sis, An-noto, Kaltura, Grade-scope,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 285--285
+[]\T1/Crlt-TLF/m/n/10 (+20) Trained, su-per-vised, and ad-vised 3 un-der-grad-u-ate stu-dents on their year-long hon-ors the-ses,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 309--309
+[]\T1/Crlt-TLF/m/n/10 (+20) Prepared stu-dents for suc-cess on as-sign-ments and ex-ams with well-delivered lec-tures that
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--322
+[]\T1/Crlt-TLF/m/n/10 (+11) Assisted in-struc-tors with grad-ing, teach-ing, and class-room ad-min-is-tra-tive du-ties (e.g., main-tain-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--322
+[]\T1/Crlt-TLF/m/n/10 (+20) Awarded Psy-cho-log-i-cal and Brain Sci-ences ^^PAs-sis-tant to the In-struc-tor of the Year^^Q Award in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--322
+[]\T1/Crlt-TLF/m/n/10 (+20) Courses: Grad-u-ate Quan-ti-ta-tive Meth-ods; In-tro-duc-tory Psy-cho-log-i-cal Statis-tics; Ex-per-i-men-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--322
+\T1/Crlt-TLF/m/n/10 (+20) tal Psy-chol-ogy; His-tory of Psy-chol-ogy; Psy-chol-ogy of Lan-guage; De-vel-op-men-tal Psy-chol-ogy;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--358
+[]\T1/Crlt-TLF/m/n/10 (+20) Coordinated data col-lec-tion for up to 5 stud-ies at a time, re-cruited in-fants and fam-i-lies, main-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--358
+[]\T1/Crlt-TLF/m/n/10 (+20) Managed up to 10 un-der-grad-u-ate re-search as-sis-tants and men-tored the com-ple-tion of 4
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--370
+[]\T1/Crlt-TLF/m/n/10 (+20) Assisted with data col-lec-tion: in-lab eye-track-ing ex-per-i-ments and home vis-its to set up video
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 381--381
+[]\T1/Crlt-TLF/m/n/10 (+20) Graded as-sign-ments and ex-ams; held of-fice hours and study ses-sions for In-tro-duc-tion to
+ []
+
+
+Overfull \hbox (2.84262pt too wide) in alignment at lines 260--382
+[] []
+ []
+
+[1
+
+{/Users/jaydehomer/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/jaydehomer/Library/TinyTeX/texmf-dist/fonts/enc/dvips/carlito/crlt_txfnxl.enc}{/Users/jaydehomer/Library/TinyTeX/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc}{/Users/jaydehomer/Library/TinyTeX/texmf-dist/fonts/enc/dvips/fontawesome/fontawesomethree.enc}{/Users/jaydehomer/Library/TinyTeX/texmf-dist/fonts/enc/dvips/carlito/crlt_ln7ww5.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 410--410
+[]\T1/Crlt-TLF/m/n/10 (+20) Provided free statis-tics tu-tor-ing, men-tor-ship, and study groups for stu-dents who were first-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 422--422
+[]\T1/Crlt-TLF/m/n/10 (+20) Communicated grad-u-ate stu-dent teach-ing re-lated is-sues to ad-min-is-tra-tors with team of 11
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 422--422
+[]\T1/Crlt-TLF/m/n/10 (+20) Organized and mod-er-ated pan-els for grad-u-ate stu-dents: ^^PClaim-ing au-thor-ity in the class-room
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 422--422
+\T1/Crlt-TLF/m/n/10 (+20) while re-main-ing ap-proach-able^^Q (2022-10) and ^^PLever-ag-ing teach-ing skills in non-academic
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 470--470
+[]\T1/Crlt-TLF/m/n/10 (+20) Demonstrated spelling ex-per-i-ment, com-mu-ni-cated ba-sics of hy-poth-e-sis test-ing, and of-fered
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 508--508
+[]\T1/Crlt-TLF/m/n/10 (+20) Coordinated events to pro-mote and ed-u-cate grad-u-ate stu-dents on di-ver-sity, eq-uity, and in-clu-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 545--545
+[]\T1/Crlt-TLF/m/n/10 (+20) Data for Good: Driv-ing Pros-per-ity in the St. Louis Re-gion, hosted by WUSTL Olin Cen-ter for
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 570--570
+[]\T1/Crlt-TLF/m/n/10 (+20) Performed ken-nel du-ties such as clean-ing and feed-ing, co-or-di-nated with team mem-bers to
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 570--570
+\T1/Crlt-TLF/m/n/10 (+20) en-sure safety and well-be-ing of adopt-able pets, and walked dogs to pro-vide daily ex-er-cise and
+ []
+
+
+Overfull \hbox (2.84262pt too wide) in alignment at lines 388--571
+[] []
+ []
+
+[2] [3]
+Underfull \hbox (badness 10000) in paragraph at lines 581--581
+[]\T1/Crlt-TLF/m/n/10 (+20) Homer, J., Treiman, R., & Farry-Thorn, M. (2023). \T1/Crlt-TLF/m/it/10 (+20) Three facets of spelling \T1/Crlt-TLF/m/n/10 (+20) (C. McBride, Y. Ye, T. In-oue, & M. U.,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 587--587
+[]\T1/Crlt-TLF/m/n/10 (+20) Homer, J., Thomp-son, A., & Lany, J. (n.d.). \T1/Crlt-TLF/m/it/10 (+20) The home lan-guage en-vi-ron-ment pre-dicts in-di-vid-ual dif-fer-ences in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 612--612
+[]\TS1/Crlt-TLF/m/n/10 (+14) „\T1/Crlt-TLF/m/n/10 (+14) Homer, J. (2023). \T1/Crlt-TLF/m/it/10 (+14) Mak-ing sense of non-sense: In-flu-ences on preschool-ers' spellings\T1/Crlt-TLF/m/n/10 (+14) . Grad-u-ate Stu-dent Sen-ate's
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 619--619
+[]\T1/Crlt-TLF/m/n/10 (+19) *Homer, J., Thomp-son, A., & Lany, J. (2020). \T1/Crlt-TLF/m/it/10 (+19) Pre-dict-ing lex-i-cal pro-cess-ing ef-fi-ciency at 9 months from the home
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 619--619
+\T1/Crlt-TLF/m/it/10 (+20) lan-guage en-vi-ron-ment: Child-directed vs. Am-bi-ent speech\T1/Crlt-TLF/m/n/10 (+20) . Many Paths to Lan-guage; Max Planck In-sti-tute for
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 624--624
+[]\TS1/Crlt-TLF/m/n/10 (+20) „\T1/Crlt-TLF/m/n/10 (+20) Homer, J., & Treiman, R. (2020). \T1/Crlt-TLF/m/it/10 (+20) Spelling and read-ing novel ho-mo-phones\T1/Crlt-TLF/m/n/10 (+20) . So-ci-ety for the Sci-en-tific Study of
+ []
+
+
+Package fancyhdr Warning: \fancyfoot's `E' option without twoside option is useless.
+(fancyhdr)                Please consider using the `twoside' option on input line 626.
+
+[4
+pdfTeX warning (ext4): destination with the same identifier (name{bibliography}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.628 \end{document}
+                    ] (./homer_cv.aux)
+ ***********
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2023-06-16>
+ ***********
+Package rerunfilecheck Info: File `homer_cv.out' has not changed.
+(rerunfilecheck)             Checksum: 0C1627B96E9E2CBF1AF6B740C0EE0700;755.
+ ) 
 Here is how much of TeX's memory you used:
- 1957 strings out of 477664
- 29651 string characters out of 5829089
- 1851755 words of memory out of 5000000
- 22492 multiletter control sequences out of 15000+600000
- 513387 words of font info for 34 fonts, out of 8000000 for 9000
+ 15428 strings out of 477663
+ 248019 string characters out of 5829062
+ 1887769 words of memory out of 5000000
+ 35549 multiletter control sequences out of 15000+600000
+ 596353 words of font info for 132 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 57i,0n,65p,188b,36s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,8n,79p,1197b,565s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/jaydehomer/Library/TinyTeX/texmf-dist/fonts/type1/google/carlito/Crlt-Bold.pfb></Users/jaydehomer/Library/TinyTeX/texmf-dist/fonts/type1/google/carlito/Crlt-Italic.pfb></Users/jaydehomer/Library/TinyTeX/texmf-dist/fonts/type1/google/carlito/Crlt-Regular.pfb></Users/jaydehomer/Library/TinyTeX/texmf-dist/fonts/type1/public/fontawesome/FontAwesome.pfb></Users/jaydehomer/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on homer_cv.pdf (4 pages, 139887 bytes).
+PDF statistics:
+ 103 PDF objects out of 1000 (max. 8388607)
+ 84 compressed objects within 1 object stream
+ 22 named destinations out of 1000 (max. 500000)
+ 43057 words of extra memory for PDF output out of 51595 (max. 10000000)
 
-!  ==> Fatal error occurred, no output PDF file produced!

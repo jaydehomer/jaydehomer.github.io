@@ -39,11 +39,12 @@ access_token <- get_spotify_access_token()
 swifty <- get_artist_audio_features('taylor swift')
 ```
 
-To give you an idea of the sort of information we now have at our fingertips, here's an example row of data, for our (yes, probably you) favorite song: 
+To give you an idea of the sort of information we now have at our fingertips, here's an example row of data, for everyone's favorite song: 
 
 ```{r}
 swifty |> 
-  filter(track_name == "All Too Well (10 Minute Version) (Taylor's Version) (From The Vault)") 
+  filter(track_name == "All Too Well (10 Minute Version) (Taylor's Version) (From The Vault)") |> 
+  kable()
 ```
 
 Some of the information is obvious, but others I had to do some exploring to learn more about. Let's review: 
@@ -88,6 +89,55 @@ Some of the information is obvious, but others I had to do some exploring to lea
 # - major life events 
 # - tours
 ```
+
+
+## Taylor's Version vs. Not(?) Taylor's Version
+
+I'm wondering how much a difference Taylor made in how Taylor Taylor is. 
+
+First, let's add a boolean that tells us if a song is Taylor's Version. Beware of sneaking apostrophes vs tick marks...
+
+```{r}
+swifty |> 
+  mutate(isTV = str_detect(track_name, "Taylor's Version|Taylor’s Version")) -> 
+  swifty
+```
+
+Now that we have TV as it's own variable, we can make our data one step closer to at least first normal form (https://www.geeksforgeeks.org/normal-forms-in-dbms/) by making sure that track name contains only one type of information: the track name.  
+```{r}
+swifty |> 
+  mutate(track_name = str_remove(track_name, "\\(Taylor's Version\\)|\\(Taylor’s Version\\)"),
+         track_name = str_squish(track_name),
+         track_name = str_to_lower(track_name),
+         track_name = str_replace_all(track_name, "[[:punct:]]", "")) -> 
+  swifty
+```
+
+Now we can grab just our songs that have a TV and a no-TV. 
+
+```{r}
+songs_with_tvs <- swifty |> 
+  group_by(track_name) |> 
+  summarize(n = n(),
+            hasTV = sum(isTV)) |> 
+  filter(n > 1 & hasTV > 0)
+```
+
+```{r}
+swifty |> 
+  filter(track_name %in% songs_with_tvs$track_name) |> 
+  group_by(track_name, isTV) |> 
+  summarize(dance = mean(danceability)) |> 
+  ggplot(aes(x = isTV, y = dance, group = track_name)) +
+  geom_point() + 
+  geom_line(method = "lm")
+```
+
+
+## Plays 
+
+
+
 
 ```{r include = FALSE}
 track_plays <- read_csv("track_plays.csv", col_names = TRUE) |> 
@@ -192,7 +242,7 @@ glimpse(swifty)
 
 ------------
 
-Giving credit where credit is VERY due: 
+References: 
 
 https://shaynak.github.io/taylor-swift/ -- while I'm pretty confident in my brain's ability to store endless lyrics, this website made possible all of the lyrics and references found throughout this project
 

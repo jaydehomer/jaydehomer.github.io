@@ -26,7 +26,6 @@ library(rlang)
 ```
 
 ```{r loadData}
-
 # Education
 education <- data.table::fread("../data/education.csv",
                                encoding = "UTF-8") %>%
@@ -61,59 +60,23 @@ awards <- data.table::fread("../data/awards.csv",
                             encoding = "UTF-8") %>%
   as_tibble()
 
-```
+# Service descriptions
+service.descriptions <-
+  data.table::fread("../data/service-descriptions.csv",
+                    encoding = "UTF-8") %>%
+  as_tibble()
 
-# Education
-```{r education, results = "asis"}
-# Merge joint PhD entries
-education %>%
-  arrange(desc(end), begin) %>%
-  mutate(what = degree,
-         when = year(end),
-         with = university,
-         where = glue("{city}, {region}, {country}")) %>% 
-  select(what, when, with, where) %>% 
-  group_by(what, when) %>% 
-  summarize(what = nth(what, 1),
-            when = nth(when, 1),
-            with = if_else(n() > 1, glue("{nth(with, 1)} and {nth(with, 2)}"), nth(with, 1)),
-            where = if_else(n() > 1, glue("{nth(where, 1)} and {nth(where, 2)}"), nth(with, 1)),
-            .groups = "drop") %>% 
-  arrange(desc(when)) %>% 
-  detailed_entries(
-    what,
-    when,
-    with,
-    where,
-    .protect = F
+# Service titles
+service.titles <- data.table::fread("../data/service-titles.csv",
+                                encoding = "UTF-8") %>%
+  as_tibble() %>%
+  mutate(
+    begin = as.Date(begin, format = "%m/%d/%y"),
+    end = as.Date(end, format = "%m/%d/%y")
   )
-
 ```
 
-# Experience
-
-```{r experience}
-job.titles |> 
-  # Only 5 most recent jobs
-  arrange(desc(begin)) |> 
-  #filter(year(begin) >= 2010) |> 
-  # Join job descriptions
-  left_join(job.descriptions) |> 
-  # Arrange by descending begin date
-  arrange(desc(begin), descId) |> 
-  # Format as detailed entries
-  detailed_entries(
-    what = position,
-    when = as.character(
-      glue("{month(begin, label = TRUE, abbr = TRUE)} {year(begin)} - 
-           {if_else(!is.na(end), 
-           paste(month(end, label = TRUE, abbr = TRUE), year(end)), 'present')}")),
-    with = employer,
-    where = glue("{city}, {region}, {country}"),
-    why = accomplishments)
-```
-
-# Data Science Skills
+# Data Analyst Skills
 
 ```{r}
 skills_formatted <- skills |> 
@@ -132,37 +95,96 @@ for (group in skills_formatted$group) {
 }
 ```
 
-# Publications
+# Education
+```{r education, results = "asis"}
+# Merge joint PhD entries
+education %>%
+  arrange(desc(end), desc(begin)) %>%
+  mutate(what = degree,
+         when = year(end),
+         with = university,
+         where = glue("{city}, {region}"),
+         why = honors) %>% 
+  select(what, when, with, where, why) %>% 
+  group_by(what, when) %>% 
+  summarize(what = nth(what, 1),
+            when = nth(when, 1),
+            with = nth(with, 1),
+            why = case_when(
+              n() == 4 ~ glue("{nth(why, 1)} \\newline {nth(why, 2)} \\newline {nth(why, 3)} \\newline {nth(why, 4)}"),
+              n() == 3 ~ glue("{nth(why, 1)} \\newline {nth(why, 2)} \\newline {nth(why, 3)}"),
+              n() == 2 ~ glue("{nth(why, 1)} \\newline {nth(why, 2)}"), 
+              TRUE ~ nth(why, 1)),
+            .groups = "drop") %>% 
+  arrange(desc(when)) %>% 
+  detailed_entries(
+    what,
+    when,
+    with,
+    why,
+    .protect = F
+  )
+```
 
-\faicon{book} `r bibliography_entries("publications.bib") |> filter(type == "chapter") |> summarize(N = n()) |>  pull(N)` book chapters
+# Experience
 
-\faicon{file-text} `r bibliography_entries("publications.bib") |>  filter(type == "article-journal") |>  summarize(N = n()) |> pull(N)` peer-reviewed journal publications
+```{r experience}
+job.titles |> 
+  # Only 5 most recent jobs
+  arrange(desc(jobId)) |> 
+  #filter(year(begin) >= 2010) |> 
+  # Join job descriptions
+  left_join(job.descriptions) |> 
+  # Format as detailed entries
+  detailed_entries(
+    what = position,
+    when = as.character(
+      glue("{year(begin)}-{sprintf('%02d',month(begin, label = FALSE))} -- \n
+           {if_else(!is.na(end), 
+           paste0(year(end), '-', {sprintf('%02d',month(end, label = FALSE))}), 'present')}")),
+    with = employer,
+    where = glue("{city}, {region}"),
+    why = accomplishments)
+```
 
-\faicon{pencil} `r bibliography_entries("publications.bib") |>  filter(type == "paper-conference") |>  summarize(N = n()) |> pull(N)` conference papers
+# Professional Activities and Service
 
-Full List Available on Google Scholar: https://scholar.google.com/citations?hl=en&user=rXaKU0EAAAAJ
-
-## Open Source Software
-
-```{r}
-bibliography_entries("publications.bib") |> 
-  filter(id %in% c("price_radsets_2019", "price_tvdiff_2019", "price_huntfishapp_2019"))
+```{r service}
+service.titles |> 
+  # Only 5 most recent jobs
+  arrange(desc(begin)) |> 
+  #filter(year(begin) >= 2010) |> 
+  # Join job descriptions
+  left_join(service.descriptions) |> 
+  # Arrange by descending begin date
+  arrange(desc(begin), projectId) |> 
+  # Format as detailed entries
+  detailed_entries(
+    what = role,
+    when = as.character(
+      glue("{year(begin)}-{sprintf('%02d',month(begin, label = FALSE))} -- \n
+           {if_else(!is.na(end), 
+           paste0(year(end), '-', {sprintf('%02d',month(end, label = FALSE))}), 'present')}")),
+    with = group,
+    where = if_else(is.na(city), "", as.character(glue("{city}, {region}"))),
+    why = description)
 ```
 
 
-## Select Publications
+
+# Publications
 
 ```{r}
-bibliography_entries("publications.bib") |> 
-  filter(
-    id %in% c(
-      "balesdent_advanced_2016",
-      "chaudhuri_nasa_2015",
-      "price_open-sourced_2020",
-      "hinrichs_understanding_2020"
-    )
-  ) %>%
+bibliography_entries("publications.bib") 
+```
+
+# Presentations
+
+*Note:* $\ast$ denotes conference talks and $\dagger$ denotes poster presentation
+
+```{r}
+bibliography_entries("presentations.bib") |>
   arrange(desc(issued))
 ```
 
-\fancyfoot[LO,LE]{\footnotesize This CV was generated on `r Sys.time()` using vitae R package.}
+\fancyfoot[LO,LE]{\footnotesize This CV was generated on `r Sys.time()`.}

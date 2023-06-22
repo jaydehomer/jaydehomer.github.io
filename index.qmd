@@ -30,22 +30,27 @@ Hi, my name is Jayde. I have always loved consuming stories and solving puzzles.
 
 *data is the puzzle and I tell its story.*
 
-
-
 ## Current Projects
 
 ### Understanding Patterns in Preschoolers' Spellings
 
-In my dissertation I am... 
+In my dissertation I am identifying patterns that drive spellings before children have learned to spell. For example, children tend to use letters that are more frequently talked about, letters from their name, and letters that are at the beginning of the alphabet.
 
+### Individual Differences 9-month-olds' Word Processing, Home Language Environment, and Vocabulary
+
+With Jill Lany and Abbie Thompson, I explored potential predictors of infants' lexical processing efficiency. Stay tuned for our article, coming soon in 2023!
 
 ### Parameterized Reports for Department Use of Ed. Tech.
 
-I'll describe that here...
+To evaluate student and faculty use of licensed technologies at Wash U, I've developed a series of parameterized reports that provide engagement insights over desired departments, semesters, metrics, and tools. 
+
+### Conversation Starters in a Social Annotation Environment
+
+Using NLP and machine learning methods, I'm exploring student and instructor comments on course materials annotated using Hypothes.is to determine the features of primary-level comments that lead to productive dialogue among peers. 
 
 ## Experience
 
-I work with Rebecca Treiman and Brett Kessler for 5 years studying children's spelling patterns in children and adults' spelling. 
+I work with Rebecca Treiman and Brett Kessler studying children's spelling patterns in children and adults' spelling. 
 
 I also work with Sally Wu at Wash U's Center for Teaching and Learning where I explore the faculty, staff, and students' use of licensed educational technologies. 
 
@@ -55,11 +60,4 @@ I teach stats with R as a private tutor.
 
 I hold a Bachelor's degrees in Brain & Cognitive Sciences and Linguistics (University of Rochester), a Master's degree in Psychology, (almost) a PhD in Psychology (Washington University in St. Louis).
 
-
-You can find my stuff here: 
-
-**CV/resume button**
-
-
-
-![](pics/bookstorejayde.jpg)
+![](pics/bookstorejayde.jpg){width = 20%}

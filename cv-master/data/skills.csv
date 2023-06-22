@@ -1,18 +1,27 @@
 ﻿group,skill,details
-communication,presentations,
+communication,presentations and reports,
 communication,dashboard design,"Shiny, Tableau"
-communication,data analysis reports,"Rmarkdown, Quarto, Jupyter"
-communication,data visualization,"plotly, ggplot2, Excel"
-communication,peer-reviewed publications,"journal, book chapter, conference"
-programming languages,R,
-programming languages,Python,
+communication,literate programming,"R markdown, Quarto"
+communication,data visualization,"Plotly, ggplot2, Excel"
+communication,website management,
+communication,peer reviewer,"journal, book chapter, conference"
+programming languages,R,tidyverse
+programming languages,Python 3,
 programming languages,SQL,
-software development,source control,Git
-statistics,machine learning,
+software development,operating systems,"MacOS, Windows"
+software development,computing environments,"RStudio, JupyterLab"
+software development,experiment user interface,"PsychoPy, Qualtrics"
+software development,source control,"Git, Github, GNU make"
+statistics,machine learning,"PyTorch, natural language processing"
 statistics,data analysis,
 statistics,predictive modeling,
-statistics,uncertainty quantification,
+statistics,quantitative description,
 statistics,Monte Carlo simulation,
 statistics,experimental design,
 statistics,survey methodology,
-statistics,deep learning,
+statistics,Bayesian analysis,"brms, rstan"
+statistics,structural equation modeling,
+statistics,mixed effects modeling,
+teaching,learning management systems,"Canvas, Blackboard"
+teaching,assessment design,
+teaching,course design,
