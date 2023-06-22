@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div class="quarto-title column-body">
       <h1 class="title">the eras touR</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">about</div>
+                <div class="quarto-category">fun</div>
               </div>
                   </div>
   </div>
@@ -211,66 +211,237 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("spotifyr")</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("httr")</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spotifyr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-✔ ggplot2 3.4.0      ✔ purrr   0.3.5 
-✔ tibble  3.1.8      ✔ dplyr   1.0.10
-✔ tidyr   1.2.1      ✔ stringr 1.5.0 
-✔ readr   2.1.3      ✔ forcats 0.5.2 
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spotifyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="spotify-api" class="level2">
+<h2 class="anchored" data-anchor-id="spotify-api">Spotify API</h2>
 <p>Using (Spotify’s Web API)[https://developer.spotify.com/documentation/web-api], we can access all sorts of fun information about an artist. If you’re following along at home and wondering if this is the explicit version with all those Xs below, no. I’m just avoiding giving you my super secret client_id and client_secret. You can get your own by visiting your Spotify developer dashboard.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXX')</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXX')</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>access_token <span class="ot">&lt;-</span> <span class="fu">get_spotify_access_token</span>()</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>swifty <span class="ot">&lt;-</span> <span class="fu">get_artist_audio_features</span>(<span class="st">'taylor swift'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># albums we/I don't want included in the data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ew_david <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Live From Clear Channel Stripped 2008"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Speak Now World Tour Live"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"reputation Stadium Tour Surprise Song Playlist"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To give you an idea of the sort of information we now have at our fingertips, here’s an example row of data, for our (yes, probably you) favorite song:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXX')</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXX')</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>access_token <span class="ot">&lt;-</span> <span class="fu">get_spotify_access_token</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>swifty <span class="ot">&lt;-</span> <span class="fu">get_artist_audio_features</span>(<span class="st">'taylor swift'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>album_name <span class="sc">%in%</span> ew_david)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To give you an idea of the sort of information we now have at our fingertips, here’s an example row of data, for everyone’s favorite song:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(track_name <span class="sc">==</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">"All Too Well (10 Minute Version) (Taylor's Version) (From The Vault)"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 23%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 2%">
+<col style="width: 0%">
+<col style="width: 15%">
+<col style="width: 31%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 2%">
+<col style="width: 0%">
+<col style="width: 2%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">artist_name</th>
+<th style="text-align: left;">artist_id</th>
+<th style="text-align: left;">album_id</th>
+<th style="text-align: left;">album_type</th>
+<th style="text-align: left;">album_images</th>
+<th style="text-align: left;">album_release_date</th>
+<th style="text-align: right;">album_release_year</th>
+<th style="text-align: left;">album_release_date_precision</th>
+<th style="text-align: right;">danceability</th>
+<th style="text-align: right;">energy</th>
+<th style="text-align: right;">key</th>
+<th style="text-align: right;">loudness</th>
+<th style="text-align: right;">mode</th>
+<th style="text-align: right;">speechiness</th>
+<th style="text-align: right;">acousticness</th>
+<th style="text-align: right;">instrumentalness</th>
+<th style="text-align: right;">liveness</th>
+<th style="text-align: right;">valence</th>
+<th style="text-align: right;">tempo</th>
+<th style="text-align: left;">track_id</th>
+<th style="text-align: left;">analysis_url</th>
+<th style="text-align: right;">time_signature</th>
+<th style="text-align: left;">artists</th>
+<th style="text-align: left;">available_markets</th>
+<th style="text-align: right;">disc_number</th>
+<th style="text-align: right;">duration_ms</th>
+<th style="text-align: left;">explicit</th>
+<th style="text-align: left;">track_href</th>
+<th style="text-align: left;">is_local</th>
+<th style="text-align: left;">track_name</th>
+<th style="text-align: left;">track_preview_url</th>
+<th style="text-align: right;">track_number</th>
+<th style="text-align: left;">type</th>
+<th style="text-align: left;">track_uri</th>
+<th style="text-align: left;">external_urls.spotify</th>
+<th style="text-align: left;">album_name</th>
+<th style="text-align: left;">key_name</th>
+<th style="text-align: left;">mode_name</th>
+<th style="text-align: left;">key_mode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Taylor Swift</td>
+<td style="text-align: left;">06HL4z0CvFAxyc27GXpf02</td>
+<td style="text-align: left;">6kZ42qRrzov54LcAk4onW9</td>
+<td style="text-align: left;">album</td>
+<td style="text-align: left;">640 , 300 , 64 , https://i.scdn.co/image/ab67616d0000b273318443aab3531a0558e79a4d, https://i.scdn.co/image/ab67616d00001e02318443aab3531a0558e79a4d, https://i.scdn.co/image/ab67616d00004851318443aab3531a0558e79a4d, 640 , 300 , 64</td>
+<td style="text-align: left;">2021-11-12</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">day</td>
+<td style="text-align: right;">0.631</td>
+<td style="text-align: right;">0.518</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-8.771</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0303</td>
+<td style="text-align: right;">0.274</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.088</td>
+<td style="text-align: right;">0.205</td>
+<td style="text-align: right;">93.023</td>
+<td style="text-align: left;">5enxwA8aAbwZbf5qCHORXi</td>
+<td style="text-align: left;">https://api.spotify.com/v1/audio-analysis/5enxwA8aAbwZbf5qCHORXi</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">https://api.spotify.com/v1/artists/06HL4z0CvFAxyc27GXpf02, 06HL4z0CvFAxyc27GXpf02 , Taylor Swift , artist , spotify:artist:06HL4z0CvFAxyc27GXpf02 , https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02</td>
+<td style="text-align: left;">AR, AU, AT, BE, BO, BR, BG, CA, CL, CO, CR, CY, CZ, DK, DO, DE, EC, EE, SV, FI, FR, GR, GT, HN, HK, HU, IS, IE, IT, LV, LT, LU, MY, MT, MX, NL, NZ, NI, NO, PA, PY, PE, PH, PL, PT, SG, SK, ES, SE, CH, TW, TR, UY, US, GB, AD, LI, MC, ID, JP, TH, VN, RO, IL, ZA, SA, AE, BH, QA, OM, KW, EG, MA, DZ, TN, LB, JO, PS, IN, BY, KZ, MD, UA, AL, BA, HR, ME, MK, RS, SI, KR, BD, PK, LK, GH, KE, NG, TZ, UG, AG, AM, BS, BB, BZ, BT, BW, BF, CV, CW, DM, FJ, GM, GE, GD, GW, GY, HT, JM, KI, LS, LR, MW, MV, ML, MH, FM, NA, NR, NE, PW, PG, WS, SM, ST, SN, SC, SL, SB, KN, LC, VC, SR, TL, TO, TT, TV, VU, AZ, BN, BI, KH, CM, TD, KM, GQ, SZ, GA, GN, KG, LA, MO, MR, MN, NP, RW, TG, UZ, ZW, BJ, MG, MU, MZ, AO, CI, DJ, ZM, CD, CG, IQ, LY, TJ, VE, ET, XK</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">613026</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">https://api.spotify.com/v1/tracks/5enxwA8aAbwZbf5qCHORXi</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">All Too Well (10 Minute Version) (Taylor’s Version) (From The Vault)</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: left;">track</td>
+<td style="text-align: left;">spotify:track:5enxwA8aAbwZbf5qCHORXi</td>
+<td style="text-align: left;">https://open.spotify.com/track/5enxwA8aAbwZbf5qCHORXi</td>
+<td style="text-align: left;">Red (Taylor’s Version)</td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">major</td>
+<td style="text-align: left;">C major</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>You may already know this, but here’s a summary of Taylor’s discography.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(track_name <span class="sc">==</span> <span class="st">"All Too Well (10 Minute Version) (Taylor's Version) (From The Vault)"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   artist_name              artist_id               album_id album_type
-1 Taylor Swift 06HL4z0CvFAxyc27GXpf02 6kZ42qRrzov54LcAk4onW9      album
-                                                                                                                                                                                                                      album_images
-1 640, 300, 64, https://i.scdn.co/image/ab67616d0000b273318443aab3531a0558e79a4d, https://i.scdn.co/image/ab67616d00001e02318443aab3531a0558e79a4d, https://i.scdn.co/image/ab67616d00004851318443aab3531a0558e79a4d, 640, 300, 64
-  album_release_date album_release_year album_release_date_precision
-1         2021-11-12               2021                          day
-  danceability energy key loudness mode speechiness acousticness
-1        0.631  0.518   0   -8.771    1      0.0303        0.274
-  instrumentalness liveness valence  tempo               track_id
-1                0    0.088   0.205 93.023 5enxwA8aAbwZbf5qCHORXi
-                                                      analysis_url
-1 https://api.spotify.com/v1/audio-analysis/5enxwA8aAbwZbf5qCHORXi
-  time_signature
-1              4
-                                                                                                                                                                                                 artists
-1 https://api.spotify.com/v1/artists/06HL4z0CvFAxyc27GXpf02, 06HL4z0CvFAxyc27GXpf02, Taylor Swift, artist, spotify:artist:06HL4z0CvFAxyc27GXpf02, https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               available_markets
-1 AR, AU, AT, BE, BO, BR, BG, CA, CL, CO, CR, CY, CZ, DK, DO, DE, EC, EE, SV, FI, FR, GR, GT, HN, HK, HU, IS, IE, IT, LV, LT, LU, MY, MT, MX, NL, NZ, NI, NO, PA, PY, PE, PH, PL, PT, SG, SK, ES, SE, CH, TW, TR, UY, US, GB, AD, LI, MC, ID, JP, TH, VN, RO, IL, ZA, SA, AE, BH, QA, OM, KW, EG, MA, DZ, TN, LB, JO, PS, IN, BY, KZ, MD, UA, AL, BA, HR, ME, MK, RS, SI, KR, BD, PK, LK, GH, KE, NG, TZ, UG, AG, AM, BS, BB, BZ, BT, BW, BF, CV, CW, DM, FJ, GM, GE, GD, GW, GY, HT, JM, KI, LS, LR, MW, MV, ML, MH, FM, NA, NR, NE, PW, PG, WS, SM, ST, SN, SC, SL, SB, KN, LC, VC, SR, TL, TO, TT, TV, VU, AZ, BN, BI, KH, CM, TD, KM, GQ, SZ, GA, GN, KG, LA, MO, MR, MN, NP, RW, TG, UZ, ZW, BJ, MG, MU, MZ, AO, CI, DJ, ZM, CD, CG, IQ, LY, TJ, VE, ET, XK
-  disc_number duration_ms explicit
-1           1      613026     TRUE
-                                                track_href is_local
-1 https://api.spotify.com/v1/tracks/5enxwA8aAbwZbf5qCHORXi    FALSE
-                                                            track_name
-1 All Too Well (10 Minute Version) (Taylor's Version) (From The Vault)
-  track_preview_url track_number  type                            track_uri
-1                NA           30 track spotify:track:5enxwA8aAbwZbf5qCHORXi
-                                  external_urls.spotify             album_name
-1 https://open.spotify.com/track/5enxwA8aAbwZbf5qCHORXi Red (Taylor's Version)
-  key_name mode_name key_mode
-1        C     major  C major</code></pre>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="st">`</span><span class="at">Number of Songs</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n_distinct</span>(track_name),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Albums Released</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n_distinct</span>(album_name),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Earliest Release</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">min</span>(<span class="fu">year</span>(album_release_date)),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Most Recent Release</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">year</span>(album_release_date)),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Songs Featuring Other Artists</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">str_detect</span>(track_name, <span class="st">"feat"</span>)),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Songs with Explicit Labels</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(explicit),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Shortest Song Minutes</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">min</span>(duration_ms)<span class="sc">/</span><span class="dv">60000</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Longest Song Minutes</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">max</span>(duration_ms)<span class="sc">/</span><span class="dv">60000</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Average Song Minutes</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(duration_ms)<span class="sc">/</span><span class="dv">60000</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">|&gt;</span> </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">as.character</span>(<span class="fu">round</span>(value, <span class="dv">2</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Number of Songs</td>
+<td style="text-align: left;">258</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Albums Released</td>
+<td style="text-align: left;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Earliest Release</td>
+<td style="text-align: left;">2006</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Most Recent Release</td>
+<td style="text-align: left;">2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Songs Featuring Other Artists</td>
+<td style="text-align: left;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Songs with Explicit Labels</td>
+<td style="text-align: left;">54</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Shortest Song Minutes</td>
+<td style="text-align: left;">1.79</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Longest Song Minutes</td>
+<td style="text-align: left;">10.22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Average Song Minutes</td>
+<td style="text-align: left;">3.96</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
+</section>
+<section id="metrics" class="level2">
+<h2 class="anchored" data-anchor-id="metrics">Metrics</h2>
 <p>Some of the information is obvious, but others I had to do some exploring to learn more about. Let’s review:</p>
 <p><em>danceability:</em> Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.</p>
 <p><em>energy:</em> Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.</p>
@@ -283,143 +454,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>liveness:</em> Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.</p>
 <p><em>valence:</em> A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g.&nbsp;happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g.&nbsp;sad, depressed, angry).</p>
 <p><em>tempo:</em> The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.</p>
-<p>One very important piece of information that we are not allowed to access from Spotify, for some unknown but infuriating nonetheless reason, is playback or number of streams. We can get it for our own account (maybe I’ll do that another time), but not for all users ever. But….</p>
-<p>It’s hard to fight when thе fight ain’t fair We’re getting stronger now, find things they never found They might be bigger but we’re faster and never scared</p>
-<p>So, yes, we can get streaming info. It’s just a bit of an adventure into Wonderland! I found and subscribed to a potentially-sketchy web API… https://rapidapi.com/developer/dashboard</p>
-<p>Now, I can pull streaming/playback info (caveat, only for 20 songs per day). So, this project will take a while to complete for streaming info. Unless Spotify allows us to pull streaming info for songs some time soon, which is doubtful, I’ll keep using this API I’m now subscribed to.</p>
-<p>The following code queries the database (tbd on when that playback info is backdated?) using the track_id.</p>
+</section>
+<section id="taylors-version-vs.-not-taylors-version" class="level2">
+<h2 class="anchored" data-anchor-id="taylors-version-vs.-not-taylors-version">Taylor’s Version vs.&nbsp;Not(?) Taylor’s Version</h2>
+<p>For my first bit of exploration, I’m wondering how much a difference Taylor made in how Taylory Taylor is.</p>
+<p>First, let’s add a boolean that tells us if a song is Taylor’s Version. Dirty data problem 1 of ???: tick marks vs.&nbsp;apostrophes. And this is why we use unicode, friends.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># queryString &lt;- list(spotify_track_id = "XXXXXXXXXX")</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># response &lt;- VERB("GET", </span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                  url, </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                  query = queryString, </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                  add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938', </span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                              'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                  content_type("application/octet-stream"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="ot">&lt;-</span> swifty <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">isTV =</span> <span class="fu">str_detect</span>(track_name, <span class="st">"Taylor's Version|Taylor’s Version"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>test for Lavender Haze</p>
-<p>track id = 24emu3sabKISjRkrys28jq</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># queryString &lt;- list(spotify_track_id = "24emu3sabKISjRkrys28jq")</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># # response &lt;- VERB("GET", </span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># #                  url, </span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># #                  query = queryString, </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># #                  add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938', </span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># #                              'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># #                  content_type("application/octet-stream"))</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># content(response, "text")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now that we have TV as it’s own variable, we can make our data one step closer to at least first normal form (https://www.geeksforgeeks.org/normal-forms-in-dbms/) by making sure that track name contains only one type of information: the track name.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Which results in a text list containing (among other things) the track_id and stream number, which we can add to our file somewhat manually, like so:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># track_plays[4, 3] &lt;- content(response)[4][[1]]</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># track_plays[4, 4] &lt;- date()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-caption-container flex-fill">
+Tip: stringr
 </div>
-<p>Of course I’d prefer not to do that for 465 songs, so let’s loop that shit.</p>
-<p>First, we want to set up a subset for N tracks that we want to get playback info for, so we don’t break the bank ($.50 per additional API call after 20… that’s more money than I have in my bank account!!!). Then we send that subset into the loop, get playback info for the track, add plaayback info and the date it was accessed to our track_plays file, rinse and repeat.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># url &lt;- "https://spotify-track-streams-playback-count1.p.rapidapi.com/tracks/spotify_track_streams"</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># no_plays &lt;- track_plays |&gt; </span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(is.na(plays)) |&gt; </span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   head(6)</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># for(t in 1:nrow(no_plays)){</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   track &lt;- no_plays[t, 1]</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   queryString &lt;- list(spotify_track_id = track$track_id)</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   response &lt;- VERB("GET",</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#                    url,</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#                    query = queryString,</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#                    add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938',</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#                                'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#                    content_type("application/octet-stream"))</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   track_plays[which(track_plays$track_id==track$track_id), 3] &lt;- content(response)[4][[1]]</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   track_plays[which(track_plays$track_id==track$track_id), 4] &lt;- date()</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co"># in case need to do a manual entry </span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#track_plays[which(track_plays$track_id=="0GKDhq6ZbmSbRHd3eyGlB7"), 3] &lt;- 229475778</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>I then write this file out to a csv to store it after each day’s API access is maxed so I can read it in and add more data the next day (so long as I remember to do so). At this rate, it will take probably a month (if I am diligent and make minimal errors) to get all of the stream data in.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>track_plays</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 465 × 4
-   track_id               track_name                               plays date_…¹
-   &lt;chr&gt;                  &lt;chr&gt;                                    &lt;dbl&gt; &lt;chr&gt;  
- 1 24emu3sabKISjRkrys28jq Lavender Haze                           4.40e8 Thu Ju…
- 2 6qxvy9Pe4RJIq5JBVbbwbS Maroon                                 NA      Thu Ju…
- 3 5qIHFdkW6phMsTZlN2g8Lc Anti-Hero                              NA      Thu Ju…
- 4 7GA86Uo2jYbj8vIXe2nyWd Snow On The Beach (feat. Lana Del Rey)  3.01e8 Thu Ju…
- 5 6PQOU00xWNrGwCZzboriXy You're On Your Own, Kid                NA      Thu Ju…
- 6 4eKMqf9ZMSclDX7V9Ptg7x Midnight Rain                          NA      Thu Ju…
- 7 7oomkQSYf1ia2VnVEWfFIU Question...?                           NA      Thu Ju…
- 8 0GKDhq6ZbmSbRHd3eyGlB7 Vigilante Shit                         NA      Thu Ju…
- 9 0VpF6RLdCfPIeYRwMu4tZK Bejeweled                              NA      Thu Ju…
-10 4bBDkw2KBMX0tcgAaXC83Q Labyrinth                              NA      Thu Ju…
-# … with 455 more rows, and abbreviated variable name ¹​date_retrieved</code></pre>
+<div class="callout-body-container callout-body">
+<p><a href="https://stringr.tidyverse.org/">Stringr</a> is one of my favorite tools in the tidyverse, especially for dealing with any sort of text data. Here I used:</p>
+<ul>
+<li><code>str_remove()</code> to remove (Taylor’s Version) from song titles to better group them later</li>
+<li><code>str_squish()</code> to remove any whitespace from the start and end, and reduce any double spaces within a song to a single space</li>
+<li><code>str_to_lower()</code> is the cute little sister of <code>str_to_upper()</code> and converts characters to lowercase</li>
+<li><code>str_replace_all()</code> replaces all of the target string (in this case all punctuation) with the replacement string (in this case nothingness)</li>
+</ul>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(track_plays, <span class="st">"track_plays.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="ot">&lt;-</span> swifty <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">track_name =</span> <span class="fu">str_remove</span>(track_name, <span class="st">"</span><span class="sc">\\</span><span class="st">(Taylor's Version</span><span class="sc">\\</span><span class="st">)|</span><span class="sc">\\</span><span class="st">(Taylor’s Version</span><span class="sc">\\</span><span class="st">)"</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">track_name =</span> <span class="fu">str_squish</span>(track_name),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">track_name =</span> <span class="fu">str_to_lower</span>(track_name),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">track_name =</span> <span class="fu">str_replace_all</span>(track_name, <span class="st">"[[:punct:]]"</span>, <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To bring it all full circle, we can also add track_plays to the swifty data!!!</p>
+<p>Now we can grab just our songs that have a TV and a no-TV.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="ot">&lt;-</span> <span class="fu">left_join</span>(swifty, track_plays, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"track_name"</span>, <span class="st">"track_id"</span>))</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(swifty)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 465
-Columns: 41
-$ artist_name                  &lt;chr&gt; "Taylor Swift", "Taylor Swift", "Taylor S…
-$ artist_id                    &lt;chr&gt; "06HL4z0CvFAxyc27GXpf02", "06HL4z0CvFAxyc…
-$ album_id                     &lt;chr&gt; "1fnJ7k0bllNfL1kVdNVW1A", "1fnJ7k0bllNfL1…
-$ album_type                   &lt;chr&gt; "album", "album", "album", "album", "albu…
-$ album_images                 &lt;list&gt; [&lt;data.frame[3 x 3]&gt;], [&lt;data.frame[3 x …
-$ album_release_date           &lt;chr&gt; "2023-05-26", "2023-05-26", "2023-05-26",…
-$ album_release_year           &lt;dbl&gt; 2023, 2023, 2023, 2023, 2023, 2023, 2023,…
-$ album_release_date_precision &lt;chr&gt; "day", "day", "day", "day", "day", "day",…
-$ danceability                 &lt;dbl&gt; 0.735, 0.650, 0.637, 0.653, 0.694, 0.654,…
-$ energy                       &lt;dbl&gt; 0.454, 0.397, 0.649, 0.331, 0.386, 0.372,…
-$ key                          &lt;int&gt; 7, 7, 4, 9, 2, 0, 7, 4, 7, 0, 8, 0, 4, 5,…
-$ loudness                     &lt;dbl&gt; -10.516, -8.237, -6.590, -13.534, -10.312…
-$ mode                         &lt;int&gt; 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1,…
-$ speechiness                  &lt;dbl&gt; 0.0876, 0.0365, 0.0584, 0.0390, 0.0597, 0…
-$ acousticness                 &lt;dbl&gt; 0.2360, 0.0609, 0.1150, 0.7050, 0.4230, 0…
-$ instrumentalness             &lt;dbl&gt; 1.13e-03, 1.40e-06, 1.22e-06, 1.30e-03, 1…
-$ liveness                     &lt;dbl&gt; 0.1330, 0.0890, 0.1470, 0.1160, 0.1260, 0…
-$ valence                      &lt;dbl&gt; 0.0751, 0.0382, 0.4970, 0.1660, 0.3900, 0…
-$ tempo                        &lt;dbl&gt; 97.043, 108.055, 96.935, 110.014, 120.044…
-$ track_id                     &lt;chr&gt; "24emu3sabKISjRkrys28jq", "6qxvy9Pe4RJIq5…
-$ analysis_url                 &lt;chr&gt; "https://api.spotify.com/v1/audio-analysi…
-$ time_signature               &lt;int&gt; 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,…
-$ artists                      &lt;list&gt; [&lt;data.frame[1 x 6]&gt;], [&lt;data.frame[1 x …
-$ available_markets            &lt;list&gt; &lt;"AR", "AU", "AT", "BE", "BO", "BR", "BG…
-$ disc_number                  &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-$ duration_ms                  &lt;int&gt; 202395, 218270, 200690, 256124, 194206, 1…
-$ explicit                     &lt;lgl&gt; TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, TR…
-$ track_href                   &lt;chr&gt; "https://api.spotify.com/v1/tracks/24emu3…
-$ is_local                     &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,…
-$ track_name                   &lt;chr&gt; "Lavender Haze", "Maroon", "Anti-Hero", "…
-$ track_preview_url            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-$ track_number                 &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13…
-$ type                         &lt;chr&gt; "track", "track", "track", "track", "trac…
-$ track_uri                    &lt;chr&gt; "spotify:track:24emu3sabKISjRkrys28jq", "…
-$ external_urls.spotify        &lt;chr&gt; "https://open.spotify.com/track/24emu3sab…
-$ album_name                   &lt;chr&gt; "Midnights (The Til Dawn Edition)", "Midn…
-$ key_name                     &lt;chr&gt; "G", "G", "E", "A", "D", "C", "G", "E", "…
-$ mode_name                    &lt;chr&gt; "minor", "major", "major", "major", "majo…
-$ key_mode                     &lt;chr&gt; "G minor", "G major", "E major", "A major…
-$ plays                        &lt;dbl&gt; 440003544, NA, NA, 300605971, NA, NA, NA,…
-$ date_retrieved               &lt;chr&gt; "Thu Jun  8 14:59:43 2023", "Thu Jun  8 1…</code></pre>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>songs_with_tvs <span class="ot">&lt;-</span> swifty <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(track_name) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">hasTV =</span> <span class="fu">sum</span>(isTV)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> hasTV <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s take a look at danceability first. Looks like there is a general trend for Taylor’s Version of songs to be less danceable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(track_name <span class="sc">%in%</span> songs_with_tvs<span class="sc">$</span>track_name) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(track_name, isTV) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">dance =</span> <span class="fu">mean</span>(danceability)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> isTV, <span class="at">y =</span> dance, <span class="at">group =</span> track_name)) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <hr>
-<p>Giving credit where credit is VERY due:</p>
-<p>https://shaynak.github.io/taylor-swift/ – while I’m pretty confident in my brain’s ability to store endless lyrics, this website made possible all of the lyrics and references found throughout this project</p>
+<p>References:</p>
+<p>– while I’m pretty confident in my brain’s ability to store endless lyrics, <a href="https://shaynak.github.io/taylor-swift/">this website</a> made possible all of the lyrics and references found throughout this project</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

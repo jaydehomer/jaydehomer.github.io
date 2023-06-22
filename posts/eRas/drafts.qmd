@@ -1,0 +1,109 @@
+
+## Plays 
+```{r include = FALSE}
+track_plays <- read_csv("track_plays.csv", col_names = TRUE) |> 
+  select(-1)
+# track_plays <- swifty |> 
+#   select(track_id, track_name) |> 
+#   add_column(plays = NA,
+#              date_retrieved = date())
+```
+
+One very important piece of information that we are not allowed to access from Spotify, for some unknown but infuriating nonetheless reason, is playback or number of streams. We can get it for our own account (maybe I'll do that another time), but not for all users ever. But....
+
+It's hard to fight when thе fight ain't fair
+We're getting stronger now, find things they never found
+They might be bigger but we're faster and never scared
+
+So, yes, we can get streaming info. It's just a bit of an adventure into Wonderland! I found and subscribed to a potentially-sketchy web API... https://rapidapi.com/developer/dashboard
+
+Now, I can pull streaming/playback info (caveat, only for 20 songs per day). So, this project will take a while to complete for streaming info. Unless Spotify allows us to pull streaming info for songs some time soon, which is doubtful, I'll keep using this API I'm now subscribed to.
+
+The following code queries the database (tbd on when that playback info is backdated?) using the track_id. 
+
+```{r}
+# queryString <- list(spotify_track_id = "XXXXXXXXXX")
+# 
+# response <- VERB("GET", 
+#                  url, 
+#                  query = queryString, 
+#                  add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938', 
+#                              'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),
+#                  content_type("application/octet-stream"))
+```
+
+test for Lavender Haze
+
+track id = 24emu3sabKISjRkrys28jq
+
+```{r}
+# queryString <- list(spotify_track_id = "24emu3sabKISjRkrys28jq")
+# 
+# # response <- VERB("GET", 
+# #                  url, 
+# #                  query = queryString, 
+# #                  add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938', 
+# #                              'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),
+# #                  content_type("application/octet-stream"))
+# 
+# content(response, "text")
+```
+
+Which results in a text list containing (among other things) the track_id and stream number, which we can add to our file somewhat manually, like so: 
+
+```{r}
+# track_plays[4, 3] <- content(response)[4][[1]]
+# track_plays[4, 4] <- date()
+```
+
+Of course I'd prefer not to do that for 465 songs, so let's loop that shit. 
+
+First, we want to set up a subset for N tracks that we want to get playback info for, so we don't break the bank ($.50 per additional API call after 20... that's more money than I have in my bank account!!!). Then we send that subset into the loop, get playback info for the track, add plaayback info and the date it was accessed to our track_plays file, rinse and repeat. 
+
+```{r}
+# url <- "https://spotify-track-streams-playback-count1.p.rapidapi.com/tracks/spotify_track_streams"
+# 
+# no_plays <- track_plays |> 
+#   filter(is.na(plays)) |> 
+#   head(6)
+# 
+# for(t in 1:nrow(no_plays)){
+#   track <- no_plays[t, 1]
+#   queryString <- list(spotify_track_id = track$track_id)
+#   response <- VERB("GET",
+#                    url,
+#                    query = queryString,
+#                    add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938',
+#                                'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),
+#                    content_type("application/octet-stream"))
+#   track_plays[which(track_plays$track_id==track$track_id), 3] <- content(response)[4][[1]]
+#   track_plays[which(track_plays$track_id==track$track_id), 4] <- date()
+# }
+
+# in case need to do a manual entry 
+#track_plays[which(track_plays$track_id=="0GKDhq6ZbmSbRHd3eyGlB7"), 3] <- 229475778
+```
+
+I then write this file out to a csv to store it after each day's API access is maxed so I can read it in and add more data the next day (so long as I remember to do so). At this rate, it will take probably a month (if I am diligent and make minimal errors) to get all of the stream data in. 
+
+```{r}
+track_plays
+```
+
+```{r}
+write.csv(track_plays, "track_plays.csv")
+```
+
+To bring it all full circle, we can also add track_plays to the swifty data!!!
+
+```{r}
+swifty <- left_join(swifty, track_plays, by = c("track_name", "track_id"))
+glimpse(swifty)
+```
+
+------------
+
+References: 
+
+https://shaynak.github.io/taylor-swift/ -- while I'm pretty confident in my brain's ability to store endless lyrics, this website made possible all of the lyrics and references found throughout this project
+

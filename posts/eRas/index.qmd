@@ -13,6 +13,7 @@ So, R you ready for it?
 **DISCLAIMER:** Obviously I'm a *very busy important person* so I'm not going to answer ALL of your questions today, but I'll try my very best to keep coming back and working on this, so please come back and check it out. 
 
 ```{r include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 # super secret secrets
 Sys.setenv(SPOTIFY_CLIENT_ID = 'd02bf172d10540daa563dfb3671241f0')
 Sys.setenv(SPOTIFY_CLIENT_SECRET = 'c6ea7afd62114def98b269c6b160721b')
@@ -23,29 +24,65 @@ Here are the packages we'll be using.
 ```{r}
 #install.packages("spotifyr")
 #install.packages("httr")
-
 library(spotifyr)
 library(tidyverse)
 library(knitr)
 library(httr)
+library(lubridate)
 ```
 
+## Spotify API
+
 Using (Spotify's Web API)[https://developer.spotify.com/documentation/web-api], we can access all sorts of fun information about an artist. If you're following along at home and wondering if this is the explicit version with all those Xs below, no. I'm just avoiding giving you my super secret client_id and client_secret. You can get your own by visiting your Spotify developer dashboard. 
+
+```{r}
+# albums we/I don't want included in the data
+ew_david <- c("Live From Clear Channel Stripped 2008", 
+               "Speak Now World Tour Live",
+              "reputation Stadium Tour Surprise Song Playlist")
+```
+
 
 ```{r}
 #Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXX')
 #Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXX')
 access_token <- get_spotify_access_token()
-swifty <- get_artist_audio_features('taylor swift')
+swifty <- get_artist_audio_features('taylor swift') |> 
+  filter(!album_name %in% ew_david)
 ```
 
 To give you an idea of the sort of information we now have at our fingertips, here's an example row of data, for everyone's favorite song: 
 
 ```{r}
 swifty |> 
-  filter(track_name == "All Too Well (10 Minute Version) (Taylor's Version) (From The Vault)") |> 
+  filter(track_name == 
+           "All Too Well (10 Minute Version) (Taylor's Version) (From The Vault)") |> 
   kable()
 ```
+
+## Summary 
+
+You may already know this, but here's a summary of Taylor's discography. 
+
+```{r}
+swifty |> 
+  summarize(`Number of Songs` = n_distinct(track_name),
+            `Albums Released` = n_distinct(album_name),
+            `Earliest Release` = min(year(album_release_date)),
+            `Most Recent Release` = max(year(album_release_date)),
+            `Songs Featuring Other Artists` = sum(str_detect(track_name, "feat")),
+            `Songs with Explicit Labels` = sum(explicit),
+            `Shortest Song Minutes` = min(duration_ms)/60000,
+            `Longest Song Minutes` = max(duration_ms)/60000,
+            `Average Song Minutes` = mean(duration_ms)/60000
+            ) |> 
+  pivot_longer(cols = everything()) |> 
+  mutate(value = as.character(round(value, 2))) |> 
+  kable()
+```
+
+
+## Metrics
 
 Some of the information is obvious, but others I had to do some exploring to learn more about. Let's review: 
 
@@ -90,27 +127,36 @@ Some of the information is obvious, but others I had to do some exploring to lea
 # - tours
 ```
 
-
 ## Taylor's Version vs. Not(?) Taylor's Version
 
-I'm wondering how much a difference Taylor made in how Taylor Taylor is. 
+For my first bit of exploration, I'm wondering how much a difference Taylor made in how Taylory Taylor is. 
 
-First, let's add a boolean that tells us if a song is Taylor's Version. Beware of sneaking apostrophes vs tick marks...
+First, let's add a boolean that tells us if a song is Taylor's Version. Dirty data problem 1 of ???: tick marks vs. apostrophes. And this is why we use unicode, friends. 
 
 ```{r}
-swifty |> 
-  mutate(isTV = str_detect(track_name, "Taylor's Version|Taylor’s Version")) -> 
-  swifty
+swifty <- swifty |> 
+  mutate(isTV = str_detect(track_name, "Taylor's Version|Taylor’s Version")) 
 ```
 
 Now that we have TV as it's own variable, we can make our data one step closer to at least first normal form (https://www.geeksforgeeks.org/normal-forms-in-dbms/) by making sure that track name contains only one type of information: the track name.  
+
+::: {.callout-tip}
+## Tip: stringr
+
+[Stringr](https://stringr.tidyverse.org/) is one of my favorite tools in the tidyverse, especially for dealing with any sort of text data. Here I used: 
+
+- `str_remove()` to remove (Taylor's Version) from song titles to better group them later
+- `str_squish()` to remove any whitespace from the start and end, and reduce any double spaces within a song to a single space
+- `str_to_lower()` is the cute little sister of `str_to_upper()` and converts characters to lowercase
+- `str_replace_all()` replaces all of the target string (in this case all punctuation) with the replacement string (in this case nothingness)
+:::
+
 ```{r}
-swifty |> 
+swifty <- swifty |> 
   mutate(track_name = str_remove(track_name, "\\(Taylor's Version\\)|\\(Taylor’s Version\\)"),
          track_name = str_squish(track_name),
          track_name = str_to_lower(track_name),
-         track_name = str_replace_all(track_name, "[[:punct:]]", "")) -> 
-  swifty
+         track_name = str_replace_all(track_name, "[[:punct:]]", ""))
 ```
 
 Now we can grab just our songs that have a TV and a no-TV. 
@@ -123,6 +169,8 @@ songs_with_tvs <- swifty |>
   filter(n > 1 & hasTV > 0)
 ```
 
+Let's take a look at danceability first. Looks like there is a general trend for Taylor's Version of songs to be less danceable. 
+
 ```{r}
 swifty |> 
   filter(track_name %in% songs_with_tvs$track_name) |> 
@@ -134,115 +182,9 @@ swifty |>
 ```
 
 
-## Plays 
-
-
-
-
-```{r include = FALSE}
-track_plays <- read_csv("track_plays.csv", col_names = TRUE) |> 
-  select(-1)
-# track_plays <- swifty |> 
-#   select(track_id, track_name) |> 
-#   add_column(plays = NA,
-#              date_retrieved = date())
-```
-
-One very important piece of information that we are not allowed to access from Spotify, for some unknown but infuriating nonetheless reason, is playback or number of streams. We can get it for our own account (maybe I'll do that another time), but not for all users ever. But....
-
-It's hard to fight when thе fight ain't fair
-We're getting stronger now, find things they never found
-They might be bigger but we're faster and never scared
-
-So, yes, we can get streaming info. It's just a bit of an adventure into Wonderland! I found and subscribed to a potentially-sketchy web API... https://rapidapi.com/developer/dashboard
-
-Now, I can pull streaming/playback info (caveat, only for 20 songs per day). So, this project will take a while to complete for streaming info. Unless Spotify allows us to pull streaming info for songs some time soon, which is doubtful, I'll keep using this API I'm now subscribed to.
-
-The following code queries the database (tbd on when that playback info is backdated?) using the track_id. 
-
-```{r}
-# queryString <- list(spotify_track_id = "XXXXXXXXXX")
-# 
-# response <- VERB("GET", 
-#                  url, 
-#                  query = queryString, 
-#                  add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938', 
-#                              'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),
-#                  content_type("application/octet-stream"))
-```
-
-test for Lavender Haze
-
-track id = 24emu3sabKISjRkrys28jq
-
-```{r}
-# queryString <- list(spotify_track_id = "24emu3sabKISjRkrys28jq")
-# 
-# # response <- VERB("GET", 
-# #                  url, 
-# #                  query = queryString, 
-# #                  add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938', 
-# #                              'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),
-# #                  content_type("application/octet-stream"))
-# 
-# content(response, "text")
-```
-
-Which results in a text list containing (among other things) the track_id and stream number, which we can add to our file somewhat manually, like so: 
-
-```{r}
-# track_plays[4, 3] <- content(response)[4][[1]]
-# track_plays[4, 4] <- date()
-```
-
-Of course I'd prefer not to do that for 465 songs, so let's loop that shit. 
-
-First, we want to set up a subset for N tracks that we want to get playback info for, so we don't break the bank ($.50 per additional API call after 20... that's more money than I have in my bank account!!!). Then we send that subset into the loop, get playback info for the track, add plaayback info and the date it was accessed to our track_plays file, rinse and repeat. 
-
-```{r}
-# url <- "https://spotify-track-streams-playback-count1.p.rapidapi.com/tracks/spotify_track_streams"
-# 
-# no_plays <- track_plays |> 
-#   filter(is.na(plays)) |> 
-#   head(6)
-# 
-# for(t in 1:nrow(no_plays)){
-#   track <- no_plays[t, 1]
-#   queryString <- list(spotify_track_id = track$track_id)
-#   response <- VERB("GET",
-#                    url,
-#                    query = queryString,
-#                    add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938',
-#                                'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),
-#                    content_type("application/octet-stream"))
-#   track_plays[which(track_plays$track_id==track$track_id), 3] <- content(response)[4][[1]]
-#   track_plays[which(track_plays$track_id==track$track_id), 4] <- date()
-# }
-
-# in case need to do a manual entry 
-#track_plays[which(track_plays$track_id=="0GKDhq6ZbmSbRHd3eyGlB7"), 3] <- 229475778
-```
-
-I then write this file out to a csv to store it after each day's API access is maxed so I can read it in and add more data the next day (so long as I remember to do so). At this rate, it will take probably a month (if I am diligent and make minimal errors) to get all of the stream data in. 
-
-```{r}
-track_plays
-```
-
-```{r}
-write.csv(track_plays, "track_plays.csv")
-```
-
-To bring it all full circle, we can also add track_plays to the swifty data!!!
-
-```{r}
-swifty <- left_join(swifty, track_plays, by = c("track_name", "track_id"))
-glimpse(swifty)
-```
-
 ------------
 
 References: 
 
-https://shaynak.github.io/taylor-swift/ -- while I'm pretty confident in my brain's ability to store endless lyrics, this website made possible all of the lyrics and references found throughout this project
+ -- while I'm pretty confident in my brain's ability to store endless lyrics, [this website](https://shaynak.github.io/taylor-swift/) made possible all of the lyrics and references found throughout this project
 
