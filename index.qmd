@@ -26,9 +26,11 @@ page-layout: full
 <meta http-equiv='expires' content='0'> 
 <meta http-equiv='pragma' content='no-cache'>
 
-Hi, my name is Jayde. I have always loved consuming stories and solving puzzles. Unfortunately, neither of those pay the bills. Unless...
+Hi, my name is Jayde. I have always loved consuming stories and solving puzzles. Unfortunately, neither of those pay my dog's dermatologist bills or the rent. Unless...
 
 *data is the puzzle and I tell its story.*
+
+You're probably here because you want to know more about what I'm up to. Below you can find a quick overview of some of the projects I'm currently working on. You can also check out my sort-of blog where I play around with fun data, explain parts of my process, and answer questions about things I'm personally interested in; you might learn something about Taylor Swift, birds, books, dogs, or a cool package in R. Have fun exploring and don't hesitate to reach out with questions, job offers, or fun conversations!
 
 ## Current Projects
 
@@ -50,14 +52,18 @@ Using NLP and machine learning methods, I'm exploring student and instructor com
 
 ## Experience
 
-I work with Rebecca Treiman and Brett Kessler studying children's spelling patterns in children and adults' spelling. 
+I work with [Rebecca Treiman and Brett Kessler](https://sites.wustl.edu/readingandlanguagelab/) studying children's spelling patterns in children and adults' spelling. 
 
-I also work with Sally Wu at Wash U's Center for Teaching and Learning where I explore the faculty, staff, and students' use of licensed educational technologies. 
+I also work with [Sally Wu at Wash U's Center for Teaching and Learning](https://ctl.wustl.edu/edtech/) where I explore the faculty, staff, and students' use of licensed educational technologies. 
 
-I teach stats with R as a private tutor. 
+I teach stats with R as a [private tutor](https://www.wyzant.com/Tutors/Jayde). 
+
+In my potpourri of life experiences I've worked in food service, warehousing, transportation, and childcare industries.
 
 ## Education 
 
-I hold a Bachelor's degrees in Brain & Cognitive Sciences and Linguistics (University of Rochester), a Master's degree in Psychology, (almost) a PhD in Psychology (Washington University in St. Louis).
+I hold Bachelor's degrees in Brain & Cognitive Sciences and Linguistics (University of Rochester), a Master's degree in Psychology, and (almost) a PhD in Psychology (Washington University in St. Louis). 
 
-![](pics/bookstorejayde.jpg){width = 20%}
+
+![](pics/poster_pic.jpg){width=20%}
+Me at the Graduate Student Research Symposium (2023) discussing some preliminary findings of my dissertation project with a judge. 

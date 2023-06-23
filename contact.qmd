@@ -2,5 +2,15 @@
 title: "CV/Contact"
 ---
 
-email: jayde dot homer at gmail dot com
+## CV
 
+[Click here to download my CV.](/homer_cv.pdf) <i class="fa-regular fa-file-arrow-down"></i> 
+
+## Contact Info 
+
+*email:* jayde dot homer at gmail dot com
+*uni email:* jaydehomer at wustl dot edu
+
+If you can't find me, check my local bookstores: [Left Bank Books](https://www.left-bank.com/) or [Subteranean](https://store.subbooks.com/).
+
+![](pics/bookstorejayde.jpg){width=20%}

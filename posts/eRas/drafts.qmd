@@ -1,6 +1,14 @@
+---
+execute:
+  eval: false
+---
+
 
 ## Plays 
 ```{r include = FALSE}
+
+library(httr) 
+
 track_plays <- read_csv("track_plays.csv", col_names = TRUE) |> 
   select(-1)
 # track_plays <- swifty |> 
