@@ -10,4 +10,4 @@ listing:
 page-layout: full
 ---
 
-Here are some of my personal projects, tutorials, and blog(ish).
+Here are some snippets of my work projects and my in-depth personal projects, tutorials, and blog.

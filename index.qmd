@@ -1,8 +1,8 @@
 ---
-title: "About Me"
-image: profile.png
+title: "Hi, I'm Jayde!"
+image: profile_test.png
 about:
-  template: jolla
+  template: marquee
   links:
     - icon: linkedin
       text: LinkedIn
@@ -26,44 +26,37 @@ page-layout: full
 <meta http-equiv='expires' content='0'> 
 <meta http-equiv='pragma' content='no-cache'>
 
-Hi, my name is Jayde. I have always loved consuming stories and solving puzzles. Unfortunately, neither of those pay my dog's dermatologist bills or the rent. Unless...
 
-*data is the puzzle and I tell its story.*
+I have always loved consuming stories and solving puzzles. Unfortunately, neither of those pay my dog's dermatology bills or the rent. Unless...
 
-You're probably here because you want to know more about what I'm up to. Below you can find a quick overview of some of the projects I'm currently working on. You can also check out my sort-of blog where I play around with fun data, explain parts of my process, and answer questions about things I'm personally interested in; you might learn something about Taylor Swift, birds, books, dogs, or a cool package in R. Have fun exploring and don't hesitate to reach out with questions, job offers, or fun conversations!
+<p class="text-right" style="background-color: aliceblue"><b>data is the puzzle and I tell its story.</b></p>
 
-## Current Projects
+You're probably here because you want to know more about what I'm up to. You can head over to my [Projects](https://jaydehomer.github.io/projects.html) for a quick overview of my current academic projects and check out my blog, where I play around with fun data, explain parts of my process, and answer questions about things I'm personally interested in; you might learn something about Taylor Swift, birds, books, [dogs](https://jaydehomer.github.io/zaya.html), or a cool package in R. Have fun exploring and don't hesitate to [reach out](https://jaydehomer.github.io/contact.html) with questions, job offers, or fun conversations!
 
-### Understanding Patterns in Preschoolers' Spellings
-
-In my dissertation I am identifying patterns that drive spellings before children have learned to spell. For example, children tend to use letters that are more frequently talked about, letters from their name, and letters that are at the beginning of the alphabet.
-
-### Individual Differences 9-month-olds' Word Processing, Home Language Environment, and Vocabulary
-
-With Jill Lany and Abbie Thompson, I explored potential predictors of infants' lexical processing efficiency. Stay tuned for our article, coming soon in 2023!
-
-### Parameterized Reports for Department Use of Ed. Tech.
-
-To evaluate student and faculty use of licensed technologies at Wash U, I've developed a series of parameterized reports that provide engagement insights over desired departments, semesters, metrics, and tools. 
-
-### Conversation Starters in a Social Annotation Environment
-
-Using NLP and machine learning methods, I'm exploring student and instructor comments on course materials annotated using Hypothes.is to determine the features of primary-level comments that lead to productive dialogue among peers. 
+----
 
 ## Experience
 
-I work with [Rebecca Treiman and Brett Kessler](https://sites.wustl.edu/readingandlanguagelab/) studying children's spelling patterns in children and adults' spelling. 
+**Graduate Student Researcher** | [Rebecca Treiman and Brett Kessler](https://sites.wustl.edu/readingandlanguagelab/) | studying patterns in children and adults' spelling
 
-I also work with [Sally Wu at Wash U's Center for Teaching and Learning](https://ctl.wustl.edu/edtech/) where I explore the faculty, staff, and students' use of licensed educational technologies. 
+**Ed. Tech. Data Fellow** | [Sally Wu at Wash U's Center for Teaching and Learning](https://ctl.wustl.edu/edtech/) | exploring  faculty, staff, and students' use of licensed educational technologies
 
-I teach stats with R as a [private tutor](https://www.wyzant.com/Tutors/Jayde). 
+**Teacher** | currently [tutor](https://www.wyzant.com/Tutors/Jayde) stats with R | taught developmental psychology course and assisted in 10+ courses
 
-In my potpourri of life experiences I've worked in food service, warehousing, transportation, and childcare industries.
+**Etc** | potpourri of life experiences in food service, warehousing, transportation, healthcare finance, and childcare industries
+
+----
 
 ## Education 
 
-I hold Bachelor's degrees in Brain & Cognitive Sciences and Linguistics (University of Rochester), a Master's degree in Psychology, and (almost) a PhD in Psychology (Washington University in St. Louis). 
+**BS** | Brain & Cognitive Sciences | University of Rochester
 
+**BA** | Linguistics | University of Rochester 
 
-![](pics/poster_pic.jpg){width=20%}
-Me at the Graduate Student Research Symposium (2023) discussing some preliminary findings of my dissertation project with a judge. 
+**MA** | Psychological & Brain Sciences | Washington University in St. Louis
+
+**PhD** | Psychological & Brain Sciences | Washington University in St. Louis | *ABD*
+
+**Etc** | Certificate in Quantitative Analysis (Wash U); SQL Server & Databases (LaunchCode)
+
+----

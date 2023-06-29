@@ -1,0 +1,11 @@
+---
+title: "Parameterized Reports for Department Use of Ed. Tech."
+author: "Jayde Homer"
+date: "2022-06-01"
+categories: [work]
+image: "parameters.png"
+---
+
+To evaluate student and faculty use of licensed technologies at Wash U, I used R Markdown to create a series of [parameterized reports](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html) that provide engagement insights over desired departments, semesters, metrics, and tools. 
+
+

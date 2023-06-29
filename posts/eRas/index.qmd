@@ -45,7 +45,18 @@ ew_david <- c("Live From Clear Channel Stripped 2008",
 #Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXX')
 access_token <- get_spotify_access_token()
 swifty <- get_artist_audio_features('taylor swift') |> 
-  filter(!album_name %in% ew_david)
+  # filter out albums we don't want
+  filter(!album_name %in% ew_david) |> 
+  # clean up album names
+  mutate(album_name_og = album_name,
+         album_edition = str_extract_all(album_name, 
+                                         "\\([^()]+\\)|Platinum Edition|\\:+(\\D+)", 
+                                         simplify = TRUE),
+         album_edition = if_else(nchar(album_edition) != 0,
+                                 str_remove_all(album_edition, "\\(|\\)|\\:"),
+                                 "original"),
+         album_name = str_squish(str_remove_all(album_name, 
+                                                "\\([^()]+\\)|Platinum Edition|\\:+(\\D+)")))
 ```
 
 To give you an idea of the sort of information we now have at our fingertips, here's an example row of data, for everyone's favorite song: 
@@ -80,17 +91,17 @@ swifty |>
 
 | Metric Name | Definition | Possible Values |
 |---------|:-----|------:|
-| *danceability*      | how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity   | 0 -- 1 |
-| *energy*     | perceptual measure of intensity and activity by way of dynamic range, perceived loudness, timbre, onset rate, and general entropy  |   0 -- 1 |
-| *key*       | key the track is in   |   standard Pitch Class notation. [E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on](https://en.wikipedia.org/wiki/Pitch_class) |
-| *loudness*      | overall loudness of a track in decibels (dB) averaged across the entire track |  -60 -- 0 db. |
-| *mode*     | modality (major or minor) of a track; the type of scale from which its melodic content is derived  |   major = 1; minor = 0 |
-| *speechiness*       | the presence of spoken words in a track | speech-like recordings are closer to 1.0 (e.g., > 0.66 = tracks made entirely of spoken words, between 0.33 and 0.66 = tracks containing music and speech such as rap music, < 0.33 = tracks mostly music and other non-speech-like sounds |
-| *acousticness*      | confidence measure from 0.0 to 1.0 of whether the track is acoustic |    0 -- 1 |
-| *instrumentalness*     | predicts whether a track contains no vocals; "ooh" and "aah" sounds are treated as instrumental with rap and spoken word tracks clearly "vocal"  |   0 -- 1 (more vocals to less vocals) |
-| *liveness*       | detects the presence of an audience in the recording |  0 -- 1 (> 0.8 indicates strong likelihood of live track) |
-| *valence*      | musical positiveness conveyed by a track  |    0 -- 1 (low valence (e.g., sad, depressed, angry) to high valence (e.g., happy, cheerful, euphoric)) |
-| *tempo*     | overall estimated tempo of a track in beats per minute (BPM)  |  40 -- 200+ |
+| *danceability* | how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity   | 0 -- 1 |
+| *energy* | perceptual measure of intensity and activity by way of dynamic range, perceived loudness, timbre, onset rate, and general entropy | 0 -- 1 |
+| *key* | key the track is in | standard Pitch Class notation. [E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on](https://en.wikipedia.org/wiki/Pitch_class) |
+| *loudness* | overall loudness of a track in decibels (dB) averaged across the entire track | -60 -- 0 db. |
+| *mode* | modality (major or minor) of a track; the type of scale from which its melodic content is derived | major = 1; minor = 0 |
+| *speechiness*  | the presence of spoken words in a track | speech-like recordings are closer to 1.0 (e.g., > 0.66 = tracks made entirely of spoken words, between 0.33 and 0.66 = tracks containing music and speech such as rap music, < 0.33 = tracks mostly music and other non-speech-like sounds |
+| *acousticness* | confidence measure from 0.0 to 1.0 of whether the track is acoustic | 0 -- 1 |
+| *instrumentalness* | predicts whether a track contains no vocals; "ooh" and "aah" sounds are treated as instrumental with rap and spoken word tracks clearly "vocal"  |   0 -- 1 (more vocals to less vocals) |
+| *liveness* | detects the presence of an audience in the recording |  0 -- 1 (> 0.8 indicates strong likelihood of live track) |
+| *valence*  | musical positiveness conveyed by a track | 0 -- 1 (low valence (e.g., sad, depressed, angry) to high valence (e.g., happy, cheerful, euphoric)) |
+| *tempo* | overall estimated tempo of a track in beats per minute (BPM)  |  40 -- 200+ |
 
 : Spotify's Music Metrics
 
@@ -113,9 +124,53 @@ swifty |>
 # - tours
 ```
 
+Setting album colors (courtesy of my best RA Dr. Gabrielle Pfund)
+
+```{r}
+album_colors <- c(
+  `Taylor Swift` = "#99FFCC",
+  `Fearless` = "#FFCC66",
+  `Speak Now` = "#CC66FF",
+  `Red` = "#990000",
+  `1989` = "#99FFFF",
+  `reputation` = "#000000",
+  `Lover` = "#FF99FF",
+  `folklore` = "#CCCCCC",
+  `evermore` = "#FFCC99",
+  `Midnights` = "#000066")
+```
+
+
+
+```{r}
+library(plotly)
+p <- swifty |> 
+  ggplot(aes(x = fct_reorder(album_name_og, album_release_year), y = danceability, 
+             color = album_name)) + 
+  geom_violin(alpha = .2) +
+  geom_point() + 
+  ylim(c(.25, 1)) +
+  theme_minimal() + 
+  scale_color_manual(values=album_colors) + 
+  scale_fill_manual(values=album_colors, ) + 
+  theme(panel.grid.major.x = element_blank()) +
+  theme(legend.title = element_blank()) + 
+  theme(legend.position = 'none') 
+
+ggplotly(p)
+
+```
+
+
+
+
+
+
+
+
 ## Taylor's Version vs. Not(?) Taylor's Version
 
-For my first bit of exploration, I'm wondering how much a difference Taylor made in how Taylory Taylor is. 
+For my next bit of exploration, I'm wondering how much a difference Taylor made in how Taylory Taylor is. 
 
 First, let's add a boolean that tells us if a song is Taylor's Version. Dirty data problem 1 of ???: tick marks vs. apostrophes. And this is why we use [unicode](https://home.unicode.org/), friends. 
 
@@ -158,14 +213,22 @@ songs_with_tvs <- swifty |>
 Let's take a look at danceability first. Looks like there is a general trend for Taylor's Version of songs to be less danceable. 
 
 ```{r}
+
+library(plotly)
+library(GGally)
+library(viridis)
+library(hrbrthemes)
+
 swifty |> 
   filter(track_name %in% songs_with_tvs$track_name) |> 
-  group_by(track_name, isTV) |> 
+  group_by(track_name, isTV, album_name) |> 
   summarize(dance = mean(danceability)) |> 
   ggplot(aes(x = isTV, y = dance, group = track_name)) +
-  geom_point() + 
+  geom_point(aes(color = album_name)) + 
   geom_line(method = "lm")
 ```
+
+Everything will be alright if we just keep dancin' like we're 22!
 
 
 ------------

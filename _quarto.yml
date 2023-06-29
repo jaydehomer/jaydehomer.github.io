@@ -13,6 +13,8 @@ website:
         file: projects.qmd
       - text: "Zaya"
         file: zaya.qmd
+      - text: "Contact"
+        file: contact.qmd
         
 format:
   html:

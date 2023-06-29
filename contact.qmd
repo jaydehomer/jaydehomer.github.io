@@ -4,11 +4,12 @@ title: "CV/Contact"
 
 ## CV
 
-[Click here to download my CV.](/homer_cv.pdf) <i class="fa-regular fa-file-arrow-down"></i> 
+[Click here to download my CV.](/jaydehomer_cv.pdf) <i class="fa-regular fa-file-arrow-down"></i> 
 
 ## Contact Info 
 
 *email:* jayde dot homer at gmail dot com
+
 *uni email:* jaydehomer at wustl dot edu
 
 If you can't find me, check my local bookstores: [Left Bank Books](https://www.left-bank.com/) or [Subteranean](https://store.subbooks.com/).

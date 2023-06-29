@@ -1,0 +1,9 @@
+---
+title: "Conversation Starters in a Social Annotation Environment"
+author: "Jayde Homer"
+date: "2023-03-20"
+categories: [work]
+image: "convo.png"
+---
+
+Using NLP and machine learning methods, I'm exploring student and instructor comments on course materials annotated using Hypothes.is to determine the features of primary-level comments that lead to productive dialogue among peers. 

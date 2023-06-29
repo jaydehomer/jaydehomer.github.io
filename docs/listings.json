@@ -3,7 +3,11 @@
     "listing": "/projects.html",
     "items": [
       "/posts/eRas/drafts.html",
-      "/posts/eRas/index.html"
+      "/posts/cable/index.html",
+      "/posts/eRas/index.html",
+      "/posts/hypothesis/index.html",
+      "/posts/diss/index.html",
+      "/posts/edtech/index.html"
     ]
   }
 ]
