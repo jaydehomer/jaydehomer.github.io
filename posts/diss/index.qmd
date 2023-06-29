@@ -3,7 +3,7 @@ title: "Understanding Patterns in Preschoolers' Spellings"
 author: "Jayde Homer"
 date: "2022-08-01"
 categories: [grad school]
-image: "spelling.jpg"
+image: "spelling.jpeg"
 ---
 
 In my dissertation I am identifying patterns that drive spellings before children have learned to spell. For example, children tend to use letters that are more frequently talked about, letters from their name, and letters that are at the beginning of the alphabet.
@@ -12,4 +12,4 @@ In my dissertation I am identifying patterns that drive spellings before childre
 
 I even presented on my first study at the Graduate Student Research Symposium in April 2023. Here's me discussing my findings with a judge!
 
-(pics/poster_pic.jpg){width=40%}
+![](poster_pic.jpg){width=40%}
