@@ -1,7 +1,7 @@
 ---
 title: "the eras touR"
 author: "Jayde Homer"
-date: "2023-06-06"
+date: "2023-06-29"
 categories: [fun]
 image: "eras.jpg"
 ---
@@ -26,6 +26,10 @@ library(spotifyr) # to access spotify API
 library(tidyverse) # for all things workflow + stringr
 library(knitr) # for pretty-ish tables
 library(lubridate) # for nice date handling 
+library(ggdist) # for distribution plotting
+library(scales) # for plot label troubles
+
+
 ```
 
 ## Spotify API
@@ -72,7 +76,11 @@ swifty |>
 
 You may already know this, but here's a summary of Taylor's discography. 
 
-```{r}
+::: {.panel-tabset}
+
+### All Time
+
+```{r echo = FALSE}
 swifty |> 
   summarize(`Number of Songs` = n_distinct(track_name),
             `Albums Released` = n_distinct(album_name),
@@ -85,9 +93,32 @@ swifty |>
             `Average Song Minutes` = mean(duration_ms)/60000
             ) |> 
   pivot_longer(cols = everything()) |> 
-  mutate(value = as.character(round(value, 2))) |> 
+  mutate(`Fast Fact` = name, 
+         value = as.character(round(value, 2))) |> 
   kable()
 ```
+
+### By Album
+
+```{r echo = FALSE}
+swifty |> 
+  group_by(album_name_og) |> 
+  summarize(`Number of Songs` = n_distinct(track_name),
+            `Release Year` = min(year(album_release_date)),
+            `Songs Featuring Other Artists` = sum(str_detect(track_name, "feat")),
+            `Songs with Explicit Labels` = sum(explicit),
+            `Shortest Song (Minutes)` = min(duration_ms)/60000,
+            `Longest Song (Minutes)` = max(duration_ms)/60000,
+            `Average Song (Minutes)` = mean(duration_ms)/60000
+            ) |> 
+  arrange(`Release Year`) |> 
+  rename(Album = album_name_og) |> 
+  kable(digits = 2)
+```
+
+:::
+
+# Musical Metrics
 
 | Metric Name | Definition | Possible Values |
 |---------|:-----|------:|
@@ -124,7 +155,33 @@ swifty |>
 # - tours
 ```
 
-Setting album colors (courtesy of my best RA Dr. Gabrielle Pfund)
+## Albums and Metrics
+
+Each album defines an era. What defines the album? Let's find out. 
+
+First, to make things a little bit easier, you ought to know that I am collapsing albums. That is, even though there are 2, 3, sometimes 4 versions of each album (looking at you Midnights w/ less Lana, medium Lana, and more Lana), we will be looking at each album as a collection of all of the songs. This isn't the best strategy, but it definitely makes my figures a lot nicer. 
+
+Each album/era is defined by a color. Let's define those here (courtesy of my best RA Dr. Gabrielle Pfund):
+
+<span style="color:#99FFCC">&#9632;</span> Taylor Swift
+
+<span style="color:#FFCC66">&#9632;</span> Fearless
+
+<span style="color:#CC66FF">&#9632;</span> Speak Now
+
+<span style="color:#990000">&#9632;</span> Red
+
+<span style="color:#99FFFF">&#9632;</span> 1989
+
+<span style="color:##000000">&#9632;</span> reputation
+
+<span style="color:#FF99FF">&#9632;</span> Lover
+
+<span style="color:#CCCCCC">&#9632;</span> folklore
+
+<span style="color:#FFCC99">&#9632;</span> evermore
+
+<span style="color:#000066">&#9632;</span> Midnights
 
 ```{r}
 album_colors <- c(
@@ -140,31 +197,122 @@ album_colors <- c(
   `Midnights` = "#000066")
 ```
 
-
+### Danceability 
 
 ```{r}
-library(plotly)
-p <- swifty |> 
-  ggplot(aes(x = fct_reorder(album_name_og, album_release_year), y = danceability, 
-             color = album_name)) + 
-  geom_violin(alpha = .2) +
-  geom_point() + 
-  ylim(c(.25, 1)) +
-  theme_minimal() + 
-  scale_color_manual(values=album_colors) + 
-  scale_fill_manual(values=album_colors, ) + 
-  theme(panel.grid.major.x = element_blank()) +
-  theme(legend.title = element_blank()) + 
-  theme(legend.position = 'none') 
-
-ggplotly(p)
-
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = danceability, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Danceability", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
 ```
 
+### Key
+
+???
+
+### Loudness 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = loudness, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Loudness", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### Mode
+
+???
+
+### Speechiness 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = speechiness, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Speechiness", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### Acousticness 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = acousticness, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Acousticness", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### Instrumentalness 
 
 
 
+### Liveness 
 
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = liveness, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Liveness", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### Valence 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = valence, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Valence", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### tempo 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = tempo, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Tempo", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
 
 
 
@@ -212,30 +360,84 @@ songs_with_tvs <- swifty |>
 
 Let's take a look at danceability first. Looks like there is a general trend for Taylor's Version of songs to be less danceable. 
 
+::: {.callout-note}
+Note: Apparently it would require fundamental changes to ggplot2 [(according to Sir Hadley)](https://github.com/tidyverse/ggplot2/issues/2096), so we cannot use album colors for each facet label without some super hacky workarounds. Maybe ggplot3 will serve us better. 
+:::
+
 ```{r}
-
-library(plotly)
-library(GGally)
-library(viridis)
-library(hrbrthemes)
-
 swifty |> 
   filter(track_name %in% songs_with_tvs$track_name) |> 
-  group_by(track_name, isTV, album_name) |> 
-  summarize(dance = mean(danceability)) |> 
-  ggplot(aes(x = isTV, y = dance, group = track_name)) +
-  geom_point(aes(color = album_name)) + 
-  geom_line(method = "lm")
+  group_by(track_name, isTV, Album = album_name) |> 
+  summarize(danceability = mean(danceability)) |> 
+  ggplot(aes(x = isTV, y = danceability, group = track_name, color = Album)) +
+  scale_color_manual(values=album_colors) + 
+  geom_point() + 
+  geom_line(method = "lm") + 
+  facet_grid(~Album) +
+  labs(x = "Taylor's Version") + 
+  theme_minimal() + 
+  guides(color = "none") + 
+  theme(strip.background.x = element_rect(fill="gray95")) # this is where I wish fill would take a list of colors 
+```
+### Energy
+
+```{r}
+swifty |> 
+  filter(track_name %in% songs_with_tvs$track_name) |> 
+  group_by(track_name, isTV, Album = album_name) |> 
+  summarize(energy = mean(energy)) |> 
+  ggplot(aes(x = isTV, y = energy, group = track_name, color = Album)) +
+  scale_color_manual(values=album_colors) + 
+  geom_point() + 
+  geom_line(method = "lm") + 
+  facet_grid(~Album) +
+  labs(x = "Taylor's Version") + 
+  theme_minimal() + 
+  guides(color = "none") + 
+  theme(strip.background.x = element_rect(fill="gray95")) # this is where I wish fill would take a list of colors 
 ```
 
-Everything will be alright if we just keep dancin' like we're 22!
+### Loudness
 
+```{r}
+swifty |> 
+  filter(track_name %in% songs_with_tvs$track_name) |> 
+  group_by(track_name, isTV, Album = album_name) |> 
+  summarize(loudness = mean(loudness)) |> 
+  ggplot(aes(x = isTV, y = loudness, group = track_name, color = Album)) +
+  scale_color_manual(values=album_colors) + 
+  geom_point() + 
+  geom_line(method = "lm") + 
+  facet_grid(~Album) +
+  labs(x = "Taylor's Version") + 
+  theme_minimal() + 
+  guides(color = "none") + 
+  theme(strip.background.x = element_rect(fill="gray95")) # this is where I wish fill would take a list of colors 
+```
+
+### Valence
+
+```{r}
+swifty |> 
+  filter(track_name %in% songs_with_tvs$track_name) |> 
+  group_by(track_name, isTV, Album = album_name) |> 
+  summarize(valence = mean(valence)) |> 
+  ggplot(aes(x = isTV, y = valence, group = track_name, color = Album)) +
+  scale_color_manual(values=album_colors) + 
+  geom_point() + 
+  geom_line(method = "lm") + 
+  facet_grid(~Album) +
+  labs(x = "Taylor's Version") + 
+  theme_minimal() + 
+  guides(color = "none") + 
+  theme(strip.background.x = element_rect(fill="gray95")) # this is where I wish fill would take a list of colors 
+```
 
 ------------
 
 References: 
 
- -- while I'm pretty confident in my brain's ability to store endless lyrics, [this website](https://shaynak.github.io/taylor-swift/) made possible all of the lyrics and references found throughout this project
+while I'm pretty confident in my brain's ability to store endless lyrics, [this website](https://shaynak.github.io/taylor-swift/) made possible all of the lyrics and references found throughout this project
 
 
 

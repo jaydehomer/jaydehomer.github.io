@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jayde Homer">
-<meta name="dcterms.date" content="2023-06-06">
+<meta name="dcterms.date" content="2023-06-29">
 
 <title>jaydeblogs - the eras touR</title>
 <style>
@@ -190,7 +190,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">June 6, 2023</p>
+        <p class="date">June 29, 2023</p>
       </div>
     </div>
     
@@ -216,7 +216,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spotifyr) <span class="co"># to access spotify API</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for all things workflow + stringr</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr) <span class="co"># for pretty-ish tables</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for nice date handling </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># for nice date handling </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdist) <span class="co"># for distribution plotting</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales) <span class="co"># for plot label troubles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="spotify-api" class="level2">
 <h2 class="anchored" data-anchor-id="spotify-api">Spotify API</h2>
@@ -232,7 +234,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXX')</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>access_token <span class="ot">&lt;-</span> <span class="fu">get_spotify_access_token</span>()</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>swifty <span class="ot">&lt;-</span> <span class="fu">get_artist_audio_features</span>(<span class="st">'taylor swift'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>album_name <span class="sc">%in%</span> ew_david)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter out albums we don't want</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>album_name <span class="sc">%in%</span> ew_david) <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># clean up album names</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">album_name_og =</span> album_name,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">album_edition =</span> <span class="fu">str_extract_all</span>(album_name, </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">"</span><span class="sc">\\</span><span class="st">([^()]+</span><span class="sc">\\</span><span class="st">)|Platinum Edition|</span><span class="sc">\\</span><span class="st">:+(</span><span class="sc">\\</span><span class="st">D+)"</span>, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">simplify =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">album_edition =</span> <span class="fu">if_else</span>(<span class="fu">nchar</span>(album_edition) <span class="sc">!=</span> <span class="dv">0</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">str_remove_all</span>(album_edition, <span class="st">"</span><span class="sc">\\</span><span class="st">(|</span><span class="sc">\\</span><span class="st">)|</span><span class="sc">\\</span><span class="st">:"</span>),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"original"</span>),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">album_name =</span> <span class="fu">str_squish</span>(<span class="fu">str_remove_all</span>(album_name, </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                                                <span class="st">"</span><span class="sc">\\</span><span class="st">([^()]+</span><span class="sc">\\</span><span class="st">)|Platinum Edition|</span><span class="sc">\\</span><span class="st">:+(</span><span class="sc">\\</span><span class="st">D+)"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To give you an idea of the sort of information we now have at our fingertips, here’s an example row of data, for everyone’s favorite song:</p>
 <div class="cell">
@@ -247,7 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 0%">
-<col style="width: 23%">
+<col style="width: 22%">
 <col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 1%">
@@ -265,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <col style="width: 0%">
 <col style="width: 2%">
 <col style="width: 0%">
-<col style="width: 15%">
+<col style="width: 14%">
 <col style="width: 31%">
 <col style="width: 0%">
 <col style="width: 0%">
@@ -278,6 +291,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <col style="width: 0%">
 <col style="width: 1%">
 <col style="width: 2%">
+<col style="width: 0%">
+<col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 0%">
@@ -324,6 +339,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th style="text-align: left;">key_name</th>
 <th style="text-align: left;">mode_name</th>
 <th style="text-align: left;">key_mode</th>
+<th style="text-align: left;">album_name_og</th>
+<th style="text-align: left;">album_edition</th>
 </tr>
 </thead>
 <tbody>
@@ -363,10 +380,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td style="text-align: left;">track</td>
 <td style="text-align: left;">spotify:track:5enxwA8aAbwZbf5qCHORXi</td>
 <td style="text-align: left;">https://open.spotify.com/track/5enxwA8aAbwZbf5qCHORXi</td>
-<td style="text-align: left;">Red (Taylor’s Version)</td>
+<td style="text-align: left;">Red</td>
 <td style="text-align: left;">C</td>
 <td style="text-align: left;">major</td>
 <td style="text-align: left;">C major</td>
+<td style="text-align: left;">Red (Taylor’s Version)</td>
+<td style="text-align: left;">Taylor’s Version</td>
 </tr>
 </tbody>
 </table>
@@ -376,70 +395,318 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>You may already know this, but here’s a summary of Taylor’s discography.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">All Time</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">By Album</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="st">`</span><span class="at">Number of Songs</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n_distinct</span>(track_name),</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Albums Released</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n_distinct</span>(album_name),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Earliest Release</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">min</span>(<span class="fu">year</span>(album_release_date)),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Most Recent Release</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">year</span>(album_release_date)),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Songs Featuring Other Artists</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">str_detect</span>(track_name, <span class="st">"feat"</span>)),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Songs with Explicit Labels</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(explicit),</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Shortest Song Minutes</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">min</span>(duration_ms)<span class="sc">/</span><span class="dv">60000</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Longest Song Minutes</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">max</span>(duration_ms)<span class="sc">/</span><span class="dv">60000</span>,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">Average Song Minutes</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(duration_ms)<span class="sc">/</span><span class="dv">60000</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">|&gt;</span> </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">as.character</span>(<span class="fu">round</span>(value, <span class="dv">2</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <thead>
 <tr class="header">
 <th style="text-align: left;">name</th>
 <th style="text-align: left;">value</th>
+<th style="text-align: left;">Fast Fact</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Number of Songs</td>
 <td style="text-align: left;">258</td>
+<td style="text-align: left;">Number of Songs</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Albums Released</td>
-<td style="text-align: left;">21</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Albums Released</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Earliest Release</td>
 <td style="text-align: left;">2006</td>
+<td style="text-align: left;">Earliest Release</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Most Recent Release</td>
 <td style="text-align: left;">2023</td>
+<td style="text-align: left;">Most Recent Release</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Songs Featuring Other Artists</td>
 <td style="text-align: left;">25</td>
+<td style="text-align: left;">Songs Featuring Other Artists</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Songs with Explicit Labels</td>
 <td style="text-align: left;">54</td>
+<td style="text-align: left;">Songs with Explicit Labels</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Shortest Song Minutes</td>
 <td style="text-align: left;">1.79</td>
+<td style="text-align: left;">Shortest Song Minutes</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Longest Song Minutes</td>
 <td style="text-align: left;">10.22</td>
+<td style="text-align: left;">Longest Song Minutes</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Average Song Minutes</td>
 <td style="text-align: left;">3.96</td>
+<td style="text-align: left;">Average Song Minutes</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 12%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Album</th>
+<th style="text-align: right;">Number of Songs</th>
+<th style="text-align: right;">Release Year</th>
+<th style="text-align: right;">Songs Featuring Other Artists</th>
+<th style="text-align: right;">Songs with Explicit Labels</th>
+<th style="text-align: right;">Shortest Song (Minutes)</th>
+<th style="text-align: right;">Longest Song (Minutes)</th>
+<th style="text-align: right;">Average Song (Minutes)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Taylor Swift</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">2006</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2.88</td>
+<td style="text-align: right;">4.14</td>
+<td style="text-align: right;">3.57</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fearless</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.34</td>
+<td style="text-align: right;">4.91</td>
+<td style="text-align: right;">4.12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fearless Platinum Edition</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.34</td>
+<td style="text-align: right;">5.18</td>
+<td style="text-align: right;">4.18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Speak Now</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.62</td>
+<td style="text-align: right;">6.73</td>
+<td style="text-align: right;">4.79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Speak Now (Deluxe Edition)</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.62</td>
+<td style="text-align: right;">6.73</td>
+<td style="text-align: right;">4.59</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Red</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.20</td>
+<td style="text-align: right;">5.46</td>
+<td style="text-align: right;">4.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Red (Deluxe Edition)</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.20</td>
+<td style="text-align: right;">5.46</td>
+<td style="text-align: right;">4.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1989</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.22</td>
+<td style="text-align: right;">4.52</td>
+<td style="text-align: right;">3.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1989 (Deluxe Edition)</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.79</td>
+<td style="text-align: right;">4.52</td>
+<td style="text-align: right;">3.62</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reputation</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.39</td>
+<td style="text-align: right;">4.08</td>
+<td style="text-align: right;">3.72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lover</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2.51</td>
+<td style="text-align: right;">4.89</td>
+<td style="text-align: right;">3.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">evermore</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.01</td>
+<td style="text-align: right;">5.25</td>
+<td style="text-align: right;">4.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">folklore</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.18</td>
+<td style="text-align: right;">4.91</td>
+<td style="text-align: right;">3.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">folklore (deluxe version)</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.18</td>
+<td style="text-align: right;">4.91</td>
+<td style="text-align: right;">3.95</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">folklore: the long pond studio sessions (from the Disney+ special) [deluxe edition]</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.06</td>
+<td style="text-align: right;">4.92</td>
+<td style="text-align: right;">3.96</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">evermore (deluxe version)</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.01</td>
+<td style="text-align: right;">5.25</td>
+<td style="text-align: right;">4.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fearless (Taylor’s Version)</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3.16</td>
+<td style="text-align: right;">5.20</td>
+<td style="text-align: right;">4.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Red (Taylor’s Version)</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.22</td>
+<td style="text-align: right;">10.22</td>
+<td style="text-align: right;">4.36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Midnights</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.75</td>
+<td style="text-align: right;">4.27</td>
+<td style="text-align: right;">3.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Midnights (3am Edition)</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.48</td>
+<td style="text-align: right;">4.34</td>
+<td style="text-align: right;">3.47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Midnights (The Til Dawn Edition)</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2.48</td>
+<td style="text-align: right;">4.34</td>
+<td style="text-align: right;">3.50</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="musical-metrics" class="level1">
+<h1>Musical Metrics</h1>
 <table class="table">
 <caption>Spotify’s Music Metrics</caption>
 <thead>
@@ -507,14 +774,200 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
+<section id="albums-and-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="albums-and-metrics">Albums and Metrics</h2>
+<p>Each album defines an era. What defines the album? Let’s find out.</p>
+<p>First, to make things a little bit easier, you ought to know that I am collapsing albums. That is, even though there are 2, 3, sometimes 4 versions of each album (looking at you Midnights w/ less Lana, medium Lana, and more Lana), we will be looking at each album as a collection of all of the songs. This isn’t the best strategy, but it definitely makes my figures a lot nicer.</p>
+<p>Each album/era is defined by a color. Let’s define those here (courtesy of my best RA Dr.&nbsp;Gabrielle Pfund):</p>
+<p><span style="color:#99FFCC">■</span> Taylor Swift</p>
+<p><span style="color:#FFCC66">■</span> Fearless</p>
+<p><span style="color:#CC66FF">■</span> Speak Now</p>
+<p><span style="color:#990000">■</span> Red</p>
+<p><span style="color:#99FFFF">■</span> 1989</p>
+<p><span style="color:##000000">■</span> reputation</p>
+<p><span style="color:#FF99FF">■</span> Lover</p>
+<p><span style="color:#CCCCCC">■</span> folklore</p>
+<p><span style="color:#FFCC99">■</span> evermore</p>
+<p><span style="color:#000066">■</span> Midnights</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>album_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Taylor Swift</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#99FFCC"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Fearless</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#FFCC66"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Speak Now</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#CC66FF"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Red</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#990000"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">1989</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#99FFFF"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">reputation</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#000000"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Lover</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#FF99FF"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">folklore</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#CCCCCC"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">evermore</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#FFCC99"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Midnights</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#000066"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="danceability" class="level3">
+<h3 class="anchored" data-anchor-id="danceability">Danceability</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span>  </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">fct_reorder</span>(album_name, album_release_year),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> danceability, <span class="at">fill =</span> album_name)) <span class="sc">+</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>() <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> <span class="fu">label_wrap</span>(<span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distribution of Song Danceability"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>, <span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="key" class="level3">
+<h3 class="anchored" data-anchor-id="key">Key</h3>
+<p>???</p>
+</section>
+<section id="loudness" class="level3">
+<h3 class="anchored" data-anchor-id="loudness">Loudness</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span>  </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">fct_reorder</span>(album_name, album_release_year),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> loudness, <span class="at">fill =</span> album_name)) <span class="sc">+</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>() <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> <span class="fu">label_wrap</span>(<span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distribution of Song Loudness"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>, <span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="mode" class="level3">
+<h3 class="anchored" data-anchor-id="mode">Mode</h3>
+<p>???</p>
+</section>
+<section id="speechiness" class="level3">
+<h3 class="anchored" data-anchor-id="speechiness">Speechiness</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span>  </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">fct_reorder</span>(album_name, album_release_year),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> speechiness, <span class="at">fill =</span> album_name)) <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> <span class="fu">label_wrap</span>(<span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distribution of Song Speechiness"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>, <span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="acousticness" class="level3">
+<h3 class="anchored" data-anchor-id="acousticness">Acousticness</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span>  </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">fct_reorder</span>(album_name, album_release_year),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> acousticness, <span class="at">fill =</span> album_name)) <span class="sc">+</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>() <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> <span class="fu">label_wrap</span>(<span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distribution of Song Acousticness"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>, <span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="instrumentalness" class="level3">
+<h3 class="anchored" data-anchor-id="instrumentalness">Instrumentalness</h3>
+</section>
+<section id="liveness" class="level3">
+<h3 class="anchored" data-anchor-id="liveness">Liveness</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span>  </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">fct_reorder</span>(album_name, album_release_year),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> liveness, <span class="at">fill =</span> album_name)) <span class="sc">+</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>() <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> <span class="fu">label_wrap</span>(<span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distribution of Song Liveness"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>, <span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="valence" class="level3">
+<h3 class="anchored" data-anchor-id="valence">Valence</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span>  </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">fct_reorder</span>(album_name, album_release_year),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> valence, <span class="at">fill =</span> album_name)) <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>() <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> <span class="fu">label_wrap</span>(<span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distribution of Song Valence"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>, <span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tempo" class="level3">
+<h3 class="anchored" data-anchor-id="tempo">tempo</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span>  </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">fct_reorder</span>(album_name, album_release_year),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> tempo, <span class="at">fill =</span> album_name)) <span class="sc">+</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_slab</span>() <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> <span class="fu">label_wrap</span>(<span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Distribution of Song Tempo"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>, <span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="taylors-version-vs.-not-taylors-version" class="level2">
 <h2 class="anchored" data-anchor-id="taylors-version-vs.-not-taylors-version">Taylor’s Version vs.&nbsp;Not(?) Taylor’s Version</h2>
-<p>For my first bit of exploration, I’m wondering how much a difference Taylor made in how Taylory Taylor is.</p>
+<p>For my next bit of exploration, I’m wondering how much a difference Taylor made in how Taylory Taylor is.</p>
 <p>First, let’s add a boolean that tells us if a song is Taylor’s Version. Dirty data problem 1 of ???: tick marks vs.&nbsp;apostrophes. And this is why we use <a href="https://home.unicode.org/">unicode</a>, friends.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="ot">&lt;-</span> swifty <span class="sc">|&gt;</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">isTV =</span> <span class="fu">str_detect</span>(track_name, <span class="st">"Taylor's Version|Taylor’s Version"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="ot">&lt;-</span> swifty <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">isTV =</span> <span class="fu">str_detect</span>(track_name, <span class="st">"Taylor's Version|Taylor’s Version"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now that we have TV as it’s own variable, we can make our data one step closer to some sort of <a href="https://www.geeksforgeeks.org/normal-forms-in-dbms/">normal form</a> by making sure that track name contains one and only one type of information: the track name.</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -537,38 +990,121 @@ Tip: stringr
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="ot">&lt;-</span> swifty <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">track_name =</span> <span class="fu">str_remove</span>(track_name, <span class="st">"</span><span class="sc">\\</span><span class="st">(Taylor's Version</span><span class="sc">\\</span><span class="st">)|</span><span class="sc">\\</span><span class="st">(Taylor’s Version</span><span class="sc">\\</span><span class="st">)"</span>),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">track_name =</span> <span class="fu">str_squish</span>(track_name),</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">track_name =</span> <span class="fu">str_to_lower</span>(track_name),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">track_name =</span> <span class="fu">str_replace_all</span>(track_name, <span class="st">"[[:punct:]]"</span>, <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="ot">&lt;-</span> swifty <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">track_name =</span> <span class="fu">str_remove</span>(track_name, <span class="st">"</span><span class="sc">\\</span><span class="st">(Taylor's Version</span><span class="sc">\\</span><span class="st">)|</span><span class="sc">\\</span><span class="st">(Taylor’s Version</span><span class="sc">\\</span><span class="st">)"</span>),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">track_name =</span> <span class="fu">str_squish</span>(track_name),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">track_name =</span> <span class="fu">str_to_lower</span>(track_name),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">track_name =</span> <span class="fu">str_replace_all</span>(track_name, <span class="st">"[[:punct:]]"</span>, <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can grab just our songs that have a TV and a no-TV.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>songs_with_tvs <span class="ot">&lt;-</span> swifty <span class="sc">|&gt;</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(track_name) <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">hasTV =</span> <span class="fu">sum</span>(isTV)) <span class="sc">|&gt;</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> hasTV <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>songs_with_tvs <span class="ot">&lt;-</span> swifty <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(track_name) <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">hasTV =</span> <span class="fu">sum</span>(isTV)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> hasTV <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at danceability first. Looks like there is a general trend for Taylor’s Version of songs to be less danceable.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note: Apparently it would require fundamental changes to ggplot2 <a href="https://github.com/tidyverse/ggplot2/issues/2096">(according to Sir Hadley)</a>, so we cannot use album colors for each facet label without some super hacky workarounds. Maybe ggplot3 will serve us better.</p>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(track_name <span class="sc">%in%</span> songs_with_tvs<span class="sc">$</span>track_name) <span class="sc">|&gt;</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(track_name, isTV) <span class="sc">|&gt;</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">dance =</span> <span class="fu">mean</span>(danceability)) <span class="sc">|&gt;</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> isTV, <span class="at">y =</span> dance, <span class="at">group =</span> track_name)) <span class="sc">+</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(track_name <span class="sc">%in%</span> songs_with_tvs<span class="sc">$</span>track_name) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(track_name, isTV, <span class="at">Album =</span> album_name) <span class="sc">|&gt;</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">danceability =</span> <span class="fu">mean</span>(danceability)) <span class="sc">|&gt;</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> isTV, <span class="at">y =</span> danceability, <span class="at">group =</span> track_name, <span class="at">color =</span> Album)) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span> </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>Album) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Taylor's Version"</span>) <span class="sc">+</span> </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.background.x =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">"gray95"</span>)) <span class="co"># this is where I wish fill would take a list of colors </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="energy" class="level3">
+<h3 class="anchored" data-anchor-id="energy">Energy</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(track_name <span class="sc">%in%</span> songs_with_tvs<span class="sc">$</span>track_name) <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(track_name, isTV, <span class="at">Album =</span> album_name) <span class="sc">|&gt;</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">energy =</span> <span class="fu">mean</span>(energy)) <span class="sc">|&gt;</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> isTV, <span class="at">y =</span> energy, <span class="at">group =</span> track_name, <span class="at">color =</span> Album)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span> </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>Album) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Taylor's Version"</span>) <span class="sc">+</span> </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.background.x =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">"gray95"</span>)) <span class="co"># this is where I wish fill would take a list of colors </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="loudness-1" class="level3">
+<h3 class="anchored" data-anchor-id="loudness-1">Loudness</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(track_name <span class="sc">%in%</span> songs_with_tvs<span class="sc">$</span>track_name) <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(track_name, isTV, <span class="at">Album =</span> album_name) <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">loudness =</span> <span class="fu">mean</span>(loudness)) <span class="sc">|&gt;</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> isTV, <span class="at">y =</span> loudness, <span class="at">group =</span> track_name, <span class="at">color =</span> Album)) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span> </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>Album) <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Taylor's Version"</span>) <span class="sc">+</span> </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.background.x =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">"gray95"</span>)) <span class="co"># this is where I wish fill would take a list of colors </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="valence-1" class="level3">
+<h3 class="anchored" data-anchor-id="valence-1">Valence</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>swifty <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(track_name <span class="sc">%in%</span> songs_with_tvs<span class="sc">$</span>track_name) <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(track_name, isTV, <span class="at">Album =</span> album_name) <span class="sc">|&gt;</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">valence =</span> <span class="fu">mean</span>(valence)) <span class="sc">|&gt;</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> isTV, <span class="at">y =</span> valence, <span class="at">group =</span> track_name, <span class="at">color =</span> Album)) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>album_colors) <span class="sc">+</span> </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span> </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>Album) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Taylor's Version"</span>) <span class="sc">+</span> </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.background.x =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">"gray95"</span>)) <span class="co"># this is where I wish fill would take a list of colors </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <hr>
 <p>References:</p>
-<p>– while I’m pretty confident in my brain’s ability to store endless lyrics, <a href="https://shaynak.github.io/taylor-swift/">this website</a> made possible all of the lyrics and references found throughout this project</p>
+<p>while I’m pretty confident in my brain’s ability to store endless lyrics, <a href="https://shaynak.github.io/taylor-swift/">this website</a> made possible all of the lyrics and references found throughout this project</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
