@@ -1,0 +1,91 @@
+---
+title: "From a PD(woo)F to Text Frequencies"
+author: "Jayde Homer"
+date: "2023-11-10"
+categories: [fun]
+image: "../../pics/IMG_9787.jpeg"
+---
+
+
+A brilliant grad school [friend of mine](https://www.amanda-j-wright.com/) recently asked if I knew anything about text extraction. From there she unknowingly opened a can of worms for me! 
+
+In this blog post, I'd like to show you how you can analyze text from a PDF using the [package](https://cran.r-project.org/web/packages/pdftools/index.html) `pdftools`. This process is helpful for many types of analyses, but we'll use it to do some basic text frequency analyses. 
+
+First things first, we need an article. I chose one that aligns with something I'm particularly passionate about: force-free dog training. If you'd like to learn more about how to use science-backed training methods that build a positive relationship between you and your dog, check out [Zak George's channel](https://www.youtube.com/channel/UCZzFRKsgVMhGTxffpzgTJlQ) for starters. 
+
+Here's the [document](https://animalkind.ca/wp-content/uploads/dog-training-methods-review.pdf) we're going to be using.
+
+## pdftools for text extraction
+
+```{r}
+# packages
+library(tidyverse)
+library(pdftools)
+library(tidytext)
+library(knitr)
+
+# tell R the name of your pdf file
+dogs_pdf <- "dog-training-methods-review.pdf"
+```
+There a few handy functions that we can play around with. Here, I'm using `pdf_text()` to convert all text on the pages of the document to a large string. Using `cat()` we can take a look at one of those pages. 
+
+```{r}
+dogs_text <- pdf_text(dogs_pdf)
+cat(dogs_text[1])
+cat(dogs_text[69])
+```
+
+It's a bit messy. So instead, we can use `pdf_data()` to convert the text to a data frame. The first line, which I commented out, returns data frames for each page including information about the location of text on the page and the content of the text (i.e., the words). Here's an example of the first page. 
+
+```{r}
+#pdf_data(dogs_pdf)
+pdf_data(dogs_pdf)[[1]] %>% 
+  head(5) %>% 
+  kable()
+```
+
+We can use `dplyr` to aggregate the data, or bind all of the rows in each of our 69 tibbles together into one big tibble. Now you see we have 25,052 rows. 
+
+```{r}
+dogs_text <- pdf_data(dogs_pdf) %>% 
+  bind_rows() %>% 
+  select(text) # I only want the column containing the words
+
+str(dogs_text)
+```
+## Tidy text
+
+Now that we have our data, we need to tidy it up! Literally. Check out [Text Mining with R: A Tidy Approach](https://www.tidytextmining.com/tidytext) if you want to dig deeper into text mining. 
+
+Our data is already unnested, meaning each word is in a row. We do not have sentences. This is one-token-per-document-per-row. A "token" is a meaningful unit of text. Sometimes the unit of text you'd like to analyze is a sentence or phrase, but more commonly, you'll want your tokens to be words. 
+
+One thing we will want to do is remove punctuation from our tokens. This could cause trouble when we want to aggregate by tokens (e.g., get word counts). So, while we already mostly have unnested tokens, the `unnest_tokens` function will also strip punctuation and convert tokens to lowercase. We'll also take this opportunity to remove stop words (the little ones that turn out to be most frequent in spoken and written language, such as "the," "and," "to"). Just what we needed!
+
+```{r}
+data("stop_words")
+dogs_tidy <- dogs_text %>% 
+  unnest_tokens(input = text, output = word) %>% 
+  anti_join(stop_words)
+
+dogs_tidy %>% 
+  head(5) %>% 
+  kable()
+```
+
+## Question time
+
+I know you're dying to know what words these researchers used most in their report of dog training methods. 
+
+```{r}
+dogs_tidy %>% 
+  count(word, sort = TRUE) %>% 
+  head(10) %>% 
+  kable()
+```
+
+Color me shocked at this list! Seems like these researchers have a lot to say about dog training methods, shock collars, guardians, and aversive. 
+
+Now there are so many things you can do with this tidy text. It's now ready to do cross-text comparison, plot frequencies or proportions, and dig deeper to answer your text-based questions. 
+
+
+

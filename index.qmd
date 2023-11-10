@@ -1,8 +1,10 @@
 ---
 title: "Hi, I'm Jayde!"
-image: profile_test.png
+image: pics/headshot.jpg
 about:
-  template: marquee
+  id: hero-heading
+  template: solana
+  image-width: 30em
   links:
     - icon: linkedin
       text: LinkedIn
@@ -26,22 +28,25 @@ page-layout: full
 <meta http-equiv='expires' content='0'> 
 <meta http-equiv='pragma' content='no-cache'>
 
+:::{#hero-heading}
 
-I have always loved consuming stories and solving puzzles. Unfortunately, neither of those pay my dog's dermatology bills or the rent. Unless...
+I have always loved consuming stories and solving puzzles. Unfortunately, neither of those pay my dog's dermatology bills or the rent. Unless data is the puzzle and I tell its story.
 
-<p class="text-right" style="background-color: aliceblue"><b>data is the puzzle and I tell its story.</b></p>
+<p>*As of November, 2023, I began my position as a [Statistical Data Analyst at Wash U](https://insideartsci.wustl.edu/people/jayde-homer). I'm excited to help make data-driven decisions that supports graduate student success. *&#x1F389;</p>
 
-You're probably here because you want to know more about what I'm up to. You can head over to my [Projects](https://jaydehomer.github.io/projects.html) for a quick overview of my current academic projects and check out my blog, where I play around with fun data, explain parts of my process, and answer questions about things I'm personally interested in; you might learn something about Taylor Swift, birds, books, [dogs](https://jaydehomer.github.io/zaya.html), or a cool package in R. Have fun exploring and don't hesitate to [reach out](https://jaydehomer.github.io/contact.html) with questions, job offers, or fun conversations!
+:::
+
+You're probably here because you want to know more about what I'm up to. You can head over to my [Projects](https://jaydehomer.github.io/projects.html) for a quick overview of my academic projects and check out my blog, where I play around with fun data, explain parts of my process, and answer questions about things I'm personally interested in; you might learn something about Taylor Swift, birds, books, [dogs](https://jaydehomer.github.io/zaya.html), or a cool package in R. Have fun exploring and don't hesitate to [reach out](https://jaydehomer.github.io/contact.html) with questions or gentle critiques.
 
 ----
 
 ## Experience
 
-**Graduate Student Researcher** | [Rebecca Treiman and Brett Kessler](https://sites.wustl.edu/readingandlanguagelab/) | studying patterns in children and adults' spelling
+**Research** | [Rebecca Treiman and Brett Kessler](https://sites.wustl.edu/readingandlanguagelab/) | studying patterns in children and adults' spelling
 
-**Ed. Tech. Data Fellow** | [Sally Wu at Wash U's Center for Teaching and Learning](https://ctl.wustl.edu/edtech/) | exploring  faculty, staff, and students' use of licensed educational technologies
+**Data** | [Sally Wu at Wash U's Center for Teaching and Learning](https://ctl.wustl.edu/edtech/) | exploring  faculty, staff, and students' use of licensed educational technologies
 
-**Teacher** | currently [tutor](https://www.wyzant.com/Tutors/Jayde) stats with R | taught developmental psychology course and assisted in 10+ courses
+**Teaching** | [tutor](https://www.wyzant.com/Tutors/Jayde) stats with R | taught developmental psychology course and assisted in 10+ undergrad and grad-level courses
 
 **Etc** | potpourri of life experiences in food service, warehousing, transportation, healthcare finance, and childcare industries
 
@@ -49,14 +54,14 @@ You're probably here because you want to know more about what I'm up to. You can
 
 ## Education 
 
-**BS** | Brain & Cognitive Sciences | University of Rochester
+**BS** | Brain & Cognitive Sciences | University of Rochester | 2016
+ 
+**BA** | Linguistics | University of Rochester | 2016
 
-**BA** | Linguistics | University of Rochester 
-
-**MA** | Psychological & Brain Sciences | Washington University in St. Louis
-
-**PhD** | Psychological & Brain Sciences | Washington University in St. Louis | *ABD*
-
-**Etc** | Certificate in Quantitative Analysis (Wash U); SQL Server & Databases (LaunchCode)
+**MA** | Psychological & Brain Sciences | Washington University in St. Louis | 2021
+ 
+**PhD** | Psychological & Brain Sciences | Washington University in St. Louis | 2023
+ 
+**Etc** | Certificate in Quantitative Analysis (Wash U) | 2023
 
 ----

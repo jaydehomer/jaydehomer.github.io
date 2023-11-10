@@ -8,4 +8,4 @@ image: "parameters.png"
 
 To evaluate student and faculty use of licensed technologies at Wash U, I used R Markdown to create a series of [parameterized reports](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html) that provide engagement insights over desired departments, semesters, metrics, and tools. 
 
-
+Head over to [CTL's website](https://ctl.wustl.edu/reflections-of-a-ctl-fellow-jayde-homer-phd/) to learn more. 
