@@ -1,0 +1,90 @@
+---
+title: "Making Running my Entire Personality"
+author: "Jayde Homer"
+date: "2024-01-04"
+categories: [fun]
+image: "../../IMG_0109.jpeg"
+---
+
+I started running with my dog in the fall of 2023, which of course turned into training for my first-ever half-marathon that I'll run on April 27! For more information on that, check out [GO! STL.](https://www.gostlouis.org/stlmarathon) As a natural part of making running my entire personality, I began tracking data. Strava makes this pretty easy! You can [export your own data](https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export) and play along if you'd like.
+
+In this project, I'll be sharing the steps I take when performing exploratory data analysis (EDA), or the process of wrangling and cleaning data, generating questions, and providing insights into my walking and running activities. 
+
+## Getting Started 
+
+First off, we need to set up our environment by loading packages. 
+
+```{r}
+library(tidyverse)
+```
+
+Next, we need data! Using the Strava bulk export results in **tons** of files. Maybe another time I'll learn how to play around with `.fit` files, which are used to log sports/fitness related information. The main data source I'll be using is `activities.csv`. It represents each activity logged as a single observation (i.e., row of data) with information related to the activity including GPS and biometric summary information that was entered or tracked during the activity. There are many ways to "upload" data to R, but since I tend to live in the tidyverse, I'll be using `read_csv()` to get the job done. If you don't specify the column types (i.e., `chr`, `dbl`, `lgl`) when using this function, you'll probably get a message telling you about the specifications the function used for each variable. I'm going to trust the default here, but there will be times when you want to make sure to tell `read_csv()` your column specification. 
+
+```{r}
+data <- read_csv('data/activities.csv', col_names = TRUE)
+```
+
+### Data
+
+Next, we're going to clean up the data a bit by renaming the variables I'm interested in keeping and removing variables that I think are irrelevant to what I want to explore. To figure out what variables might be important, we can use `glimpse` to get an idea of the data structure, which is a lot of information to take in at once. We can get a better idea of the structure by using the base function `summary` to get an idea of missing values, averages, and data types. Manual inspection is always an important part of EDA
+
+```{r}
+glimpse(data)
+```
+
+Next, `summary` provides us with some additional insights into what variables we may or may not want to keep based on missing values (e.g., I might not care about 'Weather Ozone' because it was never recorded for any of my activities). 
+
+```{r}
+summary(data)
+```
+
+Now that we have an idea of what we want to keep, rename, or remove, we can use `select` to do so. Data wrangling is the art of getting data into a *useful* format. Thus, we should convert the activity date into useful date/time formats, rather than leaving it as a *not* useful character format. 
+
+1 mile = 1 kilometer * 0.621371
+
+```{r}
+data <- data |> 
+  select(date = `Activity Date`,
+         type = `Activity Type`, 
+         total_sec = `Elapsed Time...6`,
+         moving_sec = `Moving Time`,
+         dist_km = `Distance...7`,
+         dist_m = `Distance...18`,
+         max_HR = `Max Heart Rate...8`,
+         avg_hr = `Average Heart Rate`,
+         rel_effort = `Relative Effort...9`,
+         max_speed = `Max Speed`,
+         avg_speed = `Average Speed`,
+         avg_speed_elapsed = `Average Elapsed Speed`,
+         el_gain = `Elevation Gain`,
+         el_loss = `Elevation Loss`,
+         el_low = `Elevation Low`,
+         el_high = `Elevation High`,
+         max_grade = `Max Grade`,
+         avg_grade = `Average Grade`,
+         grade_adj_dist = `Grade Adjusted Distance`) |> 
+  mutate(day = as.Date(date, format =  "%b %d, %Y, %H:%M:%S %p"),
+         time = format(as.POSIXct(date, format =  "%b %d, %Y, %H:%M:%S %p"), "%H:%M:%S", tz = "UTC"))
+```
+
+## Exploration
+
+There are a few different metrics to look at: distance, time, and effort/hr. There's also elevation and grade to consider, maybe later. 
+
+### Runs 
+
+Distance over time
+
+```{r}
+data |> 
+  filter(type == "Run")
+```
+
+
+
+Elapsed time is the duration from the moment you hit start on your device or phone to the moment you finish the activity. It includes stoplights, coffee breaks, bathroom stops, and stopping for photos. Moving time, however, measures how long you were active. Strava will attempt to calculate this based on your activity's GPS locations, distance, and speed. We will forego our run calculation if you use your pause button and respect the moving time directly from the device instead.
+
+
+
+
+
