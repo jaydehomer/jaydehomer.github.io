@@ -88,7 +88,7 @@
     "href": "index.html",
     "title": "Hi, I’m Jayde!",
     "section": "",
-    "text": "You’re probably here because you want to know more about what I’m up to. You can head over to my Projects for a quick overview of my academic projects and check out my blog, where I play around with fun data, explain parts of my process, and answer questions about things I’m personally interested in; you might learn something about Taylor Swift, birds, books, dogs, or a cool package in R. Have fun exploring and don’t hesitate to reach out with questions or gentle critiques."
+    "text": "You’re probably here because you want to know more about what I’m up to. You can head over to my Projects for a quick overview of my academic projects and check out my blog, where I play around with fun data, explain parts of my process, and answer questions about things I’m personally interested in; you might learn something about my hobbies, random questions I have, dogs, or a cool package in R. Have fun exploring and don’t hesitate to reach out with questions or gentle critiques."
   },
   {
     "objectID": "index.html#experience",
@@ -102,7 +102,7 @@
     "href": "index.html#education",
     "title": "Hi, I’m Jayde!",
     "section": "Education",
-    "text": "Education\nBS | Brain & Cognitive Sciences | University of Rochester | 2016\nBA | Linguistics | University of Rochester | 2016\nMA | Psychological & Brain Sciences | Washington University in St. Louis | 2021\nPhD | Psychological & Brain Sciences | Washington University in St. Louis | 2023\nEtc | Certificate in Quantitative Analysis (Wash U) | 2023"
+    "text": "Education\nPhD | Psychological & Brain Sciences | Washington University in St. Louis | 2023\nGraduate Certificate | Quantitative Analysis | Washington University in St. Louis | 2023\nMA | Psychological & Brain Sciences | Washington University in St. Louis | 2021\nBS | Brain & Cognitive Sciences | University of Rochester | 2016\nBA | Linguistics | University of Rochester | 2016"
   },
   {
     "objectID": "zaya.html",
@@ -159,5 +159,12 @@
     "title": "From a PD(woo)F to Text Frequencies",
     "section": "Question time",
     "text": "Question time\nI know you’re dying to know what words these researchers used most in their report of dog training methods.\n\ndogs_tidy %&gt;% \n  count(word, sort = TRUE) %&gt;% \n  head(10) %&gt;% \n  kable()\n\n\n\n\nword\nn\n\n\n\n\ntraining\n388\n\n\ndogs\n387\n\n\ndog\n274\n\n\nmethods\n248\n\n\ncollar\n219\n\n\ncollars\n208\n\n\nshock\n176\n\n\nbased\n171\n\n\naversive\n136\n\n\nguardians\n134\n\n\n\n\n\nColor me shocked at this list! Seems like these researchers have a lot to say about dog training methods, shock collars, guardians, and aversive.\nNow there are so many things you can do with this tidy text. It’s now ready to do cross-text comparison, plot frequencies or proportions, and dig deeper to answer your text-based questions."
+  },
+  {
+    "objectID": "index.html#past-professional-experiences",
+    "href": "index.html#past-professional-experiences",
+    "title": "Hi, I’m Jayde!",
+    "section": "Past Professional Experiences",
+    "text": "Past Professional Experiences\nAcademic Research | Reading and Language Lab at Washington University in St. Louis | Infant Studies Lab (retired) at University of Notre Dame | SEEDLingS at University of Rochester\nData Analytics | Center for Teaching and Learning Ed. Tech\nTeaching | Developmental Psychology | Psych. Stats | Private Tutoring\nEtc. | potpourri of life experiences in food service, warehousing, transportation, healthcare finance, and childcare industries"
   }
 ]
