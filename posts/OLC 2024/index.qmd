@@ -8,13 +8,35 @@ image: "slides/Slide1.png"
 
 In April 2024, I got the chance to present some of my work from my Ed Tech fellowship from grad school at [OLC in Denver, CO](https://onlinelearningconsortium.org/attend-2024/innovate/)! Here are those slides if you're interested. Feel free to contact me for discussion or questions. 
 
-![slide1](slides/Slide1.png)
-![slide2](slides/Slide2.png)
-![slide3](slides/Slide3.png)
-![slide4](slides/Slide4.png)
-![slide5](slides/Slide5.png)
-![slide6](slides/Slide6.png)
-![slide7](slides/Slide7.png)
-![slide8](slides/Slide8.png)
-![slide9](slides/Slide9.png)
-![slide10](slides/Slide10.png)
+![](slides/Slide1.png)
+
+-----
+
+![](slides/Slide2.png)
+
+-----
+
+![](slides/Slide3.png)
+-----
+
+![](slides/Slide4.png)
+-----
+
+![](slides/Slide5.png)
+
+-----
+
+![](slides/Slide6.png)
+-----
+
+![](slides/Slide7.png)
+-----
+
+![](slides/Slide8.png)
+
+-----
+
+![](slides/Slide9.png)
+-----
+
+![](slides/Slide10.png)
