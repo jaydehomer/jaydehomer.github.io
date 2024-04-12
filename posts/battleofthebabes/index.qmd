@@ -1,0 +1,563 @@
+---
+title: "the eras touR"
+author: "Jayde Homer"
+date: "2023-06-29"
+categories: [fun]
+image: "eras.jpg"
+---
+
+Can I ask you a question? Have you ever wondered which of Taylor Swift's songs are the most danceable? Which songs are saddest? Slowest? Lowest? Well, if the answer is no, you're playing a stupid game and you've won a stupid prize -- leave now. Assuming the answer to any of those questions was an incredibly enthusiastic YES, then you're the lucky one. 
+
+So, R you ready for it? 
+
+**DISCLAIMER:** Obviously I'm a *very busy important person* so I'm not going to answer ALL of your questions today, but I'll try my very best to keep coming back and working on this, so please come back and check it out. 
+
+```{r include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+# super secret secrets
+Sys.setenv(SPOTIFY_CLIENT_ID = 'd02bf172d10540daa563dfb3671241f0')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = 'c6ea7afd62114def98b269c6b160721b')
+```
+
+Here are the packages we'll be using. 
+
+```{r}
+library(spotifyr) # to access spotify API
+library(tidyverse) # for all things workflow + stringr
+library(knitr) # for pretty-ish tables
+library(lubridate) # for nice date handling 
+library(ggdist) # for distribution plotting
+library(scales) # for plot label troubles
+
+
+```
+
+## Spotify API
+
+Using (Spotify's Web API)[https://developer.spotify.com/documentation/web-api], we can access all sorts of fun information about an artist. If you're following along at home and wondering if this is the explicit version with all those Xs below, no. I'm just avoiding giving you my super secret client_id and client_secret. You can get your own by visiting your Spotify developer dashboard. 
+
+```{r}
+# albums we/I don't want included in the data
+ew_david <- c("Live From Clear Channel Stripped 2008", 
+               "Speak Now World Tour Live",
+              "reputation Stadium Tour Surprise Song Playlist")
+```
+
+
+```{r}
+#Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXX')
+#Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXX')
+access_token <- get_spotify_access_token()
+swifty <- get_artist_audio_features('taylor swift') |> 
+  # filter out albums we don't want
+  filter(!album_name %in% ew_david) |> 
+  # clean up album names
+  mutate(album_name_og = album_name,
+         album_edition = str_extract_all(album_name, 
+                                         "\\([^()]+\\)|Platinum Edition|\\:+(\\D+)", 
+                                         simplify = TRUE),
+         album_edition = if_else(nchar(album_edition) != 0,
+                                 str_remove_all(album_edition, "\\(|\\)|\\:"),
+                                 "original"),
+         album_name = str_squish(str_remove_all(album_name, 
+                                                "\\([^()]+\\)|Platinum Edition|\\:+(\\D+)")))
+```
+
+To give you an idea of the sort of information we now have at our fingertips, here's an example row of data, for everyone's favorite song: 
+
+```{r}
+swifty |> 
+  filter(track_name == 
+           "All Too Well (10 Minute Version) (Taylor's Version) (From The Vault)") |> 
+  kable()
+```
+
+## Summary 
+
+You may already know this, but here's a summary of Taylor's discography. 
+
+::: {.panel-tabset}
+
+### All Time
+
+```{r echo = FALSE}
+swifty |> 
+  summarize(`Number of Songs` = n_distinct(track_name),
+            `Albums Released` = n_distinct(album_name),
+            `Earliest Release` = min(year(album_release_date)),
+            `Most Recent Release` = max(year(album_release_date)),
+            `Songs Featuring Other Artists` = sum(str_detect(track_name, "feat")),
+            `Songs with Explicit Labels` = sum(explicit),
+            `Shortest Song Minutes` = min(duration_ms)/60000,
+            `Longest Song Minutes` = max(duration_ms)/60000,
+            `Average Song Minutes` = mean(duration_ms)/60000
+            ) |> 
+  pivot_longer(cols = everything()) |> 
+  mutate(`Fast Fact` = name, 
+         value = as.character(round(value, 2))) |> 
+  kable()
+```
+
+### By Album
+
+```{r echo = FALSE}
+swifty |> 
+  group_by(album_name_og) |> 
+  summarize(`Number of Songs` = n_distinct(track_name),
+            `Release Year` = min(year(album_release_date)),
+            `Songs Featuring Other Artists` = sum(str_detect(track_name, "feat")),
+            `Songs with Explicit Labels` = sum(explicit),
+            `Shortest Song (Minutes)` = min(duration_ms)/60000,
+            `Longest Song (Minutes)` = max(duration_ms)/60000,
+            `Average Song (Minutes)` = mean(duration_ms)/60000
+            ) |> 
+  arrange(`Release Year`) |> 
+  rename(Album = album_name_og) |> 
+  kable(digits = 2)
+```
+
+:::
+
+# Musical Metrics
+
+| Metric Name | Definition | Possible Values |
+|---------|:-----|------:|
+| *danceability* | how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity   | 0 -- 1 |
+| *energy* | perceptual measure of intensity and activity by way of dynamic range, perceived loudness, timbre, onset rate, and general entropy | 0 -- 1 |
+| *key* | key the track is in | standard Pitch Class notation. [E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on](https://en.wikipedia.org/wiki/Pitch_class) |
+| *loudness* | overall loudness of a track in decibels (dB) averaged across the entire track | -60 -- 0 db. |
+| *mode* | modality (major or minor) of a track; the type of scale from which its melodic content is derived | major = 1; minor = 0 |
+| *speechiness*  | the presence of spoken words in a track | speech-like recordings are closer to 1.0 (e.g., > 0.66 = tracks made entirely of spoken words, between 0.33 and 0.66 = tracks containing music and speech such as rap music, < 0.33 = tracks mostly music and other non-speech-like sounds |
+| *acousticness* | confidence measure from 0.0 to 1.0 of whether the track is acoustic | 0 -- 1 |
+| *instrumentalness* | predicts whether a track contains no vocals; "ooh" and "aah" sounds are treated as instrumental with rap and spoken word tracks clearly "vocal"  |   0 -- 1 (more vocals to less vocals) |
+| *liveness* | detects the presence of an audience in the recording |  0 -- 1 (> 0.8 indicates strong likelihood of live track) |
+| *valence*  | musical positiveness conveyed by a track | 0 -- 1 (low valence (e.g., sad, depressed, angry) to high valence (e.g., happy, cheerful, euphoric)) |
+| *tempo* | overall estimated tempo of a track in beats per minute (BPM)  |  40 -- 200+ |
+
+: Spotify's Music Metrics
+
+```{r include = FALSE}
+# NOTES TO SELF
+# potenital covariates
+# - track number 
+# - album 
+# - date
+# - person dating at time
+# - taylor's version
+# - album images -- colors? 
+# - release dates
+# - other artists 
+# 
+# - track name
+# INFO TO ADD? 
+# - dates of person dating 
+# - major life events 
+# - tours
+```
+
+## Albums and Metrics
+
+Each album defines an era. What defines the album? Let's find out. 
+
+First, to make things a little bit easier, you ought to know that I am collapsing albums. That is, even though there are 2, 3, sometimes 4 versions of each album (looking at you Midnights w/ less Lana, medium Lana, and more Lana), we will be looking at each album as a collection of all of the songs. This isn't the best strategy, but it definitely makes my figures a lot nicer. 
+
+Each album/era is defined by a color. Let's define those here (courtesy of my best RA Dr. Gabrielle Pfund):
+
+<span style="color:#99FFCC">&#9632;</span> Taylor Swift
+
+<span style="color:#FFCC66">&#9632;</span> Fearless
+
+<span style="color:#CC66FF">&#9632;</span> Speak Now
+
+<span style="color:#990000">&#9632;</span> Red
+
+<span style="color:#99FFFF">&#9632;</span> 1989
+
+<span style="color:##000000">&#9632;</span> reputation
+
+<span style="color:#FF99FF">&#9632;</span> Lover
+
+<span style="color:#CCCCCC">&#9632;</span> folklore
+
+<span style="color:#FFCC99">&#9632;</span> evermore
+
+<span style="color:#000066">&#9632;</span> Midnights
+
+```{r}
+album_colors <- c(
+  `Taylor Swift` = "#99FFCC",
+  `Fearless` = "#FFCC66",
+  `Speak Now` = "#CC66FF",
+  `Red` = "#990000",
+  `1989` = "#99FFFF",
+  `reputation` = "#000000",
+  `Lover` = "#FF99FF",
+  `folklore` = "#CCCCCC",
+  `evermore` = "#FFCC99",
+  `Midnights` = "#000066")
+```
+
+### Danceability 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = danceability, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Danceability", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### Key
+
+???
+
+### Loudness 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = loudness, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Loudness", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### Mode
+
+???
+
+### Speechiness 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = speechiness, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Speechiness", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### Acousticness 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = acousticness, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Acousticness", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### Instrumentalness 
+
+
+
+### Liveness 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = liveness, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Liveness", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### Valence 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = valence, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Valence", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+### tempo 
+
+```{r}
+#| fig-align: center
+swifty |>  
+  ggplot(aes(y = fct_reorder(album_name, album_release_year),
+             x = tempo, fill = album_name)) + 
+  stat_slab() +
+  scale_y_discrete(labels = label_wrap(20)) +
+  labs(x = "Distribution of Song Tempo", y = NULL) +
+  scale_fill_manual(values=album_colors) + 
+  guides(fill = "none", color = "none") + 
+  theme_minimal()
+```
+
+
+
+## Taylor's Version vs. Not(?) Taylor's Version
+
+For my next bit of exploration, I'm wondering how much a difference Taylor made in how Taylory Taylor is. 
+
+First, let's add a boolean that tells us if a song is Taylor's Version. Dirty data problem 1 of ???: tick marks vs. apostrophes. And this is why we use [unicode](https://home.unicode.org/), friends. 
+
+```{r}
+swifty <- swifty |> 
+  mutate(isTV = str_detect(track_name, "Taylor's Version|Taylor’s Version")) 
+```
+
+Now that we have TV as it's own variable, we can make our data one step closer to some sort of [normal form](https://www.geeksforgeeks.org/normal-forms-in-dbms/) by making sure that track name contains one and only one type of information: the track name. 
+
+::: {.callout-tip}
+## Tip: stringr
+
+[Stringr](https://stringr.tidyverse.org/) is one of my favorite tools in the tidyverse, especially for dealing with any sort of text data. Here I used: 
+
+- `str_remove()` to remove (Taylor's Version) from song titles to better group them later
+- `str_squish()` to remove any whitespace from the start and end, and reduce any double spaces within a song to a single space
+- `str_to_lower()` is the cute little sister of `str_to_upper()` and converts characters to lowercase
+- `str_replace_all()` replaces all of the target string (in this case all punctuation) with the replacement string (in this case nothingness)
+:::
+
+```{r}
+swifty <- swifty |> 
+  mutate(track_name = str_remove(track_name, "\\(Taylor's Version\\)|\\(Taylor’s Version\\)"),
+         track_name = str_squish(track_name),
+         track_name = str_to_lower(track_name),
+         track_name = str_replace_all(track_name, "[[:punct:]]", ""))
+```
+
+Now we can grab just our songs that have a TV and a no-TV. 
+
+```{r}
+songs_with_tvs <- swifty |> 
+  group_by(track_name) |> 
+  summarize(n = n(),
+            hasTV = sum(isTV)) |> 
+  filter(n > 1 & hasTV > 0)
+```
+
+Let's take a look at danceability first. Looks like there is a general trend for Taylor's Version of songs to be less danceable. 
+
+::: {.callout-note}
+Note: Apparently it would require fundamental changes to ggplot2 [(according to Sir Hadley)](https://github.com/tidyverse/ggplot2/issues/2096), so we cannot use album colors for each facet label without some super hacky workarounds. Maybe ggplot3 will serve us better. 
+:::
+
+```{r}
+swifty |> 
+  filter(track_name %in% songs_with_tvs$track_name) |> 
+  group_by(track_name, isTV, Album = album_name) |> 
+  summarize(danceability = mean(danceability)) |> 
+  ggplot(aes(x = isTV, y = danceability, group = track_name, color = Album)) +
+  scale_color_manual(values=album_colors) + 
+  geom_point() + 
+  geom_line(method = "lm") + 
+  facet_grid(~Album) +
+  labs(x = "Taylor's Version") + 
+  theme_minimal() + 
+  guides(color = "none") + 
+  theme(strip.background.x = element_rect(fill="gray95")) # this is where I wish fill would take a list of colors 
+```
+### Energy
+
+```{r}
+swifty |> 
+  filter(track_name %in% songs_with_tvs$track_name) |> 
+  group_by(track_name, isTV, Album = album_name) |> 
+  summarize(energy = mean(energy)) |> 
+  ggplot(aes(x = isTV, y = energy, group = track_name, color = Album)) +
+  scale_color_manual(values=album_colors) + 
+  geom_point() + 
+  geom_line(method = "lm") + 
+  facet_grid(~Album) +
+  labs(x = "Taylor's Version") + 
+  theme_minimal() + 
+  guides(color = "none") + 
+  theme(strip.background.x = element_rect(fill="gray95")) # this is where I wish fill would take a list of colors 
+```
+
+### Loudness
+
+```{r}
+swifty |> 
+  filter(track_name %in% songs_with_tvs$track_name) |> 
+  group_by(track_name, isTV, Album = album_name) |> 
+  summarize(loudness = mean(loudness)) |> 
+  ggplot(aes(x = isTV, y = loudness, group = track_name, color = Album)) +
+  scale_color_manual(values=album_colors) + 
+  geom_point() + 
+  geom_line(method = "lm") + 
+  facet_grid(~Album) +
+  labs(x = "Taylor's Version") + 
+  theme_minimal() + 
+  guides(color = "none") + 
+  theme(strip.background.x = element_rect(fill="gray95")) # this is where I wish fill would take a list of colors 
+```
+
+### Valence
+
+```{r}
+swifty |> 
+  filter(track_name %in% songs_with_tvs$track_name) |> 
+  group_by(track_name, isTV, Album = album_name) |> 
+  summarize(valence = mean(valence)) |> 
+  ggplot(aes(x = isTV, y = valence, group = track_name, color = Album)) +
+  scale_color_manual(values=album_colors) + 
+  geom_point() + 
+  geom_line(method = "lm") + 
+  facet_grid(~Album) +
+  labs(x = "Taylor's Version") + 
+  theme_minimal() + 
+  guides(color = "none") + 
+  theme(strip.background.x = element_rect(fill="gray95")) # this is where I wish fill would take a list of colors 
+```
+
+------------
+
+References: 
+
+while I'm pretty confident in my brain's ability to store endless lyrics, [this website](https://shaynak.github.io/taylor-swift/) made possible all of the lyrics and references found throughout this project
+
+
+
+
+
+
+
+```{r include = FALSE}
+# 
+# ## Plays 
+# ```{r include = FALSE}
+# 
+# library(httr) 
+# 
+# track_plays <- read_csv("track_plays.csv", col_names = TRUE) |> 
+#   select(-1)
+# # track_plays <- swifty |> 
+# #   select(track_id, track_name) |> 
+# #   add_column(plays = NA,
+# #              date_retrieved = date())
+# ```
+# 
+# One very important piece of information that we are not allowed to access from Spotify, for some unknown but infuriating nonetheless reason, is playback or number of streams. We can get it for our own account (maybe I'll do that another time), but not for all users ever. But....
+# 
+# It's hard to fight when thе fight ain't fair
+# We're getting stronger now, find things they never found
+# They might be bigger but we're faster and never scared
+# 
+# So, yes, we can get streaming info. It's just a bit of an adventure into Wonderland! I found and subscribed to a potentially-sketchy web API... https://rapidapi.com/developer/dashboard
+# 
+# Now, I can pull streaming/playback info (caveat, only for 20 songs per day). So, this project will take a while to complete for streaming info. Unless Spotify allows us to pull streaming info for songs some time soon, which is doubtful, I'll keep using this API I'm now subscribed to.
+# 
+# The following code queries the database (tbd on when that playback info is backdated?) using the track_id. 
+# 
+# ```{r}
+# # queryString <- list(spotify_track_id = "XXXXXXXXXX")
+# # 
+# # response <- VERB("GET", 
+# #                  url, 
+# #                  query = queryString, 
+# #                  add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938', 
+# #                              'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),
+# #                  content_type("application/octet-stream"))
+# ```
+# 
+# test for Lavender Haze
+# 
+# track id = 24emu3sabKISjRkrys28jq
+# 
+# ```{r}
+# # queryString <- list(spotify_track_id = "24emu3sabKISjRkrys28jq")
+# # 
+# # # response <- VERB("GET", 
+# # #                  url, 
+# # #                  query = queryString, 
+# # #                  add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938', 
+# # #                              'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),
+# # #                  content_type("application/octet-stream"))
+# # 
+# # content(response, "text")
+# ```
+# 
+# Which results in a text list containing (among other things) the track_id and stream number, which we can add to our file somewhat manually, like so: 
+# 
+# ```{r}
+# # track_plays[4, 3] <- content(response)[4][[1]]
+# # track_plays[4, 4] <- date()
+# ```
+# 
+# Of course I'd prefer not to do that for 465 songs, so let's loop that shit. 
+# 
+# First, we want to set up a subset for N tracks that we want to get playback info for, so we don't break the bank ($.50 per additional API call after 20... that's more money than I have in my bank account!!!). Then we send that subset into the loop, get playback info for the track, add plaayback info and the date it was accessed to our track_plays file, rinse and repeat. 
+# 
+# ```{r}
+# # url <- "https://spotify-track-streams-playback-count1.p.rapidapi.com/tracks/spotify_track_streams"
+# # 
+# # no_plays <- track_plays |> 
+# #   filter(is.na(plays)) |> 
+# #   head(6)
+# # 
+# # for(t in 1:nrow(no_plays)){
+# #   track <- no_plays[t, 1]
+# #   queryString <- list(spotify_track_id = track$track_id)
+# #   response <- VERB("GET",
+# #                    url,
+# #                    query = queryString,
+# #                    add_headers('X-RapidAPI-Key' = '19547ae2bdmsh4d5cd37c8c39d7fp1a033bjsnaa6639064938',
+# #                                'X-RapidAPI-Host' = 'spotify-track-streams-playback-count1.p.rapidapi.com'),
+# #                    content_type("application/octet-stream"))
+# #   track_plays[which(track_plays$track_id==track$track_id), 3] <- content(response)[4][[1]]
+# #   track_plays[which(track_plays$track_id==track$track_id), 4] <- date()
+# # }
+# 
+# # in case need to do a manual entry 
+# #track_plays[which(track_plays$track_id=="0GKDhq6ZbmSbRHd3eyGlB7"), 3] <- 229475778
+# ```
+# 
+# I then write this file out to a csv to store it after each day's API access is maxed so I can read it in and add more data the next day (so long as I remember to do so). At this rate, it will take probably a month (if I am diligent and make minimal errors) to get all of the stream data in. 
+# 
+# ```{r}
+# track_plays
+# ```
+# 
+# ```{r}
+# write.csv(track_plays, "track_plays.csv")
+# ```
+# 
+# To bring it all full circle, we can also add track_plays to the swifty data!!!
+# 
+# ```{r}
+# swifty <- left_join(swifty, track_plays, by = c("track_name", "track_id"))
+# glimpse(swifty)
+# ```
+# 
+# ------------
+# 
+# References: 
+# 
+# https://shaynak.github.io/taylor-swift/ -- while I'm pretty confident in my brain's ability to store endless lyrics, this website made possible all of the lyrics and references found throughout this project
+# 
+
+```
+
