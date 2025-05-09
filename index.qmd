@@ -15,12 +15,6 @@ about:
     - icon: book
       text: Goodreads
       href: https://goodreads.com/jaydereadsalot
-    - icon: film
-      text: Letterboxd
-      href: https://letterboxd.com/JaydeReads/
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com/jaydehomer
 page-layout: full 
 ---
 
@@ -30,13 +24,15 @@ page-layout: full
 
 :::{#hero-heading}
 
-I have always loved consuming stories and solving puzzles. Unfortunately, neither of those pay my dog's dermatology bills or the rent. Unless data is the puzzle and I tell its story.
+I have always loved consuming stories and solving puzzles. Unfortunately, neither of those pay my dog's dermatology bills or the rent. As a data analyst, I get to answer puzzling questions using data and tell stories!
 
-<p>*As of November, 2023, I began my position as a [Statistical Data Analyst at Washington University in St. Louis](https://insideartsci.wustl.edu/people/jayde-homer). I'm excited to help make data-driven decisions and support graduate student success. *&#x1F389;</p>
+<p>*I currently work as a [Statistical Data Analyst at Washington University in St. Louis](https://insideartsci.wustl.edu/people/jayde-homer). In my role, I bridge knowledge and access gaps, inform operations to support graduate student well-being and success, and foster curiosity in others. I consistently strive for accuracy, accessibility, and sustainability while adhering to one of my core values: authenticity.*&#x1F389;</p>
+
+When I'm not working, running, or reading, I'm doing something with birds: either birding in Missouri or volunteering feeding orphaned and injured baby birds at [Wild Bird Rehabilitation](https://wildbirdrehab.org/). 
 
 :::
 
-You're probably here because you want to know more about what I'm up to. You can head over to my [Projects](https://jaydehomer.github.io/projects.html) for a quick overview of my academic projects and check out my blog, where I play around with fun data, explain parts of my process, and answer questions about things I'm personally interested in; you might learn something about my hobbies, random questions I have, [dogs](https://jaydehomer.github.io/zaya.html), or a cool package in R. Have fun exploring and don't hesitate to [reach out](https://jaydehomer.github.io/contact.html) with questions or gentle critiques.
+You're probably here because you want to know more about what I'm up to. You can head over to my [Projects](https://jaydehomer.github.io/projects.html) for a quick overview of my academic projects and check out my blog, where I play around with fun data, explain parts of my process, and answer questions about things I'm personally interested in. You might learn something about my hobbies, random questions I have, [dogs](https://jaydehomer.github.io/zaya.html), or a cool package in R. Have fun exploring and don't hesitate to [reach out](https://jaydehomer.github.io/contact.html) with questions or gentle critiques.
 
 ----
 
@@ -65,3 +61,5 @@ You're probably here because you want to know more about what I'm up to. You can
 **BA** | Linguistics | University of Rochester | 2016
 
 ----
+
+*Last updated: 5/9/2025*
