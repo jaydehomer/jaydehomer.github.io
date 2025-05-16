@@ -1,3 +1,11 @@
+---
+title: "Publishing Websites"
+author: "Jayde Homer"
+date: "2025-05-09"
+categories: [fun]
+---
+
+
 https://quarto.org/docs/publishing/github-pages.html
 
 https://quarto.org/docs/websites/

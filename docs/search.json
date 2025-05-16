@@ -1,0 +1,212 @@
+[
+  {
+    "objectID": "zaya.html",
+    "href": "zaya.html",
+    "title": "Zaya",
+    "section": "",
+    "text": "World’s best pup."
+  },
+  {
+    "objectID": "posts/Publishing Websites/index.html",
+    "href": "posts/Publishing Websites/index.html",
+    "title": "jaydeblogs",
+    "section": "",
+    "text": "https://quarto.org/docs/publishing/github-pages.html\nhttps://quarto.org/docs/websites/"
+  },
+  {
+    "objectID": "posts/OLC 2024/index.html",
+    "href": "posts/OLC 2024/index.html",
+    "title": "OLC Innovate 2024 Presentation",
+    "section": "",
+    "text": "In April 2024, I got the chance to present some of my work from my Ed Tech fellowship from grad school at OLC in Denver, CO! Here are those slides if you’re interested. Feel free to contact me for discussion or questions."
+  },
+  {
+    "objectID": "posts/hypothesis/index.html",
+    "href": "posts/hypothesis/index.html",
+    "title": "Conversation Starters in a Social Annotation Environment",
+    "section": "",
+    "text": "Using NLP and machine learning methods, I’m exploring student and instructor comments on course materials annotated using Hypothes.is to determine the features of primary-level comments that lead to productive dialogue among peers."
+  },
+  {
+    "objectID": "posts/edtech/index.html",
+    "href": "posts/edtech/index.html",
+    "title": "Parameterized Reports for Department Use of Ed. Tech.",
+    "section": "",
+    "text": "To evaluate student and faculty use of licensed technologies at Wash U, I used R Markdown to create a series of parameterized reports that provide engagement insights over desired departments, semesters, metrics, and tools.\nHead over to CTL’s website to learn more."
+  },
+  {
+    "objectID": "posts/cable/index.html",
+    "href": "posts/cable/index.html",
+    "title": "9-month-olds’ Word Processing and Home Language Environment",
+    "section": "",
+    "text": "With Jill Lany and Abbie Thompson, I explored potential predictors of infants’ lexical processing efficiency. Stay tuned for our article, coming soon in 2023!"
+  },
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "CV/Contact",
+    "section": "",
+    "text": "Click here to download my CV."
+  },
+  {
+    "objectID": "contact.html#cv",
+    "href": "contact.html#cv",
+    "title": "CV/Contact",
+    "section": "",
+    "text": "Click here to download my CV."
+  },
+  {
+    "objectID": "contact.html#contact-info",
+    "href": "contact.html#contact-info",
+    "title": "CV/Contact",
+    "section": "Contact Info",
+    "text": "Contact Info\nemail: jayde dot homer at gmail dot com\nuni email: jaydehomer at wustl dot edu\nIf you can’t find me, check Forest Park or my local bookstores: Left Bank Books or Subterranean."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "jaydeblogs",
+    "section": "",
+    "text": "putting random stuff here"
+  },
+  {
+    "objectID": "about.html#ideas",
+    "href": "about.html#ideas",
+    "title": "jaydeblogs",
+    "section": "Ideas",
+    "text": "Ideas\nHere are some of my ideas:\n\nusing APIs\ngoodreads analyses\nspotify analyses\ntwitter + letterboxd + rotten tomatoes analyses\n\nadd CV/resume\nadd"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Hi, I’m Jayde!",
+    "section": "",
+    "text": "You’re probably here because you want to know more about what I’m up to. You can head over to my Projects for a quick overview of my academic projects and check out my blog, where I play around with fun data, explain parts of my process, and answer questions about things I’m personally interested in. You might learn something about my hobbies, random questions I have, dogs, or a cool package in R. Have fun exploring and don’t hesitate to reach out with questions or gentle critiques."
+  },
+  {
+    "objectID": "index.html#past-professional-experiences",
+    "href": "index.html#past-professional-experiences",
+    "title": "Hi, I’m Jayde!",
+    "section": "Past Professional Experiences",
+    "text": "Past Professional Experiences\nAcademic Research | Reading and Language Lab at Washington University in St. Louis | Infant Studies Lab (retired) at University of Notre Dame | SEEDLingS at University of Rochester\nData Analytics | Center for Teaching and Learning Ed. Tech\nTeaching | Developmental Psychology | Psych. Stats | Private Tutoring\nEtc. | potpourri of life experiences in food service, warehousing, transportation, healthcare finance, and childcare industries"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Hi, I’m Jayde!",
+    "section": "Education",
+    "text": "Education\nPhD | Psychological & Brain Sciences | Washington University in St. Louis | 2023\nGraduate Certificate | Quantitative Analysis | Washington University in St. Louis | 2023\nMA | Psychological & Brain Sciences | Washington University in St. Louis | 2021\nBS | Brain & Cognitive Sciences | University of Rochester | 2016\nBA | Linguistics | University of Rochester | 2016\n\nLast updated: 5/9/2025"
+  },
+  {
+    "objectID": "posts/diss/index.html",
+    "href": "posts/diss/index.html",
+    "title": "Understanding Patterns in Preschoolers’ Spellings",
+    "section": "",
+    "text": "In my dissertation I am identifying patterns that drive spellings before children have learned to spell. For example, children tend to use letters that are more frequently talked about, letters from their name, and letters that are at the beginning of the alphabet.\n\nI even presented on my first study at the Graduate Student Research Symposium in April 2023. Here’s me discussing my findings with a judge!"
+  },
+  {
+    "objectID": "posts/eRas/index.html",
+    "href": "posts/eRas/index.html",
+    "title": "the eras touR",
+    "section": "",
+    "text": "Can I ask you a question? Have you ever wondered which of Taylor Swift’s songs are the most danceable? Which songs are saddest? Slowest? Lowest? Well, if the answer is no, you’re playing a stupid game and you’ve won a stupid prize – leave now. Assuming the answer to any of those questions was an incredibly enthusiastic YES, then you’re the lucky one.\nSo, R you ready for it?\nDISCLAIMER: Obviously I’m a very busy important person so I’m not going to answer ALL of your questions today, but I’ll try my very best to keep coming back and working on this, so please come back and check it out.\nHere are the packages we’ll be using.\nlibrary(spotifyr) # to access spotify API\nlibrary(tidyverse) # for all things workflow + stringr\nlibrary(knitr) # for pretty-ish tables\nlibrary(lubridate) # for nice date handling \nlibrary(ggdist) # for distribution plotting\nlibrary(scales) # for plot label troubles"
+  },
+  {
+    "objectID": "posts/eRas/index.html#spotify-api",
+    "href": "posts/eRas/index.html#spotify-api",
+    "title": "the eras touR",
+    "section": "Spotify API",
+    "text": "Spotify API\nUsing (Spotify’s Web API)[https://developer.spotify.com/documentation/web-api], we can access all sorts of fun information about an artist. If you’re following along at home and wondering if this is the explicit version with all those Xs below, no. I’m just avoiding giving you my super secret client_id and client_secret. You can get your own by visiting your Spotify developer dashboard.\n\n# albums we/I don't want included in the data\new_david &lt;- c(\"Live From Clear Channel Stripped 2008\", \n               \"Speak Now World Tour Live\",\n              \"reputation Stadium Tour Surprise Song Playlist\")\n\n\n#Sys.setenv(SPOTIFY_CLIENT_ID = 'XXXXXXXXXXXX')\n#Sys.setenv(SPOTIFY_CLIENT_SECRET = 'XXXXXXXXXXXX')\naccess_token &lt;- get_spotify_access_token()\nswifty &lt;- get_artist_audio_features('taylor swift') |&gt; \n  # filter out albums we don't want\n  filter(!album_name %in% ew_david) |&gt; \n  # clean up album names\n  mutate(album_name_og = album_name,\n         album_edition = str_extract_all(album_name, \n                                         \"\\\\([^()]+\\\\)|Platinum Edition|\\\\:+(\\\\D+)\", \n                                         simplify = TRUE),\n         album_edition = if_else(nchar(album_edition) != 0,\n                                 str_remove_all(album_edition, \"\\\\(|\\\\)|\\\\:\"),\n                                 \"original\"),\n         album_name = str_squish(str_remove_all(album_name, \n                                                \"\\\\([^()]+\\\\)|Platinum Edition|\\\\:+(\\\\D+)\")))\n\nTo give you an idea of the sort of information we now have at our fingertips, here’s an example row of data, for everyone’s favorite song:\n\nswifty |&gt; \n  filter(track_name == \n           \"All Too Well (10 Minute Version) (Taylor's Version) (From The Vault)\") |&gt; \n  kable()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nartist_name\nartist_id\nalbum_id\nalbum_type\nalbum_images\nalbum_release_date\nalbum_release_year\nalbum_release_date_precision\ndanceability\nenergy\nkey\nloudness\nmode\nspeechiness\nacousticness\ninstrumentalness\nliveness\nvalence\ntempo\ntrack_id\nanalysis_url\ntime_signature\nartists\navailable_markets\ndisc_number\nduration_ms\nexplicit\ntrack_href\nis_local\ntrack_name\ntrack_preview_url\ntrack_number\ntype\ntrack_uri\nexternal_urls.spotify\nalbum_name\nkey_name\nmode_name\nkey_mode\nalbum_name_og\nalbum_edition\n\n\n\n\nTaylor Swift\n06HL4z0CvFAxyc27GXpf02\n6kZ42qRrzov54LcAk4onW9\nalbum\n640 , 300 , 64 , https://i.scdn.co/image/ab67616d0000b273318443aab3531a0558e79a4d, https://i.scdn.co/image/ab67616d00001e02318443aab3531a0558e79a4d, https://i.scdn.co/image/ab67616d00004851318443aab3531a0558e79a4d, 640 , 300 , 64\n2021-11-12\n2021\nday\n0.631\n0.518\n0\n-8.771\n1\n0.0303\n0.274\n0\n0.088\n0.205\n93.023\n5enxwA8aAbwZbf5qCHORXi\nhttps://api.spotify.com/v1/audio-analysis/5enxwA8aAbwZbf5qCHORXi\n4\nhttps://api.spotify.com/v1/artists/06HL4z0CvFAxyc27GXpf02, 06HL4z0CvFAxyc27GXpf02 , Taylor Swift , artist , spotify:artist:06HL4z0CvFAxyc27GXpf02 , https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02\nAR, AU, AT, BE, BO, BR, BG, CA, CL, CO, CR, CY, CZ, DK, DO, DE, EC, EE, SV, FI, FR, GR, GT, HN, HK, HU, IS, IE, IT, LV, LT, LU, MY, MT, MX, NL, NZ, NI, NO, PA, PY, PE, PH, PL, PT, SG, SK, ES, SE, CH, TW, TR, UY, US, GB, AD, LI, MC, ID, JP, TH, VN, RO, IL, ZA, SA, AE, BH, QA, OM, KW, EG, MA, DZ, TN, LB, JO, PS, IN, BY, KZ, MD, UA, AL, BA, HR, ME, MK, RS, SI, KR, BD, PK, LK, GH, KE, NG, TZ, UG, AG, AM, BS, BB, BZ, BT, BW, BF, CV, CW, DM, FJ, GM, GE, GD, GW, GY, HT, JM, KI, LS, LR, MW, MV, ML, MH, FM, NA, NR, NE, PW, PG, WS, SM, ST, SN, SC, SL, SB, KN, LC, VC, SR, TL, TO, TT, TV, VU, AZ, BN, BI, KH, CM, TD, KM, GQ, SZ, GA, GN, KG, LA, MO, MR, MN, NP, RW, TG, UZ, ZW, BJ, MG, MU, MZ, AO, CI, DJ, ZM, CD, CG, IQ, LY, TJ, VE, ET, XK\n1\n613026\nTRUE\nhttps://api.spotify.com/v1/tracks/5enxwA8aAbwZbf5qCHORXi\nFALSE\nAll Too Well (10 Minute Version) (Taylor’s Version) (From The Vault)\nNA\n30\ntrack\nspotify:track:5enxwA8aAbwZbf5qCHORXi\nhttps://open.spotify.com/track/5enxwA8aAbwZbf5qCHORXi\nRed\nC\nmajor\nC major\nRed (Taylor’s Version)\nTaylor’s Version"
+  },
+  {
+    "objectID": "posts/eRas/index.html#summary",
+    "href": "posts/eRas/index.html#summary",
+    "title": "the eras touR",
+    "section": "Summary",
+    "text": "Summary\nYou may already know this, but here’s a summary of Taylor’s discography.\n\nAll TimeBy Album\n\n\n\n\n\n\n\nname\nvalue\nFast Fact\n\n\n\n\nNumber of Songs\n258\nNumber of Songs\n\n\nAlbums Released\n10\nAlbums Released\n\n\nEarliest Release\n2006\nEarliest Release\n\n\nMost Recent Release\n2023\nMost Recent Release\n\n\nSongs Featuring Other Artists\n25\nSongs Featuring Other Artists\n\n\nSongs with Explicit Labels\n54\nSongs with Explicit Labels\n\n\nShortest Song Minutes\n1.79\nShortest Song Minutes\n\n\nLongest Song Minutes\n10.22\nLongest Song Minutes\n\n\nAverage Song Minutes\n3.96\nAverage Song Minutes\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAlbum\nNumber of Songs\nRelease Year\nSongs Featuring Other Artists\nSongs with Explicit Labels\nShortest Song (Minutes)\nLongest Song (Minutes)\nAverage Song (Minutes)\n\n\n\n\nTaylor Swift\n15\n2006\n0\n0\n2.88\n4.14\n3.57\n\n\nFearless\n13\n2008\n0\n0\n3.34\n4.91\n4.12\n\n\nFearless Platinum Edition\n19\n2008\n0\n0\n3.34\n5.18\n4.18\n\n\nSpeak Now\n14\n2010\n0\n0\n3.62\n6.73\n4.79\n\n\nSpeak Now (Deluxe Edition)\n20\n2010\n0\n0\n3.62\n6.73\n4.59\n\n\nRed\n16\n2012\n0\n0\n3.20\n5.46\n4.06\n\n\nRed (Deluxe Edition)\n22\n2012\n0\n0\n3.20\n5.46\n4.10\n\n\n1989\n13\n2014\n0\n0\n3.22\n4.52\n3.75\n\n\n1989 (Deluxe Edition)\n19\n2014\n0\n0\n1.79\n4.52\n3.62\n\n\nreputation\n15\n2017\n0\n0\n3.39\n4.08\n3.72\n\n\nLover\n18\n2019\n2\n0\n2.51\n4.89\n3.44\n\n\nevermore\n15\n2020\n3\n6\n3.01\n5.25\n4.05\n\n\nfolklore\n16\n2020\n1\n5\n3.18\n4.91\n3.98\n\n\nfolklore (deluxe version)\n17\n2020\n1\n5\n3.18\n4.91\n3.95\n\n\nfolklore: the long pond studio sessions (from the Disney+ special) [deluxe edition]\n34\n2020\n2\n9\n3.06\n4.92\n3.96\n\n\nevermore (deluxe version)\n17\n2021\n3\n6\n3.01\n5.25\n4.06\n\n\nFearless (Taylor’s Version)\n26\n2021\n3\n0\n3.16\n5.20\n4.10\n\n\nRed (Taylor’s Version)\n30\n2021\n5\n2\n3.22\n10.22\n4.36\n\n\nMidnights\n13\n2022\n1\n6\n2.75\n4.27\n3.40\n\n\nMidnights (3am Edition)\n20\n2022\n1\n6\n2.48\n4.34\n3.47\n\n\nMidnights (The Til Dawn Edition)\n23\n2023\n3\n9\n2.48\n4.34\n3.50"
+  },
+  {
+    "objectID": "posts/eRas/index.html#albums-and-metrics",
+    "href": "posts/eRas/index.html#albums-and-metrics",
+    "title": "the eras touR",
+    "section": "Albums and Metrics",
+    "text": "Albums and Metrics\nEach album defines an era. What defines the album? Let’s find out.\nFirst, to make things a little bit easier, you ought to know that I am collapsing albums. That is, even though there are 2, 3, sometimes 4 versions of each album (looking at you Midnights w/ less Lana, medium Lana, and more Lana), we will be looking at each album as a collection of all of the songs. This isn’t the best strategy, but it definitely makes my figures a lot nicer.\nEach album/era is defined by a color. Let’s define those here (courtesy of my best RA Dr. Gabrielle Pfund):\n■ Taylor Swift\n■ Fearless\n■ Speak Now\n■ Red\n■ 1989\n■ reputation\n■ Lover\n■ folklore\n■ evermore\n■ Midnights\n\nalbum_colors &lt;- c(\n  `Taylor Swift` = \"#99FFCC\",\n  `Fearless` = \"#FFCC66\",\n  `Speak Now` = \"#CC66FF\",\n  `Red` = \"#990000\",\n  `1989` = \"#99FFFF\",\n  `reputation` = \"#000000\",\n  `Lover` = \"#FF99FF\",\n  `folklore` = \"#CCCCCC\",\n  `evermore` = \"#FFCC99\",\n  `Midnights` = \"#000066\")\n\n\nDanceability\n\nswifty |&gt;  \n  ggplot(aes(y = fct_reorder(album_name, album_release_year),\n             x = danceability, fill = album_name)) + \n  stat_slab() +\n  scale_y_discrete(labels = label_wrap(20)) +\n  labs(x = \"Distribution of Song Danceability\", y = NULL) +\n  scale_fill_manual(values=album_colors) + \n  guides(fill = \"none\", color = \"none\") + \n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\nKey\n???\n\n\nLoudness\n\nswifty |&gt;  \n  ggplot(aes(y = fct_reorder(album_name, album_release_year),\n             x = loudness, fill = album_name)) + \n  stat_slab() +\n  scale_y_discrete(labels = label_wrap(20)) +\n  labs(x = \"Distribution of Song Loudness\", y = NULL) +\n  scale_fill_manual(values=album_colors) + \n  guides(fill = \"none\", color = \"none\") + \n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\nMode\n???\n\n\nSpeechiness\n\nswifty |&gt;  \n  ggplot(aes(y = fct_reorder(album_name, album_release_year),\n             x = speechiness, fill = album_name)) + \n  stat_slab() +\n  scale_y_discrete(labels = label_wrap(20)) +\n  labs(x = \"Distribution of Song Speechiness\", y = NULL) +\n  scale_fill_manual(values=album_colors) + \n  guides(fill = \"none\", color = \"none\") + \n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\nAcousticness\n\nswifty |&gt;  \n  ggplot(aes(y = fct_reorder(album_name, album_release_year),\n             x = acousticness, fill = album_name)) + \n  stat_slab() +\n  scale_y_discrete(labels = label_wrap(20)) +\n  labs(x = \"Distribution of Song Acousticness\", y = NULL) +\n  scale_fill_manual(values=album_colors) + \n  guides(fill = \"none\", color = \"none\") + \n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\nInstrumentalness\n\n\nLiveness\n\nswifty |&gt;  \n  ggplot(aes(y = fct_reorder(album_name, album_release_year),\n             x = liveness, fill = album_name)) + \n  stat_slab() +\n  scale_y_discrete(labels = label_wrap(20)) +\n  labs(x = \"Distribution of Song Liveness\", y = NULL) +\n  scale_fill_manual(values=album_colors) + \n  guides(fill = \"none\", color = \"none\") + \n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\nValence\n\nswifty |&gt;  \n  ggplot(aes(y = fct_reorder(album_name, album_release_year),\n             x = valence, fill = album_name)) + \n  stat_slab() +\n  scale_y_discrete(labels = label_wrap(20)) +\n  labs(x = \"Distribution of Song Valence\", y = NULL) +\n  scale_fill_manual(values=album_colors) + \n  guides(fill = \"none\", color = \"none\") + \n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\ntempo\n\nswifty |&gt;  \n  ggplot(aes(y = fct_reorder(album_name, album_release_year),\n             x = tempo, fill = album_name)) + \n  stat_slab() +\n  scale_y_discrete(labels = label_wrap(20)) +\n  labs(x = \"Distribution of Song Tempo\", y = NULL) +\n  scale_fill_manual(values=album_colors) + \n  guides(fill = \"none\", color = \"none\") + \n  theme_minimal()"
+  },
+  {
+    "objectID": "posts/eRas/index.html#taylors-version-vs.-not-taylors-version",
+    "href": "posts/eRas/index.html#taylors-version-vs.-not-taylors-version",
+    "title": "the eras touR",
+    "section": "Taylor’s Version vs. Not(?) Taylor’s Version",
+    "text": "Taylor’s Version vs. Not(?) Taylor’s Version\nFor my next bit of exploration, I’m wondering how much a difference Taylor made in how Taylory Taylor is.\nFirst, let’s add a boolean that tells us if a song is Taylor’s Version. Dirty data problem 1 of ???: tick marks vs. apostrophes. And this is why we use unicode, friends.\n\nswifty &lt;- swifty |&gt; \n  mutate(isTV = str_detect(track_name, \"Taylor's Version|Taylor’s Version\")) \n\nNow that we have TV as it’s own variable, we can make our data one step closer to some sort of normal form by making sure that track name contains one and only one type of information: the track name.\n\n\n\n\n\n\nTip: stringr\n\n\n\nStringr is one of my favorite tools in the tidyverse, especially for dealing with any sort of text data. Here I used:\n\nstr_remove() to remove (Taylor’s Version) from song titles to better group them later\nstr_squish() to remove any whitespace from the start and end, and reduce any double spaces within a song to a single space\nstr_to_lower() is the cute little sister of str_to_upper() and converts characters to lowercase\nstr_replace_all() replaces all of the target string (in this case all punctuation) with the replacement string (in this case nothingness)\n\n\n\n\nswifty &lt;- swifty |&gt; \n  mutate(track_name = str_remove(track_name, \"\\\\(Taylor's Version\\\\)|\\\\(Taylor’s Version\\\\)\"),\n         track_name = str_squish(track_name),\n         track_name = str_to_lower(track_name),\n         track_name = str_replace_all(track_name, \"[[:punct:]]\", \"\"))\n\nNow we can grab just our songs that have a TV and a no-TV.\n\nsongs_with_tvs &lt;- swifty |&gt; \n  group_by(track_name) |&gt; \n  summarize(n = n(),\n            hasTV = sum(isTV)) |&gt; \n  filter(n &gt; 1 & hasTV &gt; 0)\n\nLet’s take a look at danceability first. Looks like there is a general trend for Taylor’s Version of songs to be less danceable.\n\n\n\n\n\n\nNote\n\n\n\nNote: Apparently it would require fundamental changes to ggplot2 (according to Sir Hadley), so we cannot use album colors for each facet label without some super hacky workarounds. Maybe ggplot3 will serve us better.\n\n\n\nswifty |&gt; \n  filter(track_name %in% songs_with_tvs$track_name) |&gt; \n  group_by(track_name, isTV, Album = album_name) |&gt; \n  summarize(danceability = mean(danceability)) |&gt; \n  ggplot(aes(x = isTV, y = danceability, group = track_name, color = Album)) +\n  scale_color_manual(values=album_colors) + \n  geom_point() + \n  geom_line(method = \"lm\") + \n  facet_grid(~Album) +\n  labs(x = \"Taylor's Version\") + \n  theme_minimal() + \n  guides(color = \"none\") + \n  theme(strip.background.x = element_rect(fill=\"gray95\")) # this is where I wish fill would take a list of colors \n\n\n\n\n\n\n\n\n\nEnergy\n\nswifty |&gt; \n  filter(track_name %in% songs_with_tvs$track_name) |&gt; \n  group_by(track_name, isTV, Album = album_name) |&gt; \n  summarize(energy = mean(energy)) |&gt; \n  ggplot(aes(x = isTV, y = energy, group = track_name, color = Album)) +\n  scale_color_manual(values=album_colors) + \n  geom_point() + \n  geom_line(method = \"lm\") + \n  facet_grid(~Album) +\n  labs(x = \"Taylor's Version\") + \n  theme_minimal() + \n  guides(color = \"none\") + \n  theme(strip.background.x = element_rect(fill=\"gray95\")) # this is where I wish fill would take a list of colors \n\n\n\n\n\n\n\n\n\n\nLoudness\n\nswifty |&gt; \n  filter(track_name %in% songs_with_tvs$track_name) |&gt; \n  group_by(track_name, isTV, Album = album_name) |&gt; \n  summarize(loudness = mean(loudness)) |&gt; \n  ggplot(aes(x = isTV, y = loudness, group = track_name, color = Album)) +\n  scale_color_manual(values=album_colors) + \n  geom_point() + \n  geom_line(method = \"lm\") + \n  facet_grid(~Album) +\n  labs(x = \"Taylor's Version\") + \n  theme_minimal() + \n  guides(color = \"none\") + \n  theme(strip.background.x = element_rect(fill=\"gray95\")) # this is where I wish fill would take a list of colors \n\n\n\n\n\n\n\n\n\n\nValence\n\nswifty |&gt; \n  filter(track_name %in% songs_with_tvs$track_name) |&gt; \n  group_by(track_name, isTV, Album = album_name) |&gt; \n  summarize(valence = mean(valence)) |&gt; \n  ggplot(aes(x = isTV, y = valence, group = track_name, color = Album)) +\n  scale_color_manual(values=album_colors) + \n  geom_point() + \n  geom_line(method = \"lm\") + \n  facet_grid(~Album) +\n  labs(x = \"Taylor's Version\") + \n  theme_minimal() + \n  guides(color = \"none\") + \n  theme(strip.background.x = element_rect(fill=\"gray95\")) # this is where I wish fill would take a list of colors \n\n\n\n\n\n\n\n\n\nReferences:\nwhile I’m pretty confident in my brain’s ability to store endless lyrics, this website made possible all of the lyrics and references found throughout this project"
+  },
+  {
+    "objectID": "posts/NEXT Award/index.html",
+    "href": "posts/NEXT Award/index.html",
+    "title": "My NEXT Award",
+    "section": "",
+    "text": "For the past few years, I saw the email come into my inbox calling applicants for the Newman Exploration Travel Fund (NEXT) supported by WashU Libraries, pondered what I would ever submit, and deleted the email. A few months later, I would envy the winners and admire their travels. This year, however, I pondered a little longer and a few days before the deadline, I whipped up this proposal.\nA few weeks later, I received this email:\nDear Jayde,\nCongratulations!\nYour application has been selected to receive funding as part of the Newman Exploration Travel Fund program for your proposed trip to various U.S. National Parks in Montana, Wyoming, South Dakota and Minnesota. We have decided to fund your proposal … We are so excited to support your NEXT adventure.\nThen on April 1 (but not even a joke), the announcement was made."
+  },
+  {
+    "objectID": "posts/NEXT Award/index.html#first-up-washington",
+    "href": "posts/NEXT Award/index.html#first-up-washington",
+    "title": "My NEXT Award",
+    "section": "First up: WASHINGTON",
+    "text": "First up: WASHINGTON\nIn early June, I’ll arrive in Seattle, where I’ll be picked up by my college roommate turned bff, Sarah. Sarah is a super cool gal serving as an Officer in the Navy. From there, we’ll head to Mt. Rainier National Park to kickoff my journey. After Mt. Rainier, we’ll return to her home on Whidbey Island to rest and prepare to run the North Olympic Discovery Marathon on June 8. This will be my first (and maybe only) marathon! I’ve been training for months and somehow nearly all of my long Saturday runs have been in the pouring rain; I’m ready to take on a PNW marathon. The trail will be gorgeous and I’ve been promised seal and eagle sightings.\nOkay, back to the real purpose of this trip.\nAfter my marathon and some adequate rest (did I mention I’m running a marathon?), I’ll make my way to North Cascades to finish up my Washington National Parks."
+  },
+  {
+    "objectID": "posts/NEXT Award/index.html#america-the-beautiful",
+    "href": "posts/NEXT Award/index.html#america-the-beautiful",
+    "title": "My NEXT Award",
+    "section": "America the Beautiful",
+    "text": "America the Beautiful\nAfter landing in Montana, I’ll head to Glacier National Park, followed by quick trips to Wyoming (Yellowstone and Grand Teton) and South Dakota (Wind Cave and Badlands). I’ve never been to any of those states and am excited to take in the Intermountain and Midwestern regions."
+  },
+  {
+    "objectID": "posts/NEXT Award/index.html#wolf-ridge",
+    "href": "posts/NEXT Award/index.html#wolf-ridge",
+    "title": "My NEXT Award",
+    "section": "Wolf Ridge",
+    "text": "Wolf Ridge\nTo round out the trip, and the portion I may be most excited for, I’ll head to northern Minnesota to attend a weeklong workshop for Beginning Bird Banding. I will learn skills like mist-netting, bird-handling, and data recording protocols needed to contribute to monitoring and research efforts requiring bird banding. I’m excited to learn, spend time in nature with my favorite critters, and befriend fellow bird nerds.\nAfter the workshop, I will explore Voyageurs National Park and then head back to St. Louis and my regularly scheduled programming."
+  },
+  {
+    "objectID": "posts/NEXT Award/index.html#stay-tuned",
+    "href": "posts/NEXT Award/index.html#stay-tuned",
+    "title": "My NEXT Award",
+    "section": "Stay tuned!",
+    "text": "Stay tuned!\nI will be using this blog to record my adventures and reflect on my journey. Please follow along!"
+  },
+  {
+    "objectID": "posts/pdftotidy/index.html",
+    "href": "posts/pdftotidy/index.html",
+    "title": "From a PD(woo)F to Text Frequencies",
+    "section": "",
+    "text": "A brilliant grad school friend of mine recently asked if I knew anything about text extraction. From there she unknowingly opened a can of worms for me!\nIn this blog post, I’d like to show you how you can analyze text from a PDF using the package pdftools. This process is helpful for many types of analyses, but we’ll use it to do some basic text frequency analyses.\nFirst things first, we need an article. I chose one that aligns with something I’m particularly passionate about: force-free dog training. If you’d like to learn more about how to use science-backed training methods that build a positive relationship between you and your dog, check out Zak George’s channel for starters.\nHere’s the document we’re going to be using."
+  },
+  {
+    "objectID": "posts/pdftotidy/index.html#pdftools-for-text-extraction",
+    "href": "posts/pdftotidy/index.html#pdftools-for-text-extraction",
+    "title": "From a PD(woo)F to Text Frequencies",
+    "section": "pdftools for text extraction",
+    "text": "pdftools for text extraction\n\n# packages\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.3     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(pdftools)\n\nUsing poppler version 23.08.0\n\nlibrary(tidytext)\nlibrary(knitr)\n\n# tell R the name of your pdf file\ndogs_pdf &lt;- \"dog-training-methods-review.pdf\"\n\nThere a few handy functions that we can play around with. Here, I’m using pdf_text() to convert all text on the pages of the document to a large string. Using cat() we can take a look at one of those pages.\n\ndogs_text &lt;- pdf_text(dogs_pdf)\ncat(dogs_text[1])\n\nReview of dog training methods                                                   December 2018\n\n                                         March 2023\n\n   Prepared for the British Columbia Society for the Prevention of Cruelty to Animals Author:\n                                  I.J. Makowska, M.Sc., Ph.D.\n                                Updated by: C.M. Cavalli, Ph.D.\n\ncat(dogs_text[69])\n\n      Review of dog training methods                                                                                                                               March 2023\n\n                                                                                Dog Welfare (continued)\n               Study              Study type     Sample size             Task                                                         Outcomes\nTodd, 2018                   Review             N/A            N/A                      Barriers to the use of humane training methods:\n                                                                                         Disagreeing positions of animal behaviour and veterinary organizations and dog trainers may contribute\n                                                                                        to the idea that there is a lack of consensus on appropriate methods.\n                                                                                          Lack of knowledge of the welfare risks\n                                                                                          Lack of theoretical and practical knowledge of dog training\n                                                                                          Poor quality of the information available to guardians\n                                                                                          Lack of regulations for dog trainers\n\n\nWiliams & Blackwell, 2019    Survey             630            Various                  Predictors of current use and reported future intention of using positive reinforcement methods:\n                                                                                         Perceived efficacy of the method\n                                                                                         Guardians perceived ability to effectively implement the method\n\nWoodward et al., 2021        Survey             2154           Various                  At 16 weeks\n                                                guardians in                             99.7% of the guardians reported the intention to use positive reinforcement and/or negative\n                                                the UK or                               punishment\n                                                Ireland with                             84.1% intended to use positive punishment and/or negative reinforcement\n                                                puppies &lt;16                              15.6% could be classified as reward only\n                                                weeks                                    12.9% could be classified as using a mix of reward and aversive-based training\n\n                                                976 of them                             At 9 months\n                                                completed a                              99.7% of the guardians reported using positive reinforcement and/or negative punishment\n                                                follow-up                                74.2% used positive punishment and/or negative reinforcement\n                                                survey at 9                              25.8% could be classified as reward only\n                                                months.                                  29.2% could be classified as using a mix of reward and aversive-based training\n\n                                                                                        Guardian factors that increased the likelihood of using both reward and aversive-based training at 9\n                                                                                        months:\n                                                                                         Males\n                                                                                         Age &gt; 55 years\n                                                                                         Not having dog related employment\n                                                                                         Not having attended a training class in the 2 months before completing the questionnaire\n\n      Prepared for the BC SPCA by I.J. Makowska & updated by C.M. Cavalli                                                 69\n\n\nIt’s a bit messy. So instead, we can use pdf_data() to convert the text to a data frame. The first line, which I commented out, returns data frames for each page including information about the location of text on the page and the content of the text (i.e., the words). Here’s an example of the first page.\n\n#pdf_data(dogs_pdf)\npdf_data(dogs_pdf)[[1]] %&gt;% \n  head(5) %&gt;% \n  kable()\n\n\n\n\nwidth\nheight\nx\ny\nspace\ntext\n\n\n\n\n31\n11\n72\n32\nTRUE\nReview\n\n\n9\n11\n106\n32\nTRUE\nof\n\n\n16\n11\n117\n32\nTRUE\ndog\n\n\n35\n11\n137\n32\nTRUE\ntraining\n\n\n38\n11\n174\n32\nFALSE\nmethods\n\n\n\n\n\nWe can use dplyr to aggregate the data, or bind all of the rows in each of our 69 tibbles together into one big tibble. Now you see we have 25,052 rows.\n\ndogs_text &lt;- pdf_data(dogs_pdf) %&gt;% \n  bind_rows() %&gt;% \n  select(text) # I only want the column containing the words\n\nstr(dogs_text)\n\ntibble [25,052 × 1] (S3: tbl_df/tbl/data.frame)\n $ text: chr [1:25052] \"Review\" \"of\" \"dog\" \"training\" ..."
+  },
+  {
+    "objectID": "posts/pdftotidy/index.html#tidy-text",
+    "href": "posts/pdftotidy/index.html#tidy-text",
+    "title": "From a PD(woo)F to Text Frequencies",
+    "section": "Tidy text",
+    "text": "Tidy text\nNow that we have our data, we need to tidy it up! Literally. Check out Text Mining with R: A Tidy Approach if you want to dig deeper into text mining.\nOur data is already unnested, meaning each word is in a row. We do not have sentences. This is one-token-per-document-per-row. A “token” is a meaningful unit of text. Sometimes the unit of text you’d like to analyze is a sentence or phrase, but more commonly, you’ll want your tokens to be words.\nOne thing we will want to do is remove punctuation from our tokens. This could cause trouble when we want to aggregate by tokens (e.g., get word counts). So, while we already mostly have unnested tokens, the unnest_tokens function will also strip punctuation and convert tokens to lowercase. We’ll also take this opportunity to remove stop words (the little ones that turn out to be most frequent in spoken and written language, such as “the,” “and,” “to”). Just what we needed!\n\ndata(\"stop_words\")\ndogs_tidy &lt;- dogs_text %&gt;% \n  unnest_tokens(input = text, output = word) %&gt;% \n  anti_join(stop_words)\n\nJoining with `by = join_by(word)`\n\ndogs_tidy %&gt;% \n  head(5) %&gt;% \n  kable()\n\n\n\n\nword\n\n\n\n\nreview\n\n\ndog\n\n\ntraining\n\n\nmethods\n\n\ndecember"
+  },
+  {
+    "objectID": "posts/pdftotidy/index.html#question-time",
+    "href": "posts/pdftotidy/index.html#question-time",
+    "title": "From a PD(woo)F to Text Frequencies",
+    "section": "Question time",
+    "text": "Question time\nI know you’re dying to know what words these researchers used most in their report of dog training methods.\n\ndogs_tidy %&gt;% \n  count(word, sort = TRUE) %&gt;% \n  head(10) %&gt;% \n  kable()\n\n\n\n\nword\nn\n\n\n\n\ntraining\n388\n\n\ndogs\n387\n\n\ndog\n274\n\n\nmethods\n248\n\n\ncollar\n219\n\n\ncollars\n208\n\n\nshock\n176\n\n\nbased\n171\n\n\naversive\n136\n\n\nguardians\n134\n\n\n\n\n\nColor me shocked at this list! Seems like these researchers have a lot to say about dog training methods, shock collars, guardians, and aversive.\nNow there are so many things you can do with this tidy text. It’s now ready to do cross-text comparison, plot frequencies or proportions, and dig deeper to answer your text-based questions."
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Here are some snippets of my work projects and my in-depth personal projects, tutorials, and blog.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy NEXT Award\n\n\n\n\n\n\nNEXT\n\n\n\n\n\n\n\n\n\nMay 9, 2025\n\n\nJayde Homer\n\n\n\n\n\n\n\n\n\n\n\n\nPublishing Websites\n\n\n\n\n\n\nfun\n\n\n\n\n\n\n\n\n\nMay 9, 2025\n\n\nJayde Homer\n\n\n\n\n\n\n\n\n\n\n\n\nOLC Innovate 2024 Presentation\n\n\n\n\n\n\nwork\n\n\n\n\n\n\n\n\n\nApr 12, 2024\n\n\nJayde Homer\n\n\n\n\n\n\n\n\n\n\n\n\nFrom a PD(woo)F to Text Frequencies\n\n\n\n\n\n\nfun\n\n\n\n\n\n\n\n\n\nNov 10, 2023\n\n\nJayde Homer\n\n\n\n\n\n\n\n\n\n\n\n\n9-month-olds’ Word Processing and Home Language Environment\n\n\n\n\n\n\nwork\n\n\n\n\n\n\n\n\n\nJun 29, 2023\n\n\nJayde Homer\n\n\n\n\n\n\n\n\n\n\n\n\nthe eras touR\n\n\n\n\n\n\nfun\n\n\n\n\n\n\n\n\n\nJun 29, 2023\n\n\nJayde Homer\n\n\n\n\n\n\n\n\n\n\n\n\nConversation Starters in a Social Annotation Environment\n\n\n\n\n\n\nwork\n\n\n\n\n\n\n\n\n\nMar 20, 2023\n\n\nJayde Homer\n\n\n\n\n\n\n\n\n\n\n\n\nUnderstanding Patterns in Preschoolers’ Spellings\n\n\n\n\n\n\ngrad school\n\n\n\n\n\n\n\n\n\nAug 1, 2022\n\n\nJayde Homer\n\n\n\n\n\n\n\n\n\n\n\n\nParameterized Reports for Department Use of Ed. Tech.\n\n\n\n\n\n\nwork\n\n\n\n\n\n\n\n\n\nJun 1, 2022\n\n\nJayde Homer\n\n\n\n\n\n\nNo matching items"
+  }
+]
